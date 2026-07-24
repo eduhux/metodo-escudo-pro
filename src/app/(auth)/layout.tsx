@@ -13,7 +13,7 @@ export default function AuthLayout({
 
       <div className="relative z-10 w-full max-w-md">
         <div className="mb-8 flex justify-center">
-          <Logo />
+          <Logo className="h-14" />
         </div>
         {children}
         <p className="mt-8 text-center text-sm text-muted-foreground">
