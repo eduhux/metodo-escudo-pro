@@ -11,7 +11,7 @@ export function Guarantee() {
         <Card className="relative overflow-hidden bg-card/60 p-8 md:p-12">
           <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
           <div className="relative flex flex-col items-center gap-6 text-center md:flex-row md:text-left">
-            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-amber-600 text-primary-foreground shadow-lg shadow-primary/25">
+            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-purple-600 text-primary-foreground shadow-lg shadow-primary/25">
               <Icon className="h-10 w-10" />
             </div>
             <div>
