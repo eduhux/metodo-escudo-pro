@@ -3,7 +3,14 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Play, BookOpen, CheckCircle2, ArrowRight } from "lucide-react";
+import {
+  Play,
+  BookOpen,
+  CheckCircle2,
+  ArrowRight,
+  FileArchive,
+  Download,
+} from "lucide-react";
 import { useAuth } from "@/context/auth-context";
 import { loadProgress } from "@/lib/progress";
 import { course, flatLessons, totalLessons } from "@/data/course";
@@ -105,6 +112,45 @@ export default function DashboardPage() {
           </Card>
         </motion.div>
       </div>
+
+      {/* Materiais do curso */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.12 }}
+        className="mt-6"
+      >
+        <Card className="relative overflow-hidden bg-gradient-to-br from-card to-secondary/40">
+          <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
+          <CardContent className="relative flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-start gap-4">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <FileArchive className="h-6 w-6" />
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold">Materiais do curso</h3>
+                <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                  Baixe o pacote com todos os arquivos usados nas aulas.{" "}
+                  <strong className="text-foreground/90">
+                    Importante:
+                  </strong>{" "}
+                  faça o download e a instalação seguindo exatamente as
+                  orientações apresentadas no decorrer das aulas.
+                </p>
+              </div>
+            </div>
+            <Button asChild size="lg" className="w-full shrink-0 sm:w-auto">
+              <a
+                href="https://drive.google.com/file/d/1KFM6JqIY5DH7qACk0b_XNGKlVOuN550L/view?usp=drive_link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Download /> Baixar materiais
+              </a>
+            </Button>
+          </CardContent>
+        </Card>
+      </motion.div>
 
       {/* Módulos */}
       <motion.div
