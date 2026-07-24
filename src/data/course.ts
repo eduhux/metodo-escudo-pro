@@ -26,7 +26,7 @@ export const course: Course = {
           titulo: "Boas-vindas e visão geral do método",
           descricao:
             "Entenda como o curso funciona e o que você será capaz de criar ao final. Um panorama completo da jornada do zero ao avançado.",
-          pandaVideoId: "DEMO-VIDEO-ID-1",
+          pandaVideoId: "b8ccb0a2-9d94-4eb9-8b2d-9cdea48e1c22",
           ordem: 1,
           duracao: "06:12",
         },
