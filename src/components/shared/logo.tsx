@@ -16,9 +16,9 @@ export function Logo({
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/logo.svg"
+        src="/logo.png"
         alt="Método Escudo PRO"
-        className={cn("h-10 w-auto select-none", className)}
+        className={cn("h-10 w-auto select-none mix-blend-screen", className)}
         draggable={false}
       />
     </Link>
