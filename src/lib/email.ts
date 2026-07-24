@@ -64,12 +64,12 @@ function buildEmailHtml(nome: string, resetLink: string) {
       <p style="color:#a1a1aa;font-size:15px;line-height:1.6;">
         Para começar, defina sua senha clicando no botão abaixo:
       </p>
-      <a href="${resetLink}" style="display:inline-block;margin:20px 0;background:#a674f1;color:#1a0f2e;text-decoration:none;font-weight:600;padding:14px 28px;border-radius:10px;font-size:15px;">
+      <a href="${resetLink}" style="display:inline-block;margin:20px 0;background:#7c5cf6;color:#ffffff;text-decoration:none;font-weight:600;padding:14px 28px;border-radius:10px;font-size:15px;">
         Criar minha senha
       </a>
       <p style="color:#71717a;font-size:13px;line-height:1.6;">
         Se o botão não funcionar, copie e cole este link no navegador:<br/>
-        <span style="color:#a674f1;word-break:break-all;">${resetLink}</span>
+        <span style="color:#8b5cf6;word-break:break-all;">${resetLink}</span>
       </p>
       <hr style="border:none;border-top:1px solid #26262b;margin:28px 0;" />
       <p style="color:#52525b;font-size:12px;">

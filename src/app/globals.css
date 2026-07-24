@@ -4,33 +4,33 @@
 
 @layer base {
   :root {
-    /* Dark premium theme (Apple / Linear / Vercel inspired) */
-    --background: 240 6% 4%;
-    --foreground: 0 0% 98%;
+    /* Dark premium theme — vivid violet accent */
+    --background: 258 24% 5%;
+    --foreground: 250 20% 98%;
 
-    --card: 240 6% 6%;
-    --card-foreground: 0 0% 98%;
+    --card: 258 20% 8%;
+    --card-foreground: 250 20% 98%;
 
-    --primary: 264 82% 70%;
-    --primary-foreground: 265 45% 12%;
+    --primary: 258 90% 66%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 4% 12%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 258 14% 13%;
+    --secondary-foreground: 250 20% 98%;
 
-    --muted: 240 4% 12%;
-    --muted-foreground: 240 5% 60%;
+    --muted: 258 14% 13%;
+    --muted-foreground: 256 12% 64%;
 
-    --accent: 240 4% 14%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 258 16% 15%;
+    --accent-foreground: 250 20% 98%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5% 16%;
-    --input: 240 5% 16%;
-    --ring: 264 82% 70%;
+    --border: 258 16% 17%;
+    --input: 258 16% 17%;
+    --ring: 258 90% 66%;
 
-    --radius: 0.85rem;
+    --radius: 0.9rem;
   }
 }
 
@@ -53,14 +53,14 @@
 @layer utilities {
   /* Glassmorphism discreto */
   .glass {
-    background: hsl(240 6% 8% / 0.6);
+    background: hsl(258 20% 9% / 0.6);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid hsl(0 0% 100% / 0.06);
   }
 
   .glass-strong {
-    background: hsl(240 6% 8% / 0.8);
+    background: hsl(258 22% 9% / 0.82);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid hsl(0 0% 100% / 0.08);
@@ -68,14 +68,14 @@
 
   /* Gradiente de texto premium */
   .text-gradient {
-    background: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(0 0% 70%) 100%);
+    background: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(255 20% 72%) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
   .text-gradient-accent {
-    background: linear-gradient(120deg, hsl(266 90% 78%) 0%, hsl(276 78% 64%) 100%);
+    background: linear-gradient(120deg, hsl(255 96% 78%) 0%, hsl(268 88% 62%) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -85,15 +85,29 @@
   .glow-primary {
     background: radial-gradient(
       ellipse 50% 50% at 50% 0%,
-      hsl(264 82% 70% / 0.16),
+      hsl(258 90% 66% / 0.20),
+      transparent 70%
+    );
+  }
+
+  .glow-orb {
+    background: radial-gradient(
+      circle at 50% 50%,
+      hsl(258 90% 62% / 0.55),
+      hsl(268 85% 45% / 0.15) 45%,
       transparent 70%
     );
   }
 
   .grid-pattern {
-    background-image: linear-gradient(hsl(0 0% 100% / 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(0 0% 100% / 0.03) 1px, transparent 1px);
+    background-image: linear-gradient(hsl(0 0% 100% / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(0 0% 100% / 0.035) 1px, transparent 1px);
     background-size: 56px 56px;
+  }
+
+  .card-glow:hover {
+    box-shadow: 0 0 0 1px hsl(258 90% 66% / 0.25),
+      0 18px 60px -20px hsl(258 90% 55% / 0.45);
   }
 }
 
@@ -106,10 +120,10 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(240 5% 20%);
+  background: hsl(258 12% 22%);
   border-radius: 999px;
-  border: 2px solid hsl(240 6% 4%);
+  border: 2px solid hsl(258 24% 5%);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(240 5% 28%);
+  background: hsl(258 14% 30%);
 }

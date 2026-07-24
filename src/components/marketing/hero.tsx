@@ -2,106 +2,228 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Play, Star } from "lucide-react";
-import { hero, beneficiosAcesso } from "@/data/site";
+import { Check, Star } from "lucide-react";
+import { hero, heroChecklist, socialProof, trustCards } from "@/data/site";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { BuyButton } from "./buy-button";
 
-export function Hero() {
+const fade = {
+  hidden: { opacity: 0, y: 22 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
+function ShieldEmblem() {
   return (
-    <section className="relative overflow-hidden pt-36 pb-20 md:pt-44 md:pb-28">
+    <svg
+      viewBox="0 0 220 240"
+      className="w-[240px] drop-shadow-[0_24px_70px_rgba(139,92,246,0.5)] md:w-[320px]"
+      role="img"
+      aria-label="Emblema de escudo"
+    >
+      <defs>
+        <linearGradient id="shieldFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#b3a0fb" />
+          <stop offset="0.55" stopColor="#7c5cf6" />
+          <stop offset="1" stopColor="#5b21b6" />
+        </linearGradient>
+        <linearGradient id="shieldEdge" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#e9e2ff" />
+          <stop offset="1" stopColor="#8b5cf6" />
+        </linearGradient>
+      </defs>
+
+      {/* Base shield */}
+      <path
+        d="M110 12 L198 44 L198 118 C198 178 158 214 110 232 C62 214 22 178 22 118 L22 44 Z"
+        fill="url(#shieldFill)"
+        stroke="url(#shieldEdge)"
+        strokeWidth="2.5"
+      />
+      {/* Left facet (shadow) for 3D feel */}
+      <path
+        d="M110 12 L22 44 L22 118 C22 178 62 214 110 232 Z"
+        fill="#000000"
+        opacity="0.14"
+      />
+      {/* Top highlight */}
+      <path
+        d="M110 12 L198 44 L198 70 C170 54 140 46 110 46 C80 46 50 54 22 70 L22 44 Z"
+        fill="#ffffff"
+        opacity="0.12"
+      />
+      {/* Inner bevel */}
+      <path
+        d="M110 34 L178 58 L178 116 C178 166 146 196 110 210 C74 196 42 166 42 116 L42 58 Z"
+        fill="none"
+        stroke="#ffffff"
+        strokeOpacity="0.18"
+        strokeWidth="1.5"
+      />
+      {/* Emblem mark */}
+      <path
+        d="M110 78 L133 128 L110 116 L87 128 Z"
+        fill="#ffffff"
+        opacity="0.92"
+      />
+      <circle cx="110" cy="150" r="9" fill="#ffffff" opacity="0.92" />
+    </svg>
+  );
+}
+
+export function Hero() {
+  const [pre, highlight, post] = hero.headline.split(
+    new RegExp(`(${hero.headlineHighlight})`)
+  );
+
+  return (
+    <section className="relative overflow-hidden pt-32 pb-16 md:pt-40 md:pb-24">
       <div className="pointer-events-none absolute inset-0 grid-pattern opacity-50" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[600px] glow-primary" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[640px] glow-primary" />
 
       <div className="container relative">
-        <div className="mx-auto max-w-3xl text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <Badge className="mx-auto">
-              <Star className="h-3.5 w-3.5 fill-primary" />
-              {hero.badge}
-            </Badge>
-          </motion.div>
+        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+          {/* Coluna de texto */}
+          <div>
+            <motion.div variants={fade} custom={0} initial="hidden" animate="visible">
+              <Badge>
+                <Star className="h-3.5 w-3.5 fill-primary" />
+                {hero.badge}
+              </Badge>
+            </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-6 text-balance text-4xl font-semibold leading-[1.08] tracking-tight text-gradient sm:text-5xl md:text-6xl"
-          >
-            Crie{" "}
-            <span className="text-gradient-accent">escudos esportivos</span>{" "}
-            profissionais do zero ao avançado
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground md:text-lg"
-          >
-            {hero.subheadline}
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
-          >
-            <BuyButton className="w-full sm:w-auto">{hero.ctaPrimary}</BuyButton>
-            <Link
-              href="#conteudo"
-              className="inline-flex h-13 w-full items-center justify-center gap-2 rounded-lg border border-border px-8 text-base font-medium text-foreground transition-colors hover:bg-accent sm:w-auto"
+            <motion.h1
+              variants={fade}
+              custom={1}
+              initial="hidden"
+              animate="visible"
+              className="mt-6 text-balance text-4xl font-semibold leading-[1.06] tracking-tight text-gradient sm:text-5xl md:text-[3.4rem]"
             >
-              {hero.ctaSecondary}
-            </Link>
-          </motion.div>
+              {pre}
+              <span className="text-gradient-accent">{highlight}</span>
+              {post}
+            </motion.h1>
 
+            <motion.p
+              variants={fade}
+              custom={2}
+              initial="hidden"
+              animate="visible"
+              className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground md:text-lg"
+            >
+              {hero.subheadline}
+            </motion.p>
+
+            <motion.ul
+              variants={fade}
+              custom={3}
+              initial="hidden"
+              animate="visible"
+              className="mt-7 grid gap-3 sm:grid-cols-2"
+            >
+              {heroChecklist.map((item) => (
+                <li key={item} className="flex items-center gap-2.5 text-sm text-foreground/90">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
+                    <Check className="h-3.5 w-3.5" strokeWidth={3} />
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </motion.ul>
+
+            <motion.div
+              variants={fade}
+              custom={4}
+              initial="hidden"
+              animate="visible"
+              className="mt-9 flex flex-col gap-3 sm:flex-row"
+            >
+              <BuyButton className="w-full sm:w-auto">{hero.ctaPrimary}</BuyButton>
+              <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
+                <Link href="#conteudo">{hero.ctaSecondary}</Link>
+              </Button>
+            </motion.div>
+
+            <motion.div
+              variants={fade}
+              custom={5}
+              initial="hidden"
+              animate="visible"
+              className="mt-8 flex items-center gap-4"
+            >
+              <div className="flex -space-x-3">
+                {["from-violet-400 to-violet-600", "from-fuchsia-400 to-purple-600", "from-indigo-400 to-violet-600", "from-purple-400 to-fuchsia-600"].map(
+                  (g, i) => (
+                    <span
+                      key={i}
+                      className={`h-9 w-9 rounded-full border-2 border-background bg-gradient-to-br ${g}`}
+                    />
+                  )
+                )}
+              </div>
+              <div>
+                <div className="flex items-center gap-0.5 text-primary">
+                  {Array.from({ length: socialProof.estrelas }).map((_, i) => (
+                    <Star key={i} className="h-3.5 w-3.5 fill-current" />
+                  ))}
+                </div>
+                <p className="mt-0.5 text-xs text-muted-foreground">
+                  <span className="font-semibold text-foreground">{socialProof.nota}</span>{" "}
+                  · {socialProof.total}
+                </p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Coluna do emblema */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.36 }}
-            className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="relative flex justify-center"
           >
-            {beneficiosAcesso.map((b) => (
-              <span key={b.texto} className="inline-flex items-center gap-1.5">
-                <b.icon className="h-4 w-4 text-primary" />
-                {b.texto}
-              </span>
-            ))}
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+              <div className="h-72 w-72 rounded-full glow-orb blur-2xl md:h-96 md:w-96" />
+            </div>
+            <motion.div
+              animate={{ y: [0, -14, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="relative"
+            >
+              <ShieldEmblem />
+            </motion.div>
           </motion.div>
         </div>
 
-        {/* Vídeo de apresentação */}
+        {/* Cartões de confiança */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mt-16 max-w-4xl"
+          variants={fade}
+          custom={6}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
         >
-          <div className="group relative aspect-video overflow-hidden rounded-2xl glass-strong shadow-2xl">
-            <div className="absolute inset-0 grid-pattern opacity-30" />
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-              <button
-                className="flex h-20 w-20 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xl shadow-primary/30 transition-transform group-hover:scale-110"
-                aria-label="Assistir vídeo de apresentação"
-              >
-                <Play className="h-8 w-8 translate-x-0.5 fill-current" />
-              </button>
-              <p className="text-sm text-muted-foreground">
-                Assista à apresentação do método
-              </p>
+          {trustCards.map((c) => (
+            <div
+              key={c.titulo}
+              className="card-glow flex items-start gap-3.5 rounded-xl border border-border bg-card/60 p-4 transition-all duration-300"
+            >
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <c.icon className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="text-sm font-semibold">{c.titulo}</p>
+                <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+                  {c.texto}
+                </p>
+              </div>
             </div>
-            {/*
-              Para exibir o vídeo real do Panda, substitua o bloco acima por:
-              <iframe src="https://player-vz-XXXX.tv.pandavideo.com.br/embed/?v=SEU_VIDEO_ID"
-                className="h-full w-full" allow="fullscreen" allowFullScreen />
-            */}
-          </div>
+          ))}
         </motion.div>
       </div>
     </section>

@@ -2,13 +2,13 @@ import {
   ShieldCheck,
   Sparkles,
   PenTool,
-  Layers,
   Palette,
   Trophy,
   Rocket,
   GraduationCap,
   BadgeCheck,
   Clock,
+  Headphones,
   Infinity as InfinityIcon,
   MonitorPlay,
 } from "lucide-react";
@@ -19,39 +19,75 @@ export const site = {
 };
 
 export const hero = {
-  badge: "Turma 2026 aberta",
-  headline: "Crie escudos esportivos profissionais do zero ao avançado",
-  headlineHighlight: "escudos esportivos profissionais",
+  badge: "O método definitivo",
+  headline: "Crie escudos esportivos de nível profissional",
+  headlineHighlight: "nível profissional",
   subheadline:
-    "O método completo para dominar o CorelDRAW e desenvolver escudos de tirar o fôlego — mesmo que você nunca tenha aberto o programa. Aprenda a técnica, monte seu portfólio e conquiste seus primeiros clientes.",
+    "Domine o CorelDRAW e desenvolva escudos que impressionam — do primeiro traço à exportação final. Mesmo começando do zero, você aprende a técnica, monta seu portfólio e conquista seus primeiros clientes.",
   ctaPrimary: "Comprar Agora",
-  ctaSecondary: "Ver conteúdo do curso",
+  ctaSecondary: "Ver Conteúdo",
 };
+
+export const heroChecklist = [
+  "Aprenda do zero ao avançado",
+  "Técnicas exclusivas e profissionais",
+  "Materiais e arquivos inclusos",
+  "Certificado de conclusão",
+];
+
+export const socialProof = {
+  nota: "4,9",
+  total: "+120 alunos",
+  estrelas: 5,
+};
+
+export const trustCards = [
+  {
+    icon: InfinityIcon,
+    titulo: "Acesso vitalício",
+    texto: "Assista quando e quantas vezes quiser.",
+  },
+  {
+    icon: BadgeCheck,
+    titulo: "Certificado",
+    texto: "Reconhecimento ao concluir o curso.",
+  },
+  {
+    icon: Headphones,
+    titulo: "Suporte dedicado",
+    texto: "Tire suas dúvidas ao longo do caminho.",
+  },
+  {
+    icon: ShieldCheck,
+    titulo: "Garantia de 7 dias",
+    texto: "Risco zero. Não gostou, devolvemos.",
+  },
+];
 
 export const benefits = [
   {
     icon: PenTool,
-    titulo: "Domínio total do CorelDRAW",
+    titulo: "Domínio real do CorelDRAW",
     texto:
-      "Aprenda as ferramentas que realmente importam e pare de perder tempo com tutoriais soltos.",
+      "Só as ferramentas que importam, na ordem certa. Chega de tutoriais soltos e tempo perdido.",
   },
   {
     icon: ShieldCheck,
-    titulo: "Escudos com nível profissional",
+    titulo: "Escudos de nível profissional",
     texto:
-      "Proporção, cores e acabamento que separam o amador de quem entrega trabalho de verdade.",
+      "Proporção, cor e acabamento que separam o amador de quem entrega trabalho de verdade.",
   },
   {
     icon: Sparkles,
     titulo: "Método passo a passo",
     texto:
-      "Um caminho estruturado do básico ao avançado, sem enrolação e direto ao ponto.",
+      "Um caminho claro do básico ao avançado, direto ao ponto e fácil de acompanhar.",
   },
   {
     icon: Palette,
     titulo: "Identidade visual forte",
     texto:
-      "Crie escudos com personalidade que transmitem a força e a história de cada time.",
+      "Crie escudos com personalidade, que traduzem a força e a história de cada time.",
   },
   {
     icon: Rocket,
@@ -63,7 +99,7 @@ export const benefits = [
     icon: MonitorPlay,
     titulo: "Aulas práticas e diretas",
     texto:
-      "Acompanhe a criação de escudos reais na tela, do primeiro traço à exportação final.",
+      "Acompanhe a criação de escudos reais na tela, sem enrolação e sem teoria vazia.",
   },
 ];
 
@@ -71,14 +107,13 @@ export const paraQuemE = [
   {
     icon: GraduationCap,
     titulo: "Iniciantes completos",
-    texto:
-      "Nunca abriu o CorelDRAW? Sem problema. Começamos do absoluto zero.",
+    texto: "Nunca abriu o CorelDRAW? Sem problema. Começamos do absoluto zero.",
   },
   {
     icon: PenTool,
     titulo: "Designers e ilustradores",
     texto:
-      "Quer se especializar em escudos esportivos e adicionar um serviço lucrativo ao seu portfólio.",
+      "Quer se especializar em escudos e adicionar um serviço lucrativo ao portfólio.",
   },
   {
     icon: Trophy,
@@ -88,9 +123,9 @@ export const paraQuemE = [
   },
   {
     icon: Rocket,
-    titulo: "Quem quer uma renda extra",
+    titulo: "Quem busca renda extra",
     texto:
-      "Busca aprender uma habilidade com demanda real e transformar em fonte de renda.",
+      "Quer aprender uma habilidade com demanda real e transformar em fonte de renda.",
   },
 ];
 
@@ -99,28 +134,28 @@ export const depoimentos = [
     nome: "Rafael Souza",
     papel: "Designer amador",
     texto:
-      "Nunca tinha usado CorelDRAW e em duas semanas já estava criando escudos que meus amigos queriam comprar. O passo a passo é surreal de bom.",
+      "Nunca tinha usado CorelDRAW e em duas semanas já criava escudos que meus amigos queriam comprar. O passo a passo é surreal de bom.",
     avatar: "RS",
   },
   {
     nome: "Bruna Martins",
     papel: "Freelancer",
     texto:
-      "Já trabalhava com design, mas os escudos ficavam sempre amadores. O método destravou a técnica que faltava. Hoje é meu serviço mais pedido.",
+      "Já trabalhava com design, mas meus escudos ficavam amadores. O método destravou a técnica que faltava. Hoje é meu serviço mais pedido.",
     avatar: "BM",
   },
   {
     nome: "Diego Oliveira",
     papel: "Time de várzea",
     texto:
-      "Fiz o escudo do meu time e virou moda no campeonato. Todo mundo perguntando quem fez. Recomendo demais.",
+      "Fiz o escudo do meu time e virou moda no campeonato. Todo mundo perguntando quem tinha feito. Recomendo demais.",
     avatar: "DO",
   },
   {
     nome: "Camila Nunes",
     papel: "Iniciante",
     texto:
-      "O que eu mais gostei foi a didática. Cada aula é direta, sem enrolação, e você já sai fazendo. Vale cada centavo.",
+      "O que mais gostei foi a didática. Cada aula é direta, e você já sai fazendo. Vale cada centavo.",
     avatar: "CN",
   },
 ];
@@ -143,12 +178,12 @@ export const faq = [
   {
     pergunta: "Preciso já saber usar o CorelDRAW?",
     resposta:
-      "Não. O curso começa do absoluto zero, com a instalação e configuração do programa. Você aprende tudo do básico ao avançado, mesmo que nunca tenha aberto o CorelDRAW na vida.",
+      "Não. O curso começa do absoluto zero, com a instalação e configuração do programa. Você aprende tudo do básico ao avançado, mesmo que nunca tenha aberto o CorelDRAW.",
   },
   {
     pergunta: "Serve para qualquer versão do CorelDRAW?",
     resposta:
-      "Sim. As técnicas funcionam nas versões mais recentes e também em versões anteriores. O que muda são detalhes de interface, que são mínimos e fáceis de acompanhar.",
+      "Sim. As técnicas funcionam nas versões mais recentes e também em versões anteriores. O que muda são detalhes de interface, mínimos e fáceis de acompanhar.",
   },
   {
     pergunta: "Por quanto tempo tenho acesso?",
@@ -158,7 +193,7 @@ export const faq = [
   {
     pergunta: "Como recebo o acesso após a compra?",
     resposta:
-      "Assim que o pagamento é aprovado, seu acesso é liberado automaticamente e você recebe um e-mail para criar sua senha e entrar na plataforma.",
+      "Assim que o pagamento é aprovado, seu acesso é liberado automaticamente e você recebe as instruções para criar sua senha e entrar na plataforma.",
   },
   {
     pergunta: "Consigo assistir pelo celular?",

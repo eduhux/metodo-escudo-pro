@@ -31,7 +31,7 @@ export function ProgressRing({
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="hsl(264 82% 70%)"
+          stroke="hsl(258 90% 66%)"
           strokeWidth={stroke}
           strokeLinecap="round"
           strokeDasharray={circumference}
