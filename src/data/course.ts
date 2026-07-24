@@ -34,13 +34,13 @@ export const course: Course = {
       titulo: "Módulo 1: Criando Formas",
       ordem: 2,
       aulas: [
-        { id: "m1-1", titulo: "Aula 01", descricao: "", pandaVideoId: "DEMO-M1-01", ordem: 1 },
-        { id: "m1-2", titulo: "Aula 02", descricao: "", pandaVideoId: "DEMO-M1-02", ordem: 2 },
-        { id: "m1-3", titulo: "Aula 03", descricao: "", pandaVideoId: "DEMO-M1-03", ordem: 3 },
-        { id: "m1-4", titulo: "Aula 04", descricao: "", pandaVideoId: "DEMO-M1-04", ordem: 4 },
-        { id: "m1-5", titulo: "Aula 05", descricao: "", pandaVideoId: "DEMO-M1-05", ordem: 5 },
-        { id: "m1-6", titulo: "Aula 06", descricao: "", pandaVideoId: "DEMO-M1-06", ordem: 6 },
-        { id: "m1-7", titulo: "Aula 07", descricao: "", pandaVideoId: "DEMO-M1-07", ordem: 7 },
+        { id: "m1-1", titulo: "Aula 01", descricao: "", pandaVideoId: "85dee930-deb3-4f1f-adb2-5211e47a28e1", ordem: 1 },
+        { id: "m1-2", titulo: "Aula 02", descricao: "", pandaVideoId: "85e56a94-3223-424f-b438-0bfea70cb8e2", ordem: 2 },
+        { id: "m1-3", titulo: "Aula 03", descricao: "", pandaVideoId: "fdda0a40-964f-4850-8e6a-b605b63072e2", ordem: 3 },
+        { id: "m1-4", titulo: "Aula 04", descricao: "", pandaVideoId: "428fc013-4781-4329-a8d2-b75b1d835608", ordem: 4 },
+        { id: "m1-5", titulo: "Aula 05", descricao: "", pandaVideoId: "bc82a541-ab30-41e1-b970-640c978a0545", ordem: 5 },
+        { id: "m1-6", titulo: "Aula 06", descricao: "", pandaVideoId: "be3fccf3-bc30-4fd0-8070-3cc3686ccfd6", ordem: 6 },
+        { id: "m1-7", titulo: "Aula 07", descricao: "", pandaVideoId: "983a8151-8d32-4d28-b2e9-66c4daa1121c", ordem: 7 },
       ],
     },
     {
@@ -48,9 +48,9 @@ export const course: Course = {
       titulo: "Módulo 2: Preenchimentos e Contornos",
       ordem: 3,
       aulas: [
-        { id: "m2-1", titulo: "Aula 01", descricao: "", pandaVideoId: "DEMO-M2-01", ordem: 1 },
-        { id: "m2-2", titulo: "Aula 02", descricao: "", pandaVideoId: "DEMO-M2-02", ordem: 2 },
-        { id: "m2-3", titulo: "Aula 03", descricao: "", pandaVideoId: "DEMO-M2-03", ordem: 3 },
+        { id: "m2-1", titulo: "Aula 01", descricao: "", pandaVideoId: "4c28c17d-1eb6-4a87-8a37-5befaaa1f6c2", ordem: 1 },
+        { id: "m2-2", titulo: "Aula 02", descricao: "", pandaVideoId: "0a1c9218-ee0a-4518-97de-f0dd842b45a8", ordem: 2 },
+        { id: "m2-3", titulo: "Aula 03", descricao: "", pandaVideoId: "58437ed4-00ec-460f-9e28-ce2197a5a35b", ordem: 3 },
       ],
     },
     {
@@ -58,10 +58,10 @@ export const course: Course = {
       titulo: "Módulo 3: Aplicando Conhecimentos",
       ordem: 4,
       aulas: [
-        { id: "m3-1", titulo: "Aula 01", descricao: "", pandaVideoId: "DEMO-M3-01", ordem: 1 },
-        { id: "m3-2", titulo: "Aula 02", descricao: "", pandaVideoId: "DEMO-M3-02", ordem: 2 },
-        { id: "m3-3", titulo: "Aula 03", descricao: "", pandaVideoId: "DEMO-M3-03", ordem: 3 },
-        { id: "m3-4", titulo: "Aula 04", descricao: "", pandaVideoId: "DEMO-M3-04", ordem: 4 },
+        { id: "m3-1", titulo: "Aula 01", descricao: "", pandaVideoId: "f8a776db-ac4e-409a-a63f-f09cbf8257b5", ordem: 1 },
+        { id: "m3-2", titulo: "Aula 02", descricao: "", pandaVideoId: "a616798d-7f4b-49ec-8196-8749513c5012", ordem: 2 },
+        { id: "m3-3", titulo: "Aula 03", descricao: "", pandaVideoId: "071e0304-f753-4fe4-9b95-621c9153937e", ordem: 3 },
+        { id: "m3-4", titulo: "Aula 04", descricao: "", pandaVideoId: "3ea93399-d5b9-4fc0-b771-7954b0af3373", ordem: 4 },
       ],
     },
     {
@@ -69,7 +69,7 @@ export const course: Course = {
       titulo: "Módulo 4: Aplicação do Escudo no Mockup da Camisa",
       ordem: 5,
       aulas: [
-        { id: "m4-1", titulo: "Aula 01", descricao: "", pandaVideoId: "DEMO-M4-01", ordem: 1 },
+        { id: "m4-1", titulo: "Aula 01", descricao: "", pandaVideoId: "aefc2a6f-bfc9-4321-a197-1c6ccaa3811f", ordem: 1 },
       ],
     },
     {
@@ -77,7 +77,7 @@ export const course: Course = {
       titulo: "Módulo 5: Precificação",
       ordem: 6,
       aulas: [
-        { id: "m5-1", titulo: "Aula 01", descricao: "", pandaVideoId: "DEMO-M5-01", ordem: 1 },
+        { id: "m5-1", titulo: "Aula 01", descricao: "", pandaVideoId: "98e0f188-8f80-4b41-a33b-7fec578b46a0", ordem: 1 },
       ],
     },
   ],
