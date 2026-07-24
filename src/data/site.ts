@@ -10,7 +10,6 @@ import {
   Clock,
   Headphones,
   Zap,
-  Infinity as InfinityIcon,
   MonitorPlay,
 } from "lucide-react";
 
@@ -33,7 +32,7 @@ export const heroChecklist = [
   "Aprenda do zero ao avançado",
   "Técnicas exclusivas e profissionais",
   "Materiais e arquivos inclusos",
-  "Acesso imediato e vitalício",
+  "Assista no seu ritmo, quando quiser",
 ];
 
 export const socialProof = {
@@ -44,9 +43,9 @@ export const socialProof = {
 
 export const trustCards = [
   {
-    icon: InfinityIcon,
-    titulo: "Acesso vitalício",
-    texto: "Assista quando e quantas vezes quiser.",
+    icon: Zap,
+    titulo: "Acesso imediato",
+    texto: "Comece a assistir na hora da compra.",
   },
   {
     icon: MonitorPlay,
@@ -169,10 +168,10 @@ export const garantia = {
 };
 
 export const beneficiosAcesso = [
-  { icon: InfinityIcon, texto: "Acesso vitalício ao curso" },
   { icon: MonitorPlay, texto: "Assista quando e onde quiser" },
-  { icon: Clock, texto: "Atualizações gratuitas" },
   { icon: Zap, texto: "Acesso imediato após a compra" },
+  { icon: Clock, texto: "Atualizações incluídas" },
+  { icon: Headphones, texto: "Suporte dedicado" },
 ];
 
 export const faq = [
@@ -189,7 +188,7 @@ export const faq = [
   {
     pergunta: "Por quanto tempo tenho acesso?",
     resposta:
-      "O acesso é vitalício. Você assiste no seu ritmo, quantas vezes quiser, e ainda recebe as atualizações futuras do curso sem pagar nada a mais.",
+      "Seu acesso ao curso fica disponível por 12 meses a partir da confirmação da compra. Durante esse período, você assiste no seu ritmo, quantas vezes quiser, pelo computador ou celular.",
   },
   {
     pergunta: "Como recebo o acesso após a compra?",

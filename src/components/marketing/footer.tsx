@@ -22,7 +22,7 @@ export function Footer() {
               Perguntas frequentes
             </a>
             <a
-              href="mailto:contato@seudominio.com.br"
+              href="mailto:designer@eduhux.com.br"
               className="transition-colors hover:text-foreground"
             >
               Suporte

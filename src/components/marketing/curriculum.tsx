@@ -1,13 +1,8 @@
-import { PlayCircle, Clock } from "lucide-react";
-import { course, totalLessons } from "@/data/course";
+import { Shield } from "lucide-react";
+import { course } from "@/data/course";
 import { Section, SectionHeading } from "@/components/shared/section";
 import { Reveal } from "@/components/shared/reveal";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export function Curriculum() {
@@ -16,57 +11,26 @@ export function Curriculum() {
       <SectionHeading
         eyebrow="Conteúdo do curso"
         title="O que você vai aprender, módulo a módulo"
-        subtitle={`${course.modulos.length} módulos e ${totalLessons} aulas práticas, do primeiro traço à exportação final.`}
+        subtitle={`Um método completo em ${course.modulos.length} módulos — da criação das formas até a precificação e venda.`}
       />
 
-      <Reveal className="mx-auto mt-14 max-w-3xl">
-        <Accordion
-          type="single"
-          collapsible
-          defaultValue={course.modulos[0]?.id}
-          className="space-y-3"
-        >
-          {course.modulos.map((m, i) => (
-            <AccordionItem key={m.id} value={m.id}>
-              <AccordionTrigger>
-                <div className="flex items-center gap-4">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-sm font-semibold text-primary">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span>{m.titulo}</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <ul className="space-y-1">
-                  {m.aulas.map((a) => (
-                    <li
-                      key={a.id}
-                      className="flex items-center justify-between gap-3 rounded-lg px-2 py-2.5 transition-colors hover:bg-accent/50"
-                    >
-                      <span className="flex items-center gap-3 text-foreground/90">
-                        <PlayCircle className="h-4 w-4 shrink-0 text-primary" />
-                        {a.titulo}
-                      </span>
-                      {a.duracao && (
-                        <span className="flex shrink-0 items-center gap-1 text-xs text-muted-foreground">
-                          <Clock className="h-3 w-3" />
-                          {a.duracao}
-                        </span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+      <div className="mx-auto mt-14 max-w-3xl space-y-3">
+        {course.modulos.map((m, i) => (
+          <Reveal key={m.id} delay={i}>
+            <Card className="card-glow flex items-center gap-4 bg-card/60 p-5 transition-all duration-300 hover:border-primary/30">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-sm font-semibold text-primary">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <p className="font-medium md:text-lg">{m.titulo}</p>
+              <Shield className="ml-auto hidden h-5 w-5 text-muted-foreground/40 sm:block" />
+            </Card>
+          </Reveal>
+        ))}
 
-        <div className="mt-6 flex justify-center">
-          <Badge variant="glass">
-            + Bônus e atualizações futuras inclusos
-          </Badge>
+        <div className="flex justify-center pt-3">
+          <Badge variant="glass">+ Bônus e atualizações futuras inclusos</Badge>
         </div>
-      </Reveal>
+      </div>
     </Section>
   );
 }
