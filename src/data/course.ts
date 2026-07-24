@@ -132,7 +132,7 @@ export const course: Course = {
     },
     {
       id: "m4",
-      titulo: "Aplicação do Escudo no Mockup",
+      titulo: "Aplicação do Escudo no Mockup da Camisa",
       ordem: 4,
       aulas: [
         {
