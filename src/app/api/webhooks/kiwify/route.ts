@@ -44,20 +44,6 @@ export async function POST(req: NextRequest) {
 
   // 2) Só provisiona em pagamentos aprovados
   const status = payload.order_status ?? payload.webhook_event_type;
-
-  // [DIAGNÓSTICO TEMPORÁRIO] registra a estrutura recebida da Kiwify.
-  console.log(
-    "[kiwify webhook] recebido:",
-    JSON.stringify({
-      keys: Object.keys(payload),
-      order_status: payload.order_status,
-      webhook_event_type: payload.webhook_event_type,
-      statusUsado: status,
-      isPaid: isPaidStatus(status),
-      customer: extractCustomer(payload),
-    })
-  );
-
   if (!isPaidStatus(status)) {
     return NextResponse.json(
       { ignored: true, reason: `Status não aprovado: ${status}` },
@@ -107,12 +93,23 @@ export async function POST(req: NextRequest) {
         { merge: true }
       );
 
-    // 4) Gera link de definição de senha e envia o e-mail
-    const resetLink = await auth.generatePasswordResetLink(email, {
-      url: `${SITE_URL}/login`,
-    });
-
-    await sendSetPasswordEmail({ to: email, nome, resetLink });
+    // 4) Se houver um provedor de e-mail configurado (Resend), envia o link
+    //    de definição de senha automaticamente. Caso contrário, o aluno cria
+    //    a senha pelo fluxo "Esqueci minha senha" no login. O webhook nunca
+    //    falha por causa do e-mail — o acesso já foi liberado acima.
+    if (process.env.RESEND_API_KEY) {
+      try {
+        const resetLink = await auth.generatePasswordResetLink(email, {
+          url: `${SITE_URL}/login`,
+        });
+        await sendSetPasswordEmail({ to: email, nome, resetLink });
+      } catch (mailErr) {
+        console.error(
+          "[kiwify webhook] acesso liberado, mas houve falha no envio do e-mail:",
+          mailErr
+        );
+      }
+    }
 
     return NextResponse.json({ ok: true, uid }, { status: 200 });
   } catch (err) {
