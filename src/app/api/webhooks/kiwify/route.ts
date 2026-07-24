@@ -44,6 +44,20 @@ export async function POST(req: NextRequest) {
 
   // 2) Só provisiona em pagamentos aprovados
   const status = payload.order_status ?? payload.webhook_event_type;
+
+  // [DIAGNÓSTICO TEMPORÁRIO] registra a estrutura recebida da Kiwify.
+  console.log(
+    "[kiwify webhook] recebido:",
+    JSON.stringify({
+      keys: Object.keys(payload),
+      order_status: payload.order_status,
+      webhook_event_type: payload.webhook_event_type,
+      statusUsado: status,
+      isPaid: isPaidStatus(status),
+      customer: extractCustomer(payload),
+    })
+  );
+
   if (!isPaidStatus(status)) {
     return NextResponse.json(
       { ignored: true, reason: `Status não aprovado: ${status}` },
