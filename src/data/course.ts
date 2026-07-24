@@ -2,13 +2,11 @@ import type { Course } from "@/types";
 
 /**
  * Conteúdo do curso (seed).
- * No modo mock, esta estrutura alimenta o portal do aluno e a seção
- * "Conteúdo do curso" da landing.
+ * Estrutura oficial do Método Escudo PRO: uma Aula Inicial + 5 módulos.
  *
- * Os módulos abaixo são os oficiais do Método Escudo PRO. As AULAS dentro de
- * cada módulo são sugestões de organização — ajuste os títulos e substitua
- * cada `pandaVideoId` (DEMO-...) pelo ID real do vídeo no Panda Video quando
- * for subir o conteúdo.
+ * A Aula Inicial já está com o vídeo real do Panda. Nas demais aulas,
+ * substitua cada `pandaVideoId` (DEMO-...) pelo ID real do vídeo no Panda
+ * (o valor que vem depois de "?v=" no link de incorporação).
  */
 export const course: Course = {
   id: "metodo-escudo-pro",
@@ -17,186 +15,69 @@ export const course: Course = {
     "Do zero ao avançado no CorelDRAW: crie escudos esportivos profissionais e aprenda a vender.",
   modulos: [
     {
-      id: "m1",
-      titulo: "Criando Formas",
+      id: "aula-inicial",
+      titulo: "Aula Inicial",
       ordem: 1,
       aulas: [
         {
-          id: "a1",
-          titulo: "Boas-vindas e visão geral do método",
+          id: "ai-1",
+          titulo: "Apresentação da Ferramenta para Construção dos Escudos",
           descricao:
-            "Entenda como o curso funciona e o que você será capaz de criar ao final. Um panorama completo da jornada do zero ao avançado.",
+            "Conheça a ferramenta e tenha uma visão geral do que você vai construir ao longo do curso.",
           pandaVideoId: "b8ccb0a2-9d94-4eb9-8b2d-9cdea48e1c22",
           ordem: 1,
-          duracao: "06:12",
         },
-        {
-          id: "a2",
-          titulo: "Configurando o CorelDRAW",
-          descricao:
-            "Prepare seu ambiente: instalação, atalhos essenciais e a área de trabalho ideal para criar com agilidade.",
-          pandaVideoId: "DEMO-VIDEO-ID-2",
-          ordem: 2,
-          duracao: "10:40",
-        },
-        {
-          id: "a3",
-          titulo: "Ferramentas de forma e curvas",
-          descricao:
-            "Retângulos, elipses, nós e curvas Bézier — a base que você vai usar em praticamente todo escudo.",
-          pandaVideoId: "DEMO-VIDEO-ID-3",
-          ordem: 3,
-          duracao: "16:05",
-        },
-        {
-          id: "a4",
-          titulo: "Criando a forma base do escudo",
-          descricao:
-            "Passo a passo para construir o contorno do escudo com proporção e simetria perfeitas.",
-          pandaVideoId: "DEMO-VIDEO-ID-4",
-          ordem: 4,
-          duracao: "18:30",
-          materiais: [{ titulo: "Arquivo base (.cdr)", url: "#", tipo: "arquivo" }],
-        },
+      ],
+    },
+    {
+      id: "m1",
+      titulo: "Módulo 1: Criando Formas",
+      ordem: 2,
+      aulas: [
+        { id: "m1-1", titulo: "Aula 01", descricao: "", pandaVideoId: "DEMO-M1-01", ordem: 1 },
+        { id: "m1-2", titulo: "Aula 02", descricao: "", pandaVideoId: "DEMO-M1-02", ordem: 2 },
+        { id: "m1-3", titulo: "Aula 03", descricao: "", pandaVideoId: "DEMO-M1-03", ordem: 3 },
+        { id: "m1-4", titulo: "Aula 04", descricao: "", pandaVideoId: "DEMO-M1-04", ordem: 4 },
+        { id: "m1-5", titulo: "Aula 05", descricao: "", pandaVideoId: "DEMO-M1-05", ordem: 5 },
+        { id: "m1-6", titulo: "Aula 06", descricao: "", pandaVideoId: "DEMO-M1-06", ordem: 6 },
+        { id: "m1-7", titulo: "Aula 07", descricao: "", pandaVideoId: "DEMO-M1-07", ordem: 7 },
       ],
     },
     {
       id: "m2",
-      titulo: "Preenchimentos e Contornos",
-      ordem: 2,
+      titulo: "Módulo 2: Preenchimentos e Contornos",
+      ordem: 3,
       aulas: [
-        {
-          id: "a5",
-          titulo: "Cores, preenchimentos e degradês",
-          descricao:
-            "Domine os preenchimentos do CorelDRAW e crie degradês que dão profundidade e vida ao escudo.",
-          pandaVideoId: "DEMO-VIDEO-ID-5",
-          ordem: 1,
-          duracao: "15:22",
-        },
-        {
-          id: "a6",
-          titulo: "Trabalhando com contornos",
-          descricao:
-            "Contornos internos e externos, espessuras e detalhes que valorizam o traço.",
-          pandaVideoId: "DEMO-VIDEO-ID-6",
-          ordem: 2,
-          duracao: "12:48",
-        },
-        {
-          id: "a7",
-          titulo: "Harmonia de cores para escudos esportivos",
-          descricao:
-            "Como escolher paletas que transmitem identidade e força para qualquer time.",
-          pandaVideoId: "DEMO-VIDEO-ID-7",
-          ordem: 3,
-          duracao: "13:10",
-          materiais: [{ titulo: "Paletas de cores (PDF)", url: "#", tipo: "pdf" }],
-        },
+        { id: "m2-1", titulo: "Aula 01", descricao: "", pandaVideoId: "DEMO-M2-01", ordem: 1 },
+        { id: "m2-2", titulo: "Aula 02", descricao: "", pandaVideoId: "DEMO-M2-02", ordem: 2 },
+        { id: "m2-3", titulo: "Aula 03", descricao: "", pandaVideoId: "DEMO-M2-03", ordem: 3 },
       ],
     },
     {
       id: "m3",
-      titulo: "Aplicando os Conhecimentos",
-      ordem: 3,
+      titulo: "Módulo 3: Aplicando Conhecimentos",
+      ordem: 4,
       aulas: [
-        {
-          id: "a8",
-          titulo: "Montando um escudo completo do zero",
-          descricao:
-            "Juntamos tudo o que você aprendeu para criar um escudo profissional, do começo ao fim.",
-          pandaVideoId: "DEMO-VIDEO-ID-8",
-          ordem: 1,
-          duracao: "24:15",
-        },
-        {
-          id: "a9",
-          titulo: "Tipografia e lettering",
-          descricao:
-            "Escolha, ajuste e personalize tipografias para valorizar o nome do time.",
-          pandaVideoId: "DEMO-VIDEO-ID-9",
-          ordem: 2,
-          duracao: "17:30",
-        },
-        {
-          id: "a10",
-          titulo: "Detalhes, sombras e acabamento",
-          descricao:
-            "Sombras, brilhos e texturas que dão um acabamento premium ao seu escudo.",
-          pandaVideoId: "DEMO-VIDEO-ID-10",
-          ordem: 3,
-          duracao: "20:05",
-          materiais: [{ titulo: "Pack de texturas", url: "#", tipo: "zip" }],
-        },
+        { id: "m3-1", titulo: "Aula 01", descricao: "", pandaVideoId: "DEMO-M3-01", ordem: 1 },
+        { id: "m3-2", titulo: "Aula 02", descricao: "", pandaVideoId: "DEMO-M3-02", ordem: 2 },
+        { id: "m3-3", titulo: "Aula 03", descricao: "", pandaVideoId: "DEMO-M3-03", ordem: 3 },
+        { id: "m3-4", titulo: "Aula 04", descricao: "", pandaVideoId: "DEMO-M3-04", ordem: 4 },
       ],
     },
     {
       id: "m4",
-      titulo: "Aplicação do Escudo no Mockup da Camisa",
-      ordem: 4,
+      titulo: "Módulo 4: Aplicação do Escudo no Mockup da Camisa",
+      ordem: 5,
       aulas: [
-        {
-          id: "a11",
-          titulo: "Preparando o escudo para aplicação",
-          descricao:
-            "Deixe o arquivo pronto e organizado para aplicar em qualquer peça.",
-          pandaVideoId: "DEMO-VIDEO-ID-11",
-          ordem: 1,
-          duracao: "11:40",
-        },
-        {
-          id: "a12",
-          titulo: "Aplicando o escudo em mockups",
-          descricao:
-            "Veja o escudo ganhar vida em mockups realistas (camisa, produto e redes).",
-          pandaVideoId: "DEMO-VIDEO-ID-12",
-          ordem: 2,
-          duracao: "16:20",
-        },
-        {
-          id: "a13",
-          titulo: "Exportando para impressão e digital",
-          descricao:
-            "Prepare seus arquivos para camisas, redes sociais e impressão em alta qualidade.",
-          pandaVideoId: "DEMO-VIDEO-ID-13",
-          ordem: 3,
-          duracao: "12:55",
-        },
+        { id: "m4-1", titulo: "Aula 01", descricao: "", pandaVideoId: "DEMO-M4-01", ordem: 1 },
       ],
     },
     {
       id: "m5",
-      titulo: "Precificação",
-      ordem: 5,
+      titulo: "Módulo 5: Precificação",
+      ordem: 6,
       aulas: [
-        {
-          id: "a14",
-          titulo: "Como precificar seus escudos",
-          descricao:
-            "Quanto cobrar por um escudo profissional e como montar seus pacotes de serviço.",
-          pandaVideoId: "DEMO-VIDEO-ID-14",
-          ordem: 1,
-          duracao: "15:00",
-          materiais: [{ titulo: "Tabela de precificação", url: "#", tipo: "pdf" }],
-        },
-        {
-          id: "a15",
-          titulo: "Montando um portfólio que vende",
-          descricao:
-            "Apresente seus escudos de forma profissional para atrair clientes e cobrar mais.",
-          pandaVideoId: "DEMO-VIDEO-ID-15",
-          ordem: 2,
-          duracao: "14:10",
-        },
-        {
-          id: "a16",
-          titulo: "Captando seus primeiros clientes",
-          descricao:
-            "Onde encontrar clientes e como fechar seus primeiros projetos pagos.",
-          pandaVideoId: "DEMO-VIDEO-ID-16",
-          ordem: 3,
-          duracao: "16:42",
-        },
+        { id: "m5-1", titulo: "Aula 01", descricao: "", pandaVideoId: "DEMO-M5-01", ordem: 1 },
       ],
     },
   ],

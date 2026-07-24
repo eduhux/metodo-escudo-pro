@@ -17,14 +17,11 @@ export function LessonSidebar({
 }) {
   return (
     <nav className="space-y-6">
-      {course.modulos.map((m, mi) => (
+      {course.modulos.map((m) => (
         <div key={m.id}>
-          <div className="mb-2 flex items-center gap-2 px-1">
-            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Módulo {mi + 1}
-            </span>
-          </div>
-          <p className="mb-3 px-1 text-sm font-semibold">{m.titulo}</p>
+          <p className="mb-3 px-1 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+            {m.titulo}
+          </p>
 
           <ul className="space-y-1">
             {m.aulas.map((a) => {
