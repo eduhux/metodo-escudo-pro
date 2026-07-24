@@ -9,6 +9,7 @@ import {
   BadgeCheck,
   Clock,
   Headphones,
+  Zap,
   Infinity as InfinityIcon,
   MonitorPlay,
 } from "lucide-react";
@@ -32,7 +33,7 @@ export const heroChecklist = [
   "Aprenda do zero ao avançado",
   "Técnicas exclusivas e profissionais",
   "Materiais e arquivos inclusos",
-  "Certificado de conclusão",
+  "Acesso imediato e vitalício",
 ];
 
 export const socialProof = {
@@ -48,9 +49,9 @@ export const trustCards = [
     texto: "Assista quando e quantas vezes quiser.",
   },
   {
-    icon: BadgeCheck,
-    titulo: "Certificado",
-    texto: "Reconhecimento ao concluir o curso.",
+    icon: MonitorPlay,
+    titulo: "Aulas práticas",
+    texto: "Veja a criação passo a passo, na tela.",
   },
   {
     icon: Headphones,
@@ -171,7 +172,7 @@ export const beneficiosAcesso = [
   { icon: InfinityIcon, texto: "Acesso vitalício ao curso" },
   { icon: MonitorPlay, texto: "Assista quando e onde quiser" },
   { icon: Clock, texto: "Atualizações gratuitas" },
-  { icon: BadgeCheck, texto: "Certificado de conclusão" },
+  { icon: Zap, texto: "Acesso imediato após a compra" },
 ];
 
 export const faq = [
