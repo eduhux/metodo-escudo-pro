@@ -5,11 +5,13 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Play,
-  BookOpen,
-  CheckCircle2,
   ArrowRight,
+  CheckCircle2,
+  BookOpen,
   FileArchive,
   Download,
+  Film,
+  Layers,
 } from "lucide-react";
 import { useAuth } from "@/context/auth-context";
 import { loadProgress } from "@/lib/progress";
@@ -20,6 +22,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress as ProgressBar } from "@/components/ui/progress";
 import { ProgressRing } from "@/components/dashboard/progress-ring";
+
+const MATERIAIS_URL =
+  "https://drive.google.com/file/d/1KFM6JqIY5DH7qACk0b_XNGKlVOuN550L/view?usp=drive_link";
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -33,8 +38,8 @@ export default function DashboardPage() {
     ? Object.values(progress.aulasConcluidas).filter(Boolean).length
     : 0;
   const pct = progress?.percentual ?? 0;
+  const modulosCount = course.modulos.filter((m) => m.id !== "aula-inicial").length;
 
-  // Determina a próxima aula: última acessada, ou a primeira não concluída, ou a #1.
   const lastId = progress?.ultimaAulaId;
   const continueLesson =
     flatLessons.find((l) => l.id === lastId) ??
@@ -43,158 +48,221 @@ export default function DashboardPage() {
 
   const isStarted = Boolean(lastId) || doneCount > 0;
 
-  return (
-    <div className="container py-10 md:py-14">
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <p className="text-sm text-muted-foreground">
-          {greeting()}, que bom te ver
-        </p>
-        <h1 className="mt-1 text-3xl font-semibold tracking-tight md:text-4xl">
-          Olá, {formatName(user?.nome)} 👋
-        </h1>
-      </motion.div>
+  const stats = [
+    { icon: Film, valor: totalLessons, label: "Aulas no total" },
+    { icon: Layers, valor: modulosCount, label: "Módulos" },
+    { icon: CheckCircle2, valor: doneCount, label: "Aulas concluídas" },
+  ];
 
-      <div className="mt-8 grid gap-5 lg:grid-cols-3">
-        {/* Continuar assistindo */}
+  return (
+    <div className="relative">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[380px] glow-primary opacity-70" />
+      <div className="pointer-events-none absolute inset-0 grid-pattern opacity-[0.12]" />
+
+      <div className="container relative py-10 md:py-14">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <p className="text-sm text-muted-foreground">
+            {greeting()}, que bom te ver
+          </p>
+          <h1 className="mt-1 text-3xl font-semibold tracking-tight md:text-4xl">
+            Olá, {formatName(user?.nome)} 👋
+          </h1>
+          <p className="mt-2 text-muted-foreground">
+            Bem-vindo à sua área de aluno. Continue de onde parou e evolua no seu
+            ritmo.
+          </p>
+        </motion.div>
+
+        {/* Estatísticas */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.05 }}
-          className="lg:col-span-2"
+          className="mt-8 grid gap-4 sm:grid-cols-3"
         >
-          <Card className="relative h-full overflow-hidden bg-gradient-to-br from-card to-secondary/40">
-            <div className="pointer-events-none absolute -right-12 -top-12 h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
-            <CardContent className="relative flex h-full flex-col justify-between gap-6 p-7">
+          {stats.map((s) => (
+            <div
+              key={s.label}
+              className="flex items-center gap-4 rounded-xl border border-border bg-card/60 p-4"
+            >
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <s.icon className="h-5 w-5" />
+              </span>
               <div>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                  <Play className="h-3 w-3 fill-current" />
-                  {isStarted ? "Continuar assistindo" : "Comece por aqui"}
-                </span>
-                <h2 className="mt-4 text-xl font-semibold md:text-2xl">
-                  {continueLesson.titulo}
-                </h2>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {continueLesson.moduloTitulo}
-                </p>
+                <p className="text-2xl font-semibold leading-none">{s.valor}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{s.label}</p>
               </div>
-              <Button asChild size="lg" className="w-fit">
-                <Link href={`/curso/${continueLesson.id}`}>
-                  {isStarted ? "Continuar" : "Assistir primeira aula"}
-                  <ArrowRight />
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Continuar + Progresso */}
+        <div className="mt-5 grid gap-5 lg:grid-cols-3">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="lg:col-span-2"
+          >
+            <Card className="relative h-full overflow-hidden bg-gradient-to-br from-card to-secondary/40">
+              <div className="pointer-events-none absolute -right-12 -top-12 h-52 w-52 rounded-full bg-primary/10 blur-3xl" />
+              <CardContent className="relative grid h-full gap-6 p-7 sm:grid-cols-[1fr_auto] sm:items-center">
+                <div>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                    <Play className="h-3 w-3 fill-current" />
+                    {isStarted ? "Continuar assistindo" : "Comece por aqui"}
+                  </span>
+                  <h2 className="mt-4 text-xl font-semibold md:text-2xl">
+                    {continueLesson.titulo}
+                  </h2>
+                  <p className="mt-1.5 text-sm text-muted-foreground">
+                    {continueLesson.moduloTitulo}
+                  </p>
+                  <Button asChild size="lg" className="mt-6 w-fit">
+                    <Link href={`/curso/${continueLesson.id}`}>
+                      {isStarted ? "Continuar" : "Assistir primeira aula"}
+                      <ArrowRight />
+                    </Link>
+                  </Button>
+                </div>
+
+                {/* Miniatura estilo player */}
+                <Link
+                  href={`/curso/${continueLesson.id}`}
+                  className="group relative hidden aspect-[4/3] w-44 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-secondary/40 sm:flex"
+                >
+                  <div className="pointer-events-none absolute inset-0 grid-pattern opacity-40" />
+                  <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 transition-transform group-hover:scale-110">
+                    <Play className="h-6 w-6 translate-x-0.5 fill-current" />
+                  </span>
                 </Link>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+          >
+            <Card className="h-full">
+              <CardContent className="flex h-full flex-col items-center justify-center gap-4 p-7">
+                <ProgressRing value={pct} />
+                <div className="text-center">
+                  <p className="text-sm font-medium">
+                    {doneCount} de {totalLessons} aulas
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {pct === 0
+                      ? "Comece sua jornada hoje"
+                      : pct === 100
+                        ? "Parabéns, curso concluído!"
+                        : "Continue no seu ritmo"}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+
+        {/* Materiais do curso */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.18 }}
+          className="mt-5"
+        >
+          <Card className="relative overflow-hidden bg-gradient-to-br from-card to-secondary/40">
+            <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
+            <CardContent className="relative flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-start gap-4">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <FileArchive className="h-6 w-6" />
+                </span>
+                <div>
+                  <h3 className="text-lg font-semibold">Materiais do curso</h3>
+                  <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                    Baixe o pacote com todos os arquivos usados nas aulas.{" "}
+                    <strong className="text-foreground/90">Importante:</strong>{" "}
+                    faça o download e a instalação seguindo exatamente as
+                    orientações apresentadas no decorrer das aulas.
+                  </p>
+                </div>
+              </div>
+              <Button asChild size="lg" className="w-full shrink-0 sm:w-auto">
+                <a href={MATERIAIS_URL} target="_blank" rel="noopener noreferrer">
+                  <Download /> Baixar materiais
+                </a>
               </Button>
             </CardContent>
           </Card>
         </motion.div>
 
-        {/* Progresso */}
+        {/* Módulos */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.5, delay: 0.22 }}
+          className="mt-10"
         >
-          <Card className="h-full">
-            <CardContent className="flex h-full flex-col items-center justify-center gap-4 p-7">
-              <ProgressRing value={pct} />
-              <div className="text-center">
-                <p className="text-sm font-medium">
-                  {doneCount} de {totalLessons} aulas
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  Continue no seu ritmo
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="mb-4 flex items-baseline justify-between">
+            <h3 className="text-lg font-semibold">Conteúdo do curso</h3>
+            <span className="text-sm text-muted-foreground">
+              {course.modulos.length} seções · {totalLessons} aulas
+            </span>
+          </div>
+
+          <div className="space-y-3">
+            {course.modulos.map((m) => {
+              const total = m.aulas.length;
+              const done = m.aulas.filter(
+                (a) => progress?.aulasConcluidas[a.id]
+              ).length;
+              const modPct = total ? Math.round((done / total) * 100) : 0;
+              const modIniciado = done > 0;
+              return (
+                <Link key={m.id} href={`/curso/${m.aulas[0].id}`}>
+                  <Card className="group transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:bg-card/80">
+                    <CardContent className="flex items-center gap-4 p-5">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                        {modPct === 100 ? (
+                          <CheckCircle2 className="h-5 w-5" />
+                        ) : (
+                          <BookOpen className="h-5 w-5" />
+                        )}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate font-medium">{m.titulo}</p>
+                        <div className="mt-2 flex items-center gap-3">
+                          <ProgressBar
+                            value={modPct}
+                            className="h-1.5 max-w-40"
+                          />
+                          <span className="shrink-0 text-xs text-muted-foreground">
+                            {done}/{total} aulas
+                          </span>
+                        </div>
+                      </div>
+                      <span className="hidden shrink-0 items-center gap-1.5 text-sm font-medium text-primary sm:flex">
+                        {modPct === 100
+                          ? "Revisar"
+                          : modIniciado
+                            ? "Continuar"
+                            : "Começar"}
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </span>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
         </motion.div>
       </div>
-
-      {/* Materiais do curso */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.12 }}
-        className="mt-6"
-      >
-        <Card className="relative overflow-hidden bg-gradient-to-br from-card to-secondary/40">
-          <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
-          <CardContent className="relative flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-start gap-4">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <FileArchive className="h-6 w-6" />
-              </span>
-              <div>
-                <h3 className="text-lg font-semibold">Materiais do curso</h3>
-                <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted-foreground">
-                  Baixe o pacote com todos os arquivos usados nas aulas.{" "}
-                  <strong className="text-foreground/90">
-                    Importante:
-                  </strong>{" "}
-                  faça o download e a instalação seguindo exatamente as
-                  orientações apresentadas no decorrer das aulas.
-                </p>
-              </div>
-            </div>
-            <Button asChild size="lg" className="w-full shrink-0 sm:w-auto">
-              <a
-                href="https://drive.google.com/file/d/1KFM6JqIY5DH7qACk0b_XNGKlVOuN550L/view?usp=drive_link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Download /> Baixar materiais
-              </a>
-            </Button>
-          </CardContent>
-        </Card>
-      </motion.div>
-
-      {/* Módulos */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.15 }}
-        className="mt-10"
-      >
-        <h3 className="text-lg font-semibold">Conteúdo do curso</h3>
-        <div className="mt-4 space-y-3">
-          {course.modulos.map((m) => {
-            const total = m.aulas.length;
-            const done = m.aulas.filter(
-              (a) => progress?.aulasConcluidas[a.id]
-            ).length;
-            const modPct = total ? Math.round((done / total) * 100) : 0;
-            return (
-              <Link key={m.id} href={`/curso/${m.aulas[0].id}`}>
-                <Card className="group transition-all duration-300 hover:border-primary/30 hover:bg-card/80">
-                  <CardContent className="flex items-center gap-4 p-5">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                      {modPct === 100 ? (
-                        <CheckCircle2 className="h-5 w-5" />
-                      ) : (
-                        <BookOpen className="h-5 w-5" />
-                      )}
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate font-medium">{m.titulo}</p>
-                      <div className="mt-2 flex items-center gap-3">
-                        <ProgressBar value={modPct} className="h-1.5 max-w-40" />
-                        <span className="text-xs text-muted-foreground">
-                          {done}/{total}
-                        </span>
-                      </div>
-                    </div>
-                    <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1" />
-                  </CardContent>
-                </Card>
-              </Link>
-            );
-          })}
-        </div>
-      </motion.div>
     </div>
   );
 }
