@@ -12,6 +12,8 @@ import {
   Download,
   Film,
   Layers,
+  Gift,
+  Type,
 } from "lucide-react";
 import { useAuth } from "@/context/auth-context";
 import { loadProgress } from "@/lib/progress";
@@ -25,6 +27,9 @@ import { ProgressRing } from "@/components/dashboard/progress-ring";
 
 const MATERIAIS_URL =
   "https://drive.google.com/file/d/1KFM6JqIY5DH7qACk0b_XNGKlVOuN550L/view?usp=drive_link";
+
+const FONTES_URL =
+  "https://drive.google.com/drive/folders/1MOl_YdmujRUcd1fW5J80JN5gdfz3S4SK?usp=sharing";
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -196,6 +201,47 @@ export default function DashboardPage() {
               <Button asChild size="lg" className="w-full shrink-0 sm:w-auto">
                 <a href={MATERIAIS_URL} target="_blank" rel="noopener noreferrer">
                   <Download /> Baixar materiais
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* Bônus — pacote de fontes */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mt-5"
+        >
+          <Card className="relative overflow-hidden border-primary/30 bg-gradient-to-br from-primary/10 via-card to-secondary/40">
+            <div className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full bg-primary/20 blur-3xl" />
+            <CardContent className="relative flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-start gap-4">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
+                  <Type className="h-6 w-6" />
+                </span>
+                <div>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-3 py-1 text-xs font-medium text-primary">
+                    <Gift className="h-3.5 w-3.5" />
+                    Bônus exclusivo
+                  </span>
+                  <h3 className="mt-2 text-lg font-semibold">
+                    Pacote com +200 fontes premium
+                  </h3>
+                  <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                    Este pack é o seu{" "}
+                    <strong className="text-foreground/90">
+                      bônus por ter adquirido o curso
+                    </strong>{" "}
+                    — as mesmas fontes que uso nos meus projetos. Baixe e use
+                    para dar um acabamento profissional aos seus escudos.
+                  </p>
+                </div>
+              </div>
+              <Button asChild size="lg" className="w-full shrink-0 sm:w-auto">
+                <a href={FONTES_URL} target="_blank" rel="noopener noreferrer">
+                  <Download /> Baixar fontes
                 </a>
               </Button>
             </CardContent>
