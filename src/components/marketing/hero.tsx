@@ -7,6 +7,7 @@ import { hero, heroChecklist, socialProof, trustCards } from "@/data/site";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BuyButton } from "./buy-button";
+import { AnimatedShield } from "./animated-shield";
 
 const fade = {
   hidden: { opacity: 0, y: 22 },
@@ -16,64 +17,6 @@ const fade = {
     transition: { duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
   }),
 };
-
-function ShieldEmblem() {
-  return (
-    <svg
-      viewBox="0 0 220 240"
-      className="w-[240px] drop-shadow-[0_24px_70px_rgba(139,92,246,0.5)] md:w-[320px]"
-      role="img"
-      aria-label="Emblema de escudo"
-    >
-      <defs>
-        <linearGradient id="shieldFill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#b3a0fb" />
-          <stop offset="0.55" stopColor="#7c5cf6" />
-          <stop offset="1" stopColor="#5b21b6" />
-        </linearGradient>
-        <linearGradient id="shieldEdge" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#e9e2ff" />
-          <stop offset="1" stopColor="#8b5cf6" />
-        </linearGradient>
-      </defs>
-
-      {/* Base shield */}
-      <path
-        d="M110 12 L198 44 L198 118 C198 178 158 214 110 232 C62 214 22 178 22 118 L22 44 Z"
-        fill="url(#shieldFill)"
-        stroke="url(#shieldEdge)"
-        strokeWidth="2.5"
-      />
-      {/* Left facet (shadow) for 3D feel */}
-      <path
-        d="M110 12 L22 44 L22 118 C22 178 62 214 110 232 Z"
-        fill="#000000"
-        opacity="0.14"
-      />
-      {/* Top highlight */}
-      <path
-        d="M110 12 L198 44 L198 70 C170 54 140 46 110 46 C80 46 50 54 22 70 L22 44 Z"
-        fill="#ffffff"
-        opacity="0.12"
-      />
-      {/* Inner bevel */}
-      <path
-        d="M110 34 L178 58 L178 116 C178 166 146 196 110 210 C74 196 42 166 42 116 L42 58 Z"
-        fill="none"
-        stroke="#ffffff"
-        strokeOpacity="0.18"
-        strokeWidth="1.5"
-      />
-      {/* Emblem mark */}
-      <path
-        d="M110 78 L133 128 L110 116 L87 128 Z"
-        fill="#ffffff"
-        opacity="0.92"
-      />
-      <circle cx="110" cy="150" r="9" fill="#ffffff" opacity="0.92" />
-    </svg>
-  );
-}
 
 export function Hero() {
   const [pre, highlight, post] = hero.headline.split(
@@ -194,7 +137,7 @@ export function Hero() {
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               className="relative"
             >
-              <ShieldEmblem />
+              <AnimatedShield />
             </motion.div>
           </motion.div>
         </div>

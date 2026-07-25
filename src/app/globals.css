@@ -127,3 +127,54 @@
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(258 14% 30%);
 }
+
+/* ===== Escudo animado do hero (loop) ===== */
+.as-shield {
+  filter: drop-shadow(0 24px 60px rgba(124, 92, 246, 0.5));
+}
+.as-p,
+.as-rivet {
+  transform-box: fill-box;
+}
+.as-ring-spin,
+.as-particles-spin,
+.as-mark,
+.as-rivet {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.as-ring-spin { animation: as-spin 16s linear infinite; }
+.as-particles-spin { animation: as-spinr 12s linear infinite; }
+.as-ring-fade { animation: as-ringfade 6s ease infinite; }
+.as-p-fade { animation: as-pfade 6s ease infinite; }
+.as-left { animation: as-left 6s ease infinite; }
+.as-right { animation: as-right 6s ease infinite; }
+.as-spine { animation: as-spine 6s ease infinite; }
+.as-hl { opacity: 0; animation: as-hl 6s ease infinite; }
+.as-bevel { animation: as-bevel 6s ease infinite; }
+.as-rivet { opacity: 0; animation: as-rivet 6s ease infinite; }
+.as-mark { animation: as-mark 6s ease infinite; }
+.as-shine { animation: as-shine 6s ease infinite; }
+
+@keyframes as-spin { to { transform: rotate(360deg); } }
+@keyframes as-spinr { to { transform: rotate(-360deg); } }
+@keyframes as-ringfade { 0%,6%{opacity:0} 20%{opacity:1} 86%{opacity:1} 100%{opacity:0} }
+@keyframes as-pfade { 0%,14%{opacity:0} 30%{opacity:.9} 86%{opacity:.9} 100%{opacity:0} }
+@keyframes as-left { 0%,4%{transform:translateX(-115px);opacity:0} 26%{transform:translateX(0);opacity:1} 86%{opacity:1} 100%{opacity:0} }
+@keyframes as-right { 0%,10%{transform:translateX(115px);opacity:0} 32%{transform:translateX(0);opacity:1} 86%{opacity:1} 100%{opacity:0} }
+@keyframes as-spine { 0%,14%{transform:translateY(-48px);opacity:0} 38%{transform:translateY(0);opacity:1} 86%{opacity:1} 100%{opacity:0} }
+@keyframes as-hl { 0%,40%{opacity:0} 56%{opacity:.14} 86%{opacity:.14} 100%{opacity:0} }
+@keyframes as-bevel { 0%,30%{stroke-dashoffset:640;opacity:0} 34%{opacity:1} 60%{stroke-dashoffset:0;opacity:1} 86%{opacity:1} 100%{opacity:0} }
+@keyframes as-rivet { 0%,44%{transform:scale(0);opacity:0} 58%{transform:scale(1.2);opacity:1} 64%{transform:scale(1)} 86%{opacity:1} 100%{opacity:0} }
+@keyframes as-mark { 0%,58%{transform:translateY(-72px) scale(.6);opacity:0} 75%{transform:translateY(6px) scale(1.06);opacity:1} 84%{transform:translateY(0) scale(1)} 86%{opacity:1} 100%{opacity:0} }
+@keyframes as-shine { 0%,76%{transform:translateX(-70px);opacity:0} 80%{opacity:.7} 92%{transform:translateX(300px);opacity:0} 100%{opacity:0} }
+
+@media (prefers-reduced-motion: reduce) {
+  .as-ring-spin, .as-particles-spin, .as-ring-fade, .as-p-fade,
+  .as-left, .as-right, .as-spine, .as-hl, .as-bevel, .as-rivet,
+  .as-mark, .as-shine { animation: none !important; }
+  .as-hl { opacity: 0.14; }
+  .as-rivet { opacity: 1; }
+  .as-bevel { stroke-dashoffset: 0; }
+  .as-shine { opacity: 0; }
+}
