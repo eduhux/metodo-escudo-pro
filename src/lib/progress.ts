@@ -1,15 +1,16 @@
 "use client";
 
-import { MOCK_MODE } from "@/lib/config";
 import { totalLessons } from "@/data/course";
 import type { Progress } from "@/types";
-
-const KEY = "mep_progress";
 
 const empty: Progress = {
   aulasConcluidas: {},
   percentual: 0,
 };
+
+function storageKey(uid?: string | null) {
+  return `mep_progress_${uid || "anon"}`;
+}
 
 function computePct(map: Record<string, boolean>): number {
   const done = Object.values(map).filter(Boolean).length;
@@ -18,39 +19,48 @@ function computePct(map: Record<string, boolean>): number {
 }
 
 /**
- * Camada de progresso.
- * MOCK: usa localStorage. Produção: substitua por leitura/escrita no Firestore
- * (progress/{uid}) — a assinatura das funções foi mantida para facilitar.
+ * Progresso do aluno, salvo no navegador (localStorage), separado por usuário.
+ * Reflete de imediato no dashboard, no anel de progresso e nas barras dos módulos.
+ * (Evolução futura: sincronizar entre dispositivos via Firestore em progress/{uid}.)
  */
-export function loadProgress(): Progress {
+export function loadProgress(uid?: string | null): Progress {
   if (typeof window === "undefined") return empty;
-  if (MOCK_MODE) {
-    try {
-      const raw = localStorage.getItem(KEY);
-      if (!raw) return empty;
-      const parsed = JSON.parse(raw) as Progress;
-      return { ...empty, ...parsed };
-    } catch {
-      return empty;
-    }
+  try {
+    const raw = localStorage.getItem(storageKey(uid));
+    if (!raw) return empty;
+    const parsed = JSON.parse(raw) as Progress;
+    const aulasConcluidas = parsed.aulasConcluidas || {};
+    return {
+      ...empty,
+      ...parsed,
+      aulasConcluidas,
+      percentual: computePct(aulasConcluidas),
+    };
+  } catch {
+    return empty;
   }
-  // TODO produção: buscar de progress/{uid} no Firestore.
-  return empty;
 }
 
-export function saveLastLesson(aulaId: string): Progress {
-  const current = loadProgress();
+export function saveLastLesson(
+  uid: string | null | undefined,
+  aulaId: string
+): Progress {
+  const current = loadProgress(uid);
   const next: Progress = {
     ...current,
     ultimaAulaId: aulaId,
     atualizadoEm: new Date().toISOString(),
   };
-  persist(next);
+  persist(uid, next);
   return next;
 }
 
-export function toggleLessonDone(aulaId: string, done: boolean): Progress {
-  const current = loadProgress();
+export function toggleLessonDone(
+  uid: string | null | undefined,
+  aulaId: string,
+  done: boolean
+): Progress {
+  const current = loadProgress(uid);
   const aulasConcluidas = { ...current.aulasConcluidas, [aulaId]: done };
   const next: Progress = {
     ...current,
@@ -58,15 +68,15 @@ export function toggleLessonDone(aulaId: string, done: boolean): Progress {
     percentual: computePct(aulasConcluidas),
     atualizadoEm: new Date().toISOString(),
   };
-  persist(next);
+  persist(uid, next);
   return next;
 }
 
-function persist(p: Progress) {
+function persist(uid: string | null | undefined, p: Progress) {
   if (typeof window === "undefined") return;
-  if (MOCK_MODE) {
-    localStorage.setItem(KEY, JSON.stringify(p));
-    return;
+  try {
+    localStorage.setItem(storageKey(uid), JSON.stringify(p));
+  } catch {
+    /* ignora falhas de armazenamento */
   }
-  // TODO produção: gravar em progress/{uid} no Firestore.
 }

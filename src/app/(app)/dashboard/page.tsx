@@ -36,8 +36,8 @@ export default function DashboardPage() {
   const [progress, setProgress] = useState<Progress | null>(null);
 
   useEffect(() => {
-    setProgress(loadProgress());
-  }, []);
+    setProgress(loadProgress(user?.uid));
+  }, [user?.uid]);
 
   const doneCount = progress
     ? Object.values(progress.aulasConcluidas).filter(Boolean).length
@@ -174,49 +174,43 @@ export default function DashboardPage() {
           </motion.div>
         </div>
 
-        {/* Materiais do curso */}
+        {/* Materiais + Bônus (lado a lado) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.18 }}
-          className="mt-5"
+          className="mt-5 grid gap-5 lg:grid-cols-2"
         >
-          <Card className="relative overflow-hidden bg-gradient-to-br from-card to-secondary/40">
+          {/* Materiais do curso */}
+          <Card className="relative h-full overflow-hidden bg-gradient-to-br from-card to-secondary/40">
             <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
-            <CardContent className="relative flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+            <CardContent className="relative flex h-full flex-col gap-4 p-6">
               <div className="flex items-start gap-4">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
                   <FileArchive className="h-6 w-6" />
                 </span>
                 <div>
                   <h3 className="text-lg font-semibold">Materiais do curso</h3>
-                  <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                     Baixe o pacote com todos os arquivos usados nas aulas.{" "}
                     <strong className="text-foreground/90">Importante:</strong>{" "}
                     faça o download e a instalação seguindo exatamente as
-                    orientações apresentadas no decorrer das aulas.
+                    orientações das aulas.
                   </p>
                 </div>
               </div>
-              <Button asChild size="lg" className="w-full shrink-0 sm:w-auto">
+              <Button asChild size="lg" className="mt-auto w-full sm:w-fit">
                 <a href={MATERIAIS_URL} target="_blank" rel="noopener noreferrer">
                   <Download /> Baixar materiais
                 </a>
               </Button>
             </CardContent>
           </Card>
-        </motion.div>
 
-        {/* Bônus — pacote de fontes */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-5"
-        >
-          <Card className="relative overflow-hidden border-primary/30 bg-gradient-to-br from-primary/10 via-card to-secondary/40">
+          {/* Bônus — pacote de fontes */}
+          <Card className="relative h-full overflow-hidden border-primary/30 bg-gradient-to-br from-primary/10 via-card to-secondary/40">
             <div className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full bg-primary/20 blur-3xl" />
-            <CardContent className="relative flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+            <CardContent className="relative flex h-full flex-col gap-4 p-6">
               <div className="flex items-start gap-4">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
                   <Type className="h-6 w-6" />
@@ -229,17 +223,17 @@ export default function DashboardPage() {
                   <h3 className="mt-2 text-lg font-semibold">
                     Pacote com +200 fontes premium
                   </h3>
-                  <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                     Este pack é o seu{" "}
                     <strong className="text-foreground/90">
                       bônus por ter adquirido o curso
                     </strong>{" "}
-                    — as mesmas fontes que uso nos meus projetos. Baixe e use
-                    para dar um acabamento profissional aos seus escudos.
+                    — as mesmas fontes que uso nos meus projetos. Baixe e use nos
+                    seus escudos.
                   </p>
                 </div>
               </div>
-              <Button asChild size="lg" className="w-full shrink-0 sm:w-auto">
+              <Button asChild size="lg" className="mt-auto w-full sm:w-fit">
                 <a href={FONTES_URL} target="_blank" rel="noopener noreferrer">
                   <Download /> Baixar fontes
                 </a>

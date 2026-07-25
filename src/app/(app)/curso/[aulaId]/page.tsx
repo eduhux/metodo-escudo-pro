@@ -20,6 +20,7 @@ import {
   saveLastLesson,
   toggleLessonDone,
 } from "@/lib/progress";
+import { useAuth } from "@/context/auth-context";
 import type { Progress } from "@/types";
 import { PandaPlayer } from "@/components/course/panda-player";
 import { LessonSidebar } from "@/components/course/lesson-sidebar";
@@ -34,19 +35,20 @@ export default function CoursePage({
 }) {
   const { aulaId } = use(params);
   const router = useRouter();
+  const { user } = useAuth();
   const [progress, setProgress] = useState<Progress | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const data = useMemo(() => findLesson(aulaId), [aulaId]);
 
   useEffect(() => {
-    setProgress(loadProgress());
-  }, []);
+    setProgress(loadProgress(user?.uid));
+  }, [user?.uid]);
 
   useEffect(() => {
-    if (data) setProgress(saveLastLesson(aulaId));
+    if (data) setProgress(saveLastLesson(user?.uid, aulaId));
     setSidebarOpen(false);
-  }, [aulaId, data]);
+  }, [aulaId, data, user?.uid]);
 
   if (!data) {
     return (
@@ -63,7 +65,7 @@ export default function CoursePage({
   const isDone = Boolean(progress?.aulasConcluidas[lesson.id]);
 
   function handleToggleDone() {
-    const updated = toggleLessonDone(lesson.id, !isDone);
+    const updated = toggleLessonDone(user?.uid, lesson.id, !isDone);
     setProgress(updated);
   }
 
