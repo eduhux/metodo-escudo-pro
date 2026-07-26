@@ -18,7 +18,7 @@ import {
 import { useAuth } from "@/context/auth-context";
 import { loadProgress, syncProgressFromCloud } from "@/lib/progress";
 import { course, flatLessons, totalLessons } from "@/data/course";
-import { greeting, formatName } from "@/lib/utils";
+import { greeting, formatName, cn } from "@/lib/utils";
 import type { Progress } from "@/types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -88,16 +88,14 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.05 }}
-          className="mt-8 grid gap-4 sm:grid-cols-3"
+          className="mt-8 flex flex-wrap items-stretch divide-x divide-border overflow-hidden rounded-2xl border border-border bg-card/40"
         >
           {stats.map((s) => (
             <div
               key={s.label}
-              className="flex items-center gap-4 rounded-xl border border-border bg-card/60 p-4"
+              className="flex min-w-[8rem] flex-1 items-center gap-3.5 px-6 py-5"
             >
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                <s.icon className="h-5 w-5" />
-              </span>
+              <s.icon className="h-5 w-5 shrink-0 text-primary" />
               <div>
                 <p className="text-2xl font-semibold leading-none">{s.valor}</p>
                 <p className="mt-1 text-xs text-muted-foreground">{s.label}</p>
@@ -257,50 +255,60 @@ export default function DashboardPage() {
             </span>
           </div>
 
-          <div className="space-y-3">
-            {course.modulos.map((m) => {
-              const total = m.aulas.length;
-              const done = m.aulas.filter(
-                (a) => progress?.aulasConcluidas[a.id]
-              ).length;
-              const modPct = total ? Math.round((done / total) * 100) : 0;
-              const modIniciado = done > 0;
-              return (
-                <Link key={m.id} href={`/curso/${m.aulas[0].id}`}>
-                  <Card className="group transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:bg-card/80">
-                    <CardContent className="flex items-center gap-4 p-5">
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                        {modPct === 100 ? (
-                          <CheckCircle2 className="h-5 w-5" />
-                        ) : (
-                          <BookOpen className="h-5 w-5" />
-                        )}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate font-medium">{m.titulo}</p>
-                        <div className="mt-2 flex items-center gap-3">
-                          <ProgressBar
-                            value={modPct}
-                            className="h-1.5 max-w-40"
-                          />
-                          <span className="shrink-0 text-xs text-muted-foreground">
-                            {done}/{total} aulas
-                          </span>
-                        </div>
-                      </div>
-                      <span className="hidden shrink-0 items-center gap-1.5 text-sm font-medium text-primary sm:flex">
-                        {modPct === 100
-                          ? "Revisar"
+          <div className="relative">
+            <div className="absolute bottom-6 left-[31px] top-6 w-px bg-border" />
+            <div className="space-y-1">
+              {course.modulos.map((m) => {
+                const total = m.aulas.length;
+                const done = m.aulas.filter(
+                  (a) => progress?.aulasConcluidas[a.id]
+                ).length;
+                const modPct = total ? Math.round((done / total) * 100) : 0;
+                const modIniciado = done > 0;
+                const concluido = modPct === 100;
+                return (
+                  <Link
+                    key={m.id}
+                    href={`/curso/${m.aulas[0].id}`}
+                    className="group relative flex items-center gap-4 rounded-xl px-3 py-3.5 transition-colors hover:bg-card/60"
+                  >
+                    <span
+                      className={cn(
+                        "relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 bg-background transition-colors",
+                        concluido
+                          ? "border-primary bg-primary text-primary-foreground"
                           : modIniciado
-                            ? "Continuar"
-                            : "Começar"}
-                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                      </span>
-                    </CardContent>
-                  </Card>
-                </Link>
-              );
-            })}
+                            ? "border-primary text-primary"
+                            : "border-border text-muted-foreground group-hover:border-primary/50"
+                      )}
+                    >
+                      {concluido ? (
+                        <CheckCircle2 className="h-5 w-5" />
+                      ) : (
+                        <BookOpen className="h-4 w-4" />
+                      )}
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate font-medium">{m.titulo}</p>
+                      <div className="mt-1.5 flex items-center gap-3">
+                        <ProgressBar value={modPct} className="h-1.5 max-w-44" />
+                        <span className="shrink-0 text-xs text-muted-foreground">
+                          {done}/{total}
+                        </span>
+                      </div>
+                    </div>
+                    <span className="hidden shrink-0 items-center gap-1.5 text-sm font-medium text-primary sm:flex">
+                      {concluido
+                        ? "Revisar"
+                        : modIniciado
+                          ? "Continuar"
+                          : "Começar"}
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </motion.div>
       </div>
