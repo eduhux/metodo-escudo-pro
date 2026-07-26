@@ -1,31 +1,46 @@
 import { benefits } from "@/data/site";
-import { Section, SectionHeading } from "@/components/shared/section";
+import { Section } from "@/components/shared/section";
 import { Reveal } from "@/components/shared/reveal";
-import { Card } from "@/components/ui/card";
 
 export function Benefits() {
   return (
     <Section id="beneficios">
-      <SectionHeading
-        eyebrow="Por que este método"
-        title="Tudo o que você precisa para dominar o desenvolvimento de escudos"
-        subtitle="Um caminho claro e prático que leva iniciantes ao nível profissional no desenvolvimento de escudos."
-      />
+      <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+        {/* Título fixo à esquerda */}
+        <Reveal className="lg:sticky lg:top-28 lg:self-start">
+          <span className="text-sm font-medium uppercase tracking-widest text-primary">
+            Por que este método
+          </span>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-gradient md:text-4xl">
+            Tudo o que você precisa para dominar o desenvolvimento de escudos
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
+            Um caminho claro e prático que leva iniciantes ao nível profissional
+            no desenvolvimento de escudos.
+          </p>
+        </Reveal>
 
-      <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {benefits.map((b, i) => (
-          <Reveal key={b.titulo} delay={i}>
-            <Card className="group h-full bg-card/60 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:bg-card">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary/15">
-                <b.icon className="h-6 w-6" />
+        {/* Lista numerada à direita */}
+        <div className="divide-y divide-border">
+          {benefits.map((b, i) => (
+            <Reveal key={b.titulo} delay={i % 3}>
+              <div className="group flex gap-5 py-6 first:pt-0 sm:gap-7">
+                <span className="pt-1 font-mono text-sm text-primary/60">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="flex-1">
+                  <div className="flex items-center gap-3">
+                    <b.icon className="h-5 w-5 shrink-0 text-primary transition-transform group-hover:scale-110" />
+                    <h3 className="text-lg font-semibold">{b.titulo}</h3>
+                  </div>
+                  <p className="mt-2 leading-relaxed text-muted-foreground">
+                    {b.texto}
+                  </p>
+                </div>
               </div>
-              <h3 className="mt-5 text-lg font-semibold">{b.titulo}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {b.texto}
-              </p>
-            </Card>
-          </Reveal>
-        ))}
+            </Reveal>
+          ))}
+        </div>
       </div>
     </Section>
   );

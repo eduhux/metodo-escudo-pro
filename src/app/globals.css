@@ -178,3 +178,21 @@
   .as-bevel { stroke-dashoffset: 0; }
   .as-shine { opacity: 0; }
 }
+
+/* ===== Marquee (faixa deslizante) ===== */
+.marquee-track {
+  animation: marquee 36s linear infinite;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
