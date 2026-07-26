@@ -21,7 +21,7 @@ export const site = {
 export const hero = {
   badge: "Oferta de lançamento",
   headline:
-    "Crie escudos de futebol profissionais no CorelDRAW — mesmo começando do zero",
+    "Desenvolva escudos de futebol de nível profissional no CorelDRAW — mesmo começando do zero",
   headlineHighlight: "mesmo começando do zero",
   subheadline:
     "O método passo a passo que leva você do primeiro traço à exportação final. Aprenda a técnica, monte um portfólio que vende e transforme isso em renda — do jeito profissional.",
@@ -51,7 +51,7 @@ export const trustCards = [
   {
     icon: MonitorPlay,
     titulo: "Aulas práticas",
-    texto: "Veja a criação passo a passo, na tela.",
+    texto: "Veja o desenvolvimento passo a passo, na tela.",
   },
   {
     icon: Headphones,
@@ -102,7 +102,7 @@ export const benefits = [
     icon: Palette,
     titulo: "Escudos com identidade",
     texto:
-      "Crie marcas que traduzem a força e a história de cada time — e que as pessoas querem vestir.",
+      "Desenvolva marcas que traduzem a força e a história de cada time — e que as pessoas querem vestir.",
   },
   {
     icon: Rocket,
@@ -114,7 +114,7 @@ export const benefits = [
     icon: MonitorPlay,
     titulo: "Veja acontecendo na tela",
     texto:
-      "Nada de teoria vazia: você acompanha a criação de escudos reais, do primeiro traço à exportação.",
+      "Nada de teoria vazia: você acompanha o desenvolvimento de escudos reais, do primeiro traço à exportação.",
   },
 ];
 
@@ -134,7 +134,7 @@ export const paraQuemE = [
     icon: Trophy,
     titulo: "Apaixonados por futebol",
     texto:
-      "Ama times e quer criar escudos de amadores, várzea, e-sports ou projetos pessoais.",
+      "Ama times e quer desenvolver escudos de amadores, várzea, e-sports ou projetos pessoais.",
   },
   {
     icon: Rocket,

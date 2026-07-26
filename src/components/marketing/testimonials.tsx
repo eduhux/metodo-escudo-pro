@@ -11,7 +11,7 @@ export function Testimonials() {
       <SectionHeading
         eyebrow="Depoimentos"
         title="Quem fez, aprovou"
-        subtitle="Alunos que saíram do zero e hoje criam escudos profissionais."
+        subtitle="Alunos que saíram do zero e hoje desenvolvem escudos profissionais."
       />
 
       <div className="mt-14 grid gap-5 sm:grid-cols-2">

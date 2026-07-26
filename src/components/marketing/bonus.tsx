@@ -42,7 +42,7 @@ export function Bonus() {
                 inclusas{" "}
                 <strong className="text-foreground/90">gratuitamente</strong> ao
                 entrar no curso. Acesso imediato junto com as aulas — para você
-                criar escudos com tipografia de alto nível desde o primeiro dia.
+                desenvolver escudos com tipografia de alto nível desde o primeiro dia.
               </p>
 
               <ul className="mt-6 flex flex-wrap gap-2.5">

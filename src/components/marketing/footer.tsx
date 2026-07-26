@@ -9,7 +9,7 @@ export function Footer() {
           <div className="max-w-xs text-center md:text-left">
             <Logo />
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              O método completo para criar escudos esportivos profissionais no
+              O método completo para desenvolver escudos esportivos profissionais no
               CorelDRAW, do zero ao avançado.
             </p>
           </div>

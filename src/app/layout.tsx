@@ -12,9 +12,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Método Escudo PRO — Crie escudos esportivos profissionais no CorelDRAW",
+  title: "Método Escudo PRO — Desenvolva escudos esportivos profissionais no CorelDRAW",
   description:
-    "O método completo para dominar o CorelDRAW e criar escudos esportivos profissionais do zero ao avançado. Aprenda a técnica, monte seu portfólio e conquiste clientes.",
+    "O método completo para dominar o CorelDRAW e desenvolver escudos esportivos profissionais do zero ao avançado. Aprenda a técnica, monte seu portfólio e conquiste clientes.",
   applicationName: "Método Escudo PRO",
   manifest: "/manifest.webmanifest",
   icons: {
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Método Escudo PRO",
     description:
-      "Crie escudos esportivos profissionais no CorelDRAW, do zero ao avançado.",
+      "Desenvolva escudos esportivos profissionais no CorelDRAW, do zero ao avançado.",
     type: "website",
   },
 };

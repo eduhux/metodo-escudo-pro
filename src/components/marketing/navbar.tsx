@@ -59,7 +59,7 @@ export function Navbar() {
 
           <div className="hidden items-center gap-2 md:flex">
             <Button asChild variant="ghost" size="sm">
-              <Link href="/login">Entrar</Link>
+              <Link href="/login">Portal do Aluno</Link>
             </Button>
             <Button asChild size="sm">
               <a href={KIWIFY_CHECKOUT_URL} target="_blank" rel="noopener noreferrer">
@@ -98,7 +98,7 @@ export function Navbar() {
                 ))}
                 <div className="mt-2 flex flex-col gap-2 border-t border-border pt-3">
                   <Button asChild variant="outline">
-                    <Link href="/login">Entrar</Link>
+                    <Link href="/login">Portal do Aluno</Link>
                   </Button>
                   <Button asChild>
                     <a href={KIWIFY_CHECKOUT_URL} target="_blank" rel="noopener noreferrer">

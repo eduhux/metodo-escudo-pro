@@ -11,7 +11,7 @@ export function Curriculum() {
       <SectionHeading
         eyebrow="Conteúdo do curso"
         title="O que você vai aprender, módulo a módulo"
-        subtitle="Uma aula inicial e 5 módulos completos, da criação das formas até a precificação e venda."
+        subtitle="Uma aula inicial e 5 módulos completos, do desenvolvimento das formas até a precificação e venda."
       />
 
       <div className="mx-auto mt-14 max-w-3xl space-y-3">

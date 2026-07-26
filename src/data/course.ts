@@ -12,7 +12,7 @@ export const course: Course = {
   id: "metodo-escudo-pro",
   titulo: "Método Escudo PRO",
   descricao:
-    "Do zero ao avançado no CorelDRAW: crie escudos esportivos profissionais e aprenda a vender.",
+    "Do zero ao avançado no CorelDRAW: desenvolva escudos esportivos profissionais e aprenda a vender.",
   modulos: [
     {
       id: "aula-inicial",

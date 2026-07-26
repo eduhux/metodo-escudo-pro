@@ -8,8 +8,8 @@ export function Benefits() {
     <Section id="beneficios">
       <SectionHeading
         eyebrow="Por que este método"
-        title="Tudo o que você precisa para dominar a criação de escudos"
-        subtitle="Um caminho claro e prático que transforma iniciantes em criadores de escudos profissionais."
+        title="Tudo o que você precisa para dominar o desenvolvimento de escudos"
+        subtitle="Um caminho claro e prático que leva iniciantes ao nível profissional no desenvolvimento de escudos."
       />
 
       <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
