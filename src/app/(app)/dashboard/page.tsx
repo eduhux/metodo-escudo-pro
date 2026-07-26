@@ -16,7 +16,7 @@ import {
   Type,
 } from "lucide-react";
 import { useAuth } from "@/context/auth-context";
-import { loadProgress } from "@/lib/progress";
+import { loadProgress, syncProgressFromCloud } from "@/lib/progress";
 import { course, flatLessons, totalLessons } from "@/data/course";
 import { greeting, formatName } from "@/lib/utils";
 import type { Progress } from "@/types";
@@ -37,6 +37,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     setProgress(loadProgress(user?.uid));
+    syncProgressFromCloud(user?.uid).then(setProgress).catch(() => {});
   }, [user?.uid]);
 
   const doneCount = progress

@@ -19,6 +19,7 @@ import {
   loadProgress,
   saveLastLesson,
   toggleLessonDone,
+  syncProgressFromCloud,
 } from "@/lib/progress";
 import { useAuth } from "@/context/auth-context";
 import type { Progress } from "@/types";
@@ -43,6 +44,7 @@ export default function CoursePage({
 
   useEffect(() => {
     setProgress(loadProgress(user?.uid));
+    syncProgressFromCloud(user?.uid).then(setProgress).catch(() => {});
   }, [user?.uid]);
 
   useEffect(() => {

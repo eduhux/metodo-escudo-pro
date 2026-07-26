@@ -18,11 +18,8 @@ function computePct(map: Record<string, boolean>): number {
   return Math.round((done / totalLessons) * 100);
 }
 
-/**
- * Progresso do aluno, salvo no navegador (localStorage), separado por usuário.
- * Reflete de imediato no dashboard, no anel de progresso e nas barras dos módulos.
- * (Evolução futura: sincronizar entre dispositivos via Firestore em progress/{uid}.)
- */
+/* ---------- Cache local (instantâneo) ---------- */
+
 export function loadProgress(uid?: string | null): Progress {
   if (typeof window === "undefined") return empty;
   try {
@@ -41,6 +38,80 @@ export function loadProgress(uid?: string | null): Progress {
   }
 }
 
+function persistLocal(uid: string | null | undefined, p: Progress) {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(storageKey(uid), JSON.stringify(p));
+  } catch {
+    /* ignora falhas de armazenamento */
+  }
+}
+
+/* ---------- Sincronização com o Firestore (entre dispositivos) ---------- */
+
+async function getDb() {
+  const { db } = await import("@/lib/firebase/client");
+  return db;
+}
+
+function mergeProgress(a: Progress, b: Progress): Progress {
+  const keys = new Set([
+    ...Object.keys(a.aulasConcluidas || {}),
+    ...Object.keys(b.aulasConcluidas || {}),
+  ]);
+  const aulasConcluidas: Record<string, boolean> = {};
+  keys.forEach((k) => {
+    aulasConcluidas[k] =
+      Boolean(a.aulasConcluidas?.[k]) || Boolean(b.aulasConcluidas?.[k]);
+  });
+  const ta = a.atualizadoEm ?? "";
+  const tb = b.atualizadoEm ?? "";
+  const maisNovo = tb >= ta ? b : a;
+  return {
+    aulasConcluidas,
+    percentual: computePct(aulasConcluidas),
+    ultimaAulaId: maisNovo.ultimaAulaId ?? a.ultimaAulaId ?? b.ultimaAulaId,
+    atualizadoEm: tb >= ta ? tb : ta,
+  };
+}
+
+async function writeCloud(uid: string, p: Progress) {
+  try {
+    const db = await getDb();
+    if (!db) return;
+    const { doc, setDoc } = await import("firebase/firestore");
+    await setDoc(doc(db, "progress", uid), p, { merge: true });
+  } catch {
+    /* silencioso — o cache local mantém o progresso */
+  }
+}
+
+/**
+ * Lê o progresso do Firestore, junta com o cache local, grava o resultado
+ * nos dois lados e retorna o progresso final. Chame logo após loadProgress().
+ */
+export async function syncProgressFromCloud(
+  uid?: string | null
+): Promise<Progress> {
+  const local = loadProgress(uid);
+  if (!uid) return local;
+  try {
+    const db = await getDb();
+    if (!db) return local;
+    const { doc, getDoc } = await import("firebase/firestore");
+    const snap = await getDoc(doc(db, "progress", uid));
+    const cloud = snap.exists() ? (snap.data() as Progress) : empty;
+    const merged = mergeProgress(cloud, local);
+    persistLocal(uid, merged);
+    void writeCloud(uid, merged);
+    return merged;
+  } catch {
+    return local;
+  }
+}
+
+/* ---------- Ações do aluno (local imediato + Firestore em 2º plano) ---------- */
+
 export function saveLastLesson(
   uid: string | null | undefined,
   aulaId: string
@@ -51,7 +122,8 @@ export function saveLastLesson(
     ultimaAulaId: aulaId,
     atualizadoEm: new Date().toISOString(),
   };
-  persist(uid, next);
+  persistLocal(uid, next);
+  if (uid) void writeCloud(uid, next);
   return next;
 }
 
@@ -68,15 +140,7 @@ export function toggleLessonDone(
     percentual: computePct(aulasConcluidas),
     atualizadoEm: new Date().toISOString(),
   };
-  persist(uid, next);
+  persistLocal(uid, next);
+  if (uid) void writeCloud(uid, next);
   return next;
-}
-
-function persist(uid: string | null | undefined, p: Progress) {
-  if (typeof window === "undefined") return;
-  try {
-    localStorage.setItem(storageKey(uid), JSON.stringify(p));
-  } catch {
-    /* ignora falhas de armazenamento */
-  }
 }
