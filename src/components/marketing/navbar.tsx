@@ -13,6 +13,7 @@ const links = [
   { href: "#beneficios", label: "Benefícios" },
   { href: "#conteudo", label: "Conteúdo" },
   { href: "#bonus", label: "Bônus" },
+  { href: "#oferta", label: "Preço" },
   { href: "#depoimentos", label: "Depoimentos" },
   { href: "#faq", label: "FAQ" },
 ];

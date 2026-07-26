@@ -19,20 +19,21 @@ export const site = {
 };
 
 export const hero = {
-  badge: "O método definitivo",
-  headline: "Crie escudos esportivos de nível profissional",
-  headlineHighlight: "nível profissional",
+  badge: "Oferta de lançamento",
+  headline:
+    "Crie escudos de futebol profissionais no CorelDRAW — mesmo começando do zero",
+  headlineHighlight: "mesmo começando do zero",
   subheadline:
-    "Domine o CorelDRAW e desenvolva escudos que impressionam — do primeiro traço à exportação final. Mesmo começando do zero, você aprende a técnica, monta seu portfólio e conquista seus primeiros clientes.",
-  ctaPrimary: "Comprar Agora",
-  ctaSecondary: "Ver Conteúdo",
+    "O método passo a passo que leva você do primeiro traço à exportação final. Aprenda a técnica, monte um portfólio que vende e transforme isso em renda — do jeito profissional.",
+  ctaPrimary: "Quero começar por R$97",
+  ctaSecondary: "Ver o que tem dentro",
 };
 
 export const heroChecklist = [
-  "Aprenda do zero ao avançado",
-  "Técnicas exclusivas e profissionais",
-  "Materiais e arquivos inclusos",
-  "Assista no seu ritmo, quando quiser",
+  "Do zero ao avançado, sem enrolação",
+  "Técnicas que fazem cliente pagar bem",
+  "200 fontes premium de bônus (grátis)",
+  "Garantia de 7 dias — risco zero",
 ];
 
 export const socialProof = {
@@ -64,42 +65,56 @@ export const trustCards = [
   },
 ];
 
+/** Oferta (ancoragem de preço + escassez) */
+export const oferta = {
+  precoDe: "297",
+  precoPor: "97",
+  bonusValor: "49,90",
+  valorTotal: "346,90",
+  itens: [
+    { nome: "Curso Método Escudo PRO (completo)", valor: "R$ 297" },
+    { nome: "Bônus: pacote com +200 fontes premium", valor: "R$ 49,90" },
+    { nome: "Materiais e arquivos das aulas", valor: "incluso" },
+  ],
+  escassez: "Oferta por tempo limitado · vagas limitadas",
+};
+
 export const benefits = [
   {
     icon: PenTool,
-    titulo: "Domínio real do CorelDRAW",
+    titulo: "O atalho do CorelDRAW",
     texto:
-      "Só as ferramentas que importam, na ordem certa. Chega de tutoriais soltos e tempo perdido.",
+      "As ferramentas certas, na ordem certa. Pare de perder horas em tutoriais soltos que não levam a lugar nenhum.",
   },
   {
     icon: ShieldCheck,
-    titulo: "Escudos de nível profissional",
+    titulo: "Nível profissional de verdade",
     texto:
-      "Proporção, cor e acabamento que separam o amador de quem entrega trabalho de verdade.",
+      "Proporção, cor e acabamento que separam o escudo amador do trabalho que o cliente paga bem para ter.",
   },
   {
     icon: Sparkles,
-    titulo: "Método passo a passo",
+    titulo: "Passo a passo à prova de iniciante",
     texto:
-      "Um caminho claro do básico ao avançado, direto ao ponto e fácil de acompanhar.",
+      "Um caminho claro do básico ao avançado. Se você sabe ligar o computador, você consegue.",
   },
   {
     icon: Palette,
-    titulo: "Identidade visual forte",
+    titulo: "Escudos com identidade",
     texto:
-      "Crie escudos com personalidade, que traduzem a força e a história de cada time.",
+      "Crie marcas que traduzem a força e a história de cada time — e que as pessoas querem vestir.",
   },
   {
     icon: Rocket,
-    titulo: "Do hobby ao negócio",
+    titulo: "Do hobby ao dinheiro no bolso",
     texto:
-      "Monte um portfólio que vende e aprenda a precificar e captar seus primeiros clientes.",
+      "Monte um portfólio que vende, aprenda a precificar e feche seus primeiros clientes pagantes.",
   },
   {
     icon: MonitorPlay,
-    titulo: "Aulas práticas e diretas",
+    titulo: "Veja acontecendo na tela",
     texto:
-      "Acompanhe a criação de escudos reais na tela, sem enrolação e sem teoria vazia.",
+      "Nada de teoria vazia: você acompanha a criação de escudos reais, do primeiro traço à exportação.",
   },
 ];
 
@@ -164,7 +179,7 @@ export const garantia = {
   icon: BadgeCheck,
   titulo: "Garantia incondicional de 7 dias",
   texto:
-    "Entre, assista às aulas e coloque em prática. Se em 7 dias você achar que não é para você, devolvemos 100% do seu investimento. O risco é todo nosso.",
+    "Entre, assista às aulas e coloque em prática. Se em 7 dias você achar que não é para você, devolvemos 100% do seu investimento — sem perguntas. O risco é todo nosso, não seu.",
 };
 
 export const beneficiosAcesso = [
@@ -175,6 +190,16 @@ export const beneficiosAcesso = [
 ];
 
 export const faq = [
+  {
+    pergunta: "Quanto custa e até quando esse preço?",
+    resposta:
+      "O curso vale R$297, e está com preço promocional de lançamento: R$97 — por tempo limitado. Quando as vagas desta turma fecharem ou a promoção acabar, ele volta ao valor cheio. Não deixe para depois.",
+  },
+  {
+    pergunta: "As vagas são limitadas mesmo?",
+    resposta:
+      "Sim. Abrimos em turmas com vagas limitadas para conseguir dar atenção e suporte aos alunos. Quando lota, o carrinho fecha — e só reabre na próxima janela, pelo valor cheio.",
+  },
   {
     pergunta: "Preciso já saber usar o CorelDRAW?",
     resposta:
@@ -191,25 +216,20 @@ export const faq = [
       "Seu acesso ao curso fica disponível por 12 meses a partir da confirmação da compra. Durante esse período, você assiste no seu ritmo, quantas vezes quiser, pelo computador ou celular.",
   },
   {
-    pergunta: "Como recebo o acesso após a compra?",
+    pergunta: "Como recebo o acesso e o bônus?",
     resposta:
-      "Assim que o pagamento é aprovado, seu acesso é liberado automaticamente e você recebe as instruções para criar sua senha e entrar na plataforma.",
-  },
-  {
-    pergunta: "Consigo assistir pelo celular?",
-    resposta:
-      "Sim. A plataforma é 100% responsiva e funciona perfeitamente no celular, tablet e computador.",
+      "Assim que o pagamento é aprovado, seu acesso é liberado automaticamente e você recebe as instruções para entrar. O pacote de 200 fontes fica disponível para download dentro da plataforma.",
   },
   {
     pergunta: "E se eu não gostar?",
     resposta:
-      "Você tem 7 dias de garantia incondicional. Se não for para você, é só pedir o reembolso dentro do prazo e devolvemos 100% do valor.",
+      "Você tem 7 dias de garantia incondicional. Se não for para você, é só pedir o reembolso dentro do prazo e devolvemos 100% do valor. Sem risco.",
   },
 ];
 
 export const finalCta = {
-  titulo: "Pronto para criar escudos que impressionam?",
+  titulo: "Comece hoje por R$97 — antes que a promoção acabe",
   subtitulo:
-    "Junte-se aos alunos que saíram do zero e hoje desenvolvem escudos profissionais no CorelDRAW.",
-  cta: "Quero começar agora",
+    "Curso completo + 200 fontes premium de bônus, com 7 dias de garantia. O risco é todo nosso.",
+  cta: "Quero garantir por R$97",
 };

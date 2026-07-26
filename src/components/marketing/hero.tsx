@@ -3,7 +3,13 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Check, Star } from "lucide-react";
-import { hero, heroChecklist, socialProof, trustCards } from "@/data/site";
+import {
+  hero,
+  heroChecklist,
+  socialProof,
+  trustCards,
+  oferta,
+} from "@/data/site";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BuyButton } from "./buy-button";
@@ -90,6 +96,24 @@ export function Hero() {
                 <Link href="#conteudo">{hero.ctaSecondary}</Link>
               </Button>
             </motion.div>
+
+            <motion.p
+              variants={fade}
+              custom={5}
+              initial="hidden"
+              animate="visible"
+              className="mt-4 text-sm"
+            >
+              <span className="text-muted-foreground line-through">
+                R$ {oferta.precoDe}
+              </span>{" "}
+              <span className="font-semibold text-foreground">
+                por R$ {oferta.precoPor}
+              </span>{" "}
+              <span className="text-muted-foreground">
+                · oferta por tempo limitado
+              </span>
+            </motion.p>
 
             <motion.div
               variants={fade}

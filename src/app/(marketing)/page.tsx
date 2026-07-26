@@ -5,6 +5,7 @@ import { Bonus } from "@/components/marketing/bonus";
 import { Audience } from "@/components/marketing/audience";
 import { Testimonials } from "@/components/marketing/testimonials";
 import { Guarantee } from "@/components/marketing/guarantee";
+import { Offer } from "@/components/marketing/offer";
 import { Faq } from "@/components/marketing/faq";
 import { FinalCta } from "@/components/marketing/final-cta";
 
@@ -18,6 +19,7 @@ export default function LandingPage() {
       <Audience />
       <Testimonials />
       <Guarantee />
+      <Offer />
       <Faq />
       <FinalCta />
     </>
