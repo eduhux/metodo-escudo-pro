@@ -33,6 +33,14 @@ const demoUser: AppUser = {
   criadoEm: new Date().toISOString(),
 };
 
+/** Gera um nome amigável a partir do e-mail, quando não há nome cadastrado. */
+function nomeDoEmail(email?: string | null): string | undefined {
+  if (!email) return undefined;
+  const base = email.split("@")[0]?.split(/[._\-+]/)[0];
+  if (!base) return undefined;
+  return base.charAt(0).toUpperCase() + base.slice(1);
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AppUser | null>(null);
   const [loading, setLoading] = useState(true);
@@ -78,7 +86,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
         setUser({
           uid: fbUser.uid,
-          nome: profile.nome ?? fbUser.displayName ?? "Aluno",
+          nome:
+            profile.nome ??
+            fbUser.displayName ??
+            nomeDoEmail(fbUser.email) ??
+            "Aluno",
           email: fbUser.email ?? "",
           acessoLiberado: profile.acessoLiberado !== false,
           kiwifyOrderId: profile.kiwifyOrderId,

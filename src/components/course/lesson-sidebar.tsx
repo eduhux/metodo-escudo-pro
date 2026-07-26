@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { CheckCircle2, PlayCircle, Circle } from "lucide-react";
+import { Check } from "lucide-react";
 import { course } from "@/data/course";
 import { cn } from "@/lib/utils";
 import type { Progress } from "@/types";
@@ -16,14 +16,17 @@ export function LessonSidebar({
   onNavigate?: () => void;
 }) {
   return (
-    <nav className="space-y-6">
+    <nav className="space-y-7">
       {course.modulos.map((m) => (
         <div key={m.id}>
-          <p className="mb-3 px-1 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          <p className="mb-3 px-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             {m.titulo}
           </p>
 
-          <ul className="space-y-1">
+          <ul className="relative space-y-0.5">
+            {/* fio da timeline */}
+            <div className="absolute bottom-4 left-4 top-4 w-px bg-border" />
+
             {m.aulas.map((a) => {
               const isCurrent = a.id === currentId;
               const isDone = Boolean(progress?.aulasConcluidas[a.id]);
@@ -33,27 +36,30 @@ export function LessonSidebar({
                     href={`/curso/${a.id}`}
                     onClick={onNavigate}
                     className={cn(
-                      "flex items-start gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors",
+                      "group relative flex items-center gap-3 rounded-lg py-2 pl-2 pr-3 text-sm transition-colors",
                       isCurrent
-                        ? "bg-primary/10 text-foreground"
-                        : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
+                        ? "bg-primary/10 font-medium text-foreground"
+                        : "text-muted-foreground hover:bg-accent/40 hover:text-foreground"
                     )}
                   >
-                    <span className="mt-0.5 shrink-0">
-                      {isDone ? (
-                        <CheckCircle2 className="h-4 w-4 text-primary" />
-                      ) : isCurrent ? (
-                        <PlayCircle className="h-4 w-4 text-primary" />
-                      ) : (
-                        <Circle className="h-4 w-4 opacity-50" />
+                    <span
+                      className={cn(
+                        "relative z-10 flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border bg-background transition-colors",
+                        isDone
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : isCurrent
+                            ? "border-primary"
+                            : "border-border group-hover:border-primary/50"
                       )}
+                    >
+                      {isDone ? (
+                        <Check className="h-3 w-3" strokeWidth={3} />
+                      ) : isCurrent ? (
+                        <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                      ) : null}
                     </span>
+
                     <span className="flex-1 leading-snug">{a.titulo}</span>
-                    {a.duracao && (
-                      <span className="shrink-0 text-xs opacity-70">
-                        {a.duracao}
-                      </span>
-                    )}
                   </Link>
                 </li>
               );
