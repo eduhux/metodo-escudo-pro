@@ -9,7 +9,7 @@ export function Audience() {
       <SectionHeading
         eyebrow="Para quem é"
         title="Este curso é para você"
-        subtitle="Não importa o seu ponto de partida — o método foi desenhado para levar você ao próximo nível."
+        subtitle="Não importa o seu ponto de partida: o método foi desenhado para levar você ao próximo nível."
       />
 
       <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

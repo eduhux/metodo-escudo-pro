@@ -29,7 +29,7 @@ export function Bonus() {
             <div>
               <Badge>
                 <Gift className="h-3.5 w-3.5" />
-                Bônus exclusivo — grátis
+                Bônus exclusivo · grátis
               </Badge>
 
               <h2 className="mt-5 text-3xl font-semibold tracking-tight md:text-4xl">
@@ -41,7 +41,7 @@ export function Bonus() {
                 As mesmas fontes que eu uso nos meus projetos profissionais,
                 inclusas{" "}
                 <strong className="text-foreground/90">gratuitamente</strong> ao
-                entrar no curso. Acesso imediato junto com as aulas — para você
+                entrar no curso. Acesso imediato junto com as aulas, para você
                 desenvolver escudos com tipografia de alto nível desde o primeiro dia.
               </p>
 

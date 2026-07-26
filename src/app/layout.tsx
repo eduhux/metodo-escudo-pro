@@ -12,7 +12,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Método Escudo PRO — Desenvolva escudos esportivos profissionais no CorelDRAW",
+  title: "Método Escudo PRO | Desenvolva escudos esportivos profissionais no CorelDRAW",
   description:
     "O método completo para dominar o CorelDRAW e desenvolver escudos esportivos profissionais do zero ao avançado. Aprenda a técnica, monte seu portfólio e conquiste clientes.",
   applicationName: "Método Escudo PRO",

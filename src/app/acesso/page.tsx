@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata = {
-  title: "Acesso liberado — Método Escudo PRO",
+  title: "Acesso liberado ao Método Escudo PRO",
   robots: { index: false, follow: false },
 };
 

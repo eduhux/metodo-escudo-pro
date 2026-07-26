@@ -228,9 +228,9 @@ export default function DashboardPage() {
                     Este pack é o seu{" "}
                     <strong className="text-foreground/90">
                       bônus por ter adquirido o curso
-                    </strong>{" "}
-                    — as mesmas fontes que uso nos meus projetos. Baixe e use nos
-                    seus escudos.
+                    </strong>
+                    , com as mesmas fontes que uso nos meus projetos. Baixe e use
+                    nos seus escudos.
                   </p>
                 </div>
               </div>

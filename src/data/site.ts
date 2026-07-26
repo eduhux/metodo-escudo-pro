@@ -21,10 +21,10 @@ export const site = {
 export const hero = {
   badge: "Oferta de lançamento",
   headline:
-    "Desenvolva escudos de futebol de nível profissional no CorelDRAW — mesmo começando do zero",
+    "Desenvolva escudos de futebol de nível profissional no CorelDRAW, mesmo começando do zero",
   headlineHighlight: "mesmo começando do zero",
   subheadline:
-    "O método passo a passo que leva você do primeiro traço à exportação final. Aprenda a técnica, monte um portfólio que vende e transforme isso em renda — do jeito profissional.",
+    "O método passo a passo que leva você do primeiro traço à exportação final. Aprenda a técnica, monte um portfólio que vende e transforme isso em renda, do jeito profissional.",
   ctaPrimary: "Quero começar por R$97",
   ctaSecondary: "Ver o que tem dentro",
 };
@@ -33,7 +33,7 @@ export const heroChecklist = [
   "Do zero ao avançado, sem enrolação",
   "Técnicas que fazem cliente pagar bem",
   "200 fontes premium de bônus (grátis)",
-  "Garantia de 7 dias — risco zero",
+  "Garantia de 7 dias, risco zero",
 ];
 
 export const socialProof = {
@@ -102,7 +102,7 @@ export const benefits = [
     icon: Palette,
     titulo: "Escudos com identidade",
     texto:
-      "Desenvolva marcas que traduzem a força e a história de cada time — e que as pessoas querem vestir.",
+      "Desenvolva marcas que traduzem a força e a história de cada time, que as pessoas querem vestir.",
   },
   {
     icon: Rocket,
@@ -179,7 +179,7 @@ export const garantia = {
   icon: BadgeCheck,
   titulo: "Garantia incondicional de 7 dias",
   texto:
-    "Entre, assista às aulas e coloque em prática. Se em 7 dias você achar que não é para você, devolvemos 100% do seu investimento — sem perguntas. O risco é todo nosso, não seu.",
+    "Entre, assista às aulas e coloque em prática. Se em 7 dias você achar que não é para você, devolvemos 100% do seu investimento, sem perguntas. O risco é todo nosso, não seu.",
 };
 
 export const beneficiosAcesso = [
@@ -193,12 +193,12 @@ export const faq = [
   {
     pergunta: "Quanto custa e até quando esse preço?",
     resposta:
-      "O curso vale R$297, e está com preço promocional de lançamento: R$97 — por tempo limitado. Quando as vagas desta turma fecharem ou a promoção acabar, ele volta ao valor cheio. Não deixe para depois.",
+      "O curso vale R$297, e está com preço promocional de lançamento: R$97, por tempo limitado. Quando as vagas desta turma fecharem ou a promoção acabar, ele volta ao valor cheio. Não deixe para depois.",
   },
   {
     pergunta: "As vagas são limitadas mesmo?",
     resposta:
-      "Sim. Abrimos em turmas com vagas limitadas para conseguir dar atenção e suporte aos alunos. Quando lota, o carrinho fecha — e só reabre na próxima janela, pelo valor cheio.",
+      "Sim. Abrimos em turmas com vagas limitadas para conseguir dar atenção e suporte aos alunos. Quando lota, o carrinho fecha e só reabre na próxima janela, pelo valor cheio.",
   },
   {
     pergunta: "Preciso já saber usar o CorelDRAW?",
@@ -228,7 +228,7 @@ export const faq = [
 ];
 
 export const finalCta = {
-  titulo: "Comece hoje por R$97 — antes que a promoção acabe",
+  titulo: "Comece hoje por R$97, antes que a promoção acabe",
   subtitulo:
     "Curso completo + 200 fontes premium de bônus, com 7 dias de garantia. O risco é todo nosso.",
   cta: "Quero garantir por R$97",
