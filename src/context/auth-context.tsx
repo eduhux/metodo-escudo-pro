@@ -80,7 +80,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           uid: fbUser.uid,
           nome: profile.nome ?? fbUser.displayName ?? "Aluno",
           email: fbUser.email ?? "",
-          acessoLiberado: profile.acessoLiberado ?? false,
+          acessoLiberado: profile.acessoLiberado !== false,
           kiwifyOrderId: profile.kiwifyOrderId,
           ultimaAulaId: profile.ultimaAulaId,
         });
