@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Loader2, Lock } from "lucide-react";
 import { useAuth } from "@/context/auth-context";
 import { AppNavbar } from "@/components/app/app-navbar";
+import { SupportButton } from "@/components/app/support-button";
 import { Button } from "@/components/ui/button";
 
 export default function AppLayout({
@@ -66,6 +67,7 @@ export default function AppLayout({
     <div className="min-h-screen">
       <AppNavbar />
       {children}
+      <SupportButton />
     </div>
   );
 }
