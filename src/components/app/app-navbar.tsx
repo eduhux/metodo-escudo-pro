@@ -40,10 +40,11 @@ export function AppNavbar() {
         <nav className="flex items-center gap-1">
           <Link
             href="/dashboard"
-            className="hidden items-center gap-2 rounded-lg px-3.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground sm:flex"
+            className="group relative hidden items-center gap-2 rounded-lg px-3.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground sm:flex"
           >
-            <LayoutDashboard className="h-4 w-4" />
+            <LayoutDashboard className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:text-primary" />
             Dashboard
+            <span className="pointer-events-none absolute inset-x-3 bottom-1 h-0.5 origin-left scale-x-0 rounded-full bg-gradient-to-r from-primary to-fuchsia-500 transition-transform duration-300 ease-out group-hover:scale-x-100" />
           </Link>
 
           <DropdownMenu>
