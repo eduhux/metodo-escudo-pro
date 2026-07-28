@@ -1,0 +1,36 @@
+rules_version = '2';
+
+// Regras de segurança do Firestore — Método Escudo PRO
+//
+// Como aplicar: Firebase Console > Firestore Database > aba "Regras",
+// cole este conteúdo e clique em "Publicar".
+//
+// Princípios:
+//  - O aluno só enxerga os PRÓPRIOS dados (nunca os de outros alunos).
+//  - O aluno NÃO pode liberar o próprio acesso: o campo acessoLiberado só é
+//    gravado pelo backend (webhook da Kiwify via Admin SDK, que ignora estas
+//    regras). O cliente não tem permissão de escrita no perfil.
+//  - Tudo o que não estiver explicitamente liberado é negado.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Perfil do aluno (nome, e-mail, acessoLiberado, pedido Kiwify).
+    // Leitura: só o próprio dono. Escrita: somente backend (Admin SDK).
+    match /users/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    // Progresso do curso (aulas concluídas, última aula, percentual).
+    // O dono lê e grava apenas o próprio documento.
+    match /progress/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // Bloqueio padrão: nega qualquer outro acesso não previsto acima.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

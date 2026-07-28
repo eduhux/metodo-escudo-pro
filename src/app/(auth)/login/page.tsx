@@ -34,10 +34,19 @@ export default function LoginPage() {
       await login(email, password);
       toast.success("Bem-vindo de volta!");
       router.push("/dashboard");
-    } catch {
-      setError(
-        'E-mail ou senha inválidos. Se você acabou de comprar o curso, clique em "Esqueceu a senha?" para criar seu acesso.'
-      );
+    } catch (err) {
+      const code = (err as { code?: string })?.code ?? "";
+      if (code === "auth/too-many-requests") {
+        setError(
+          "Muitas tentativas de login. Por segurança, aguarde alguns minutos e tente novamente (ou use \"Esqueceu a senha?\")."
+        );
+      } else if (code === "auth/network-request-failed") {
+        setError("Falha de conexão. Verifique sua internet e tente novamente.");
+      } else {
+        setError(
+          'E-mail ou senha inválidos. Se você acabou de comprar o curso, clique em "Esqueceu a senha?" para criar seu acesso.'
+        );
+      }
       setLoading(false);
     }
   }
