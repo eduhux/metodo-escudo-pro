@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Check, Star } from "lucide-react";
 import { hero, heroChecklist, socialProof, trustCards } from "@/data/site";
 import { Badge } from "@/components/ui/badge";
@@ -23,6 +23,17 @@ export function Hero() {
     new RegExp(`(${hero.headlineHighlight})`)
   );
 
+  const reduce = useReducedMotion();
+  const words: { w: string; hl: boolean }[] = [];
+  const pushWords = (text: string, hl: boolean) =>
+    text
+      .split(" ")
+      .filter(Boolean)
+      .forEach((w) => words.push({ w, hl }));
+  pushWords(pre ?? "", false);
+  pushWords(highlight ?? "", true);
+  pushWords(post ?? "", false);
+
   return (
     <section className="relative overflow-hidden pt-32 pb-16 md:pt-40 md:pb-24">
       <div className="pointer-events-none absolute inset-0 grid-pattern opacity-50" />
@@ -40,15 +51,41 @@ export function Hero() {
             </motion.div>
 
             <motion.h1
-              variants={fade}
-              custom={1}
+              aria-label={hero.headline}
               initial="hidden"
               animate="visible"
-              className="mt-6 text-balance text-4xl font-semibold leading-[1.06] tracking-tight text-gradient sm:text-5xl md:text-[3.4rem]"
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: { staggerChildren: 0.055, delayChildren: 0.12 },
+                },
+              }}
+              className="mt-6 text-balance text-4xl font-semibold leading-[1.06] tracking-tight sm:text-5xl md:text-[3.4rem]"
             >
-              {pre}
-              <span className="text-gradient-accent">{highlight}</span>
-              {post}
+              {words.map((word, i) => (
+                <motion.span
+                  key={`${word.w}-${i}`}
+                  aria-hidden
+                  className="mr-[0.25em] inline-block"
+                  variants={{
+                    hidden: reduce
+                      ? { opacity: 0 }
+                      : { opacity: 0, y: "0.5em", filter: "blur(10px)" },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      filter: "blur(0px)",
+                      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+                    },
+                  }}
+                >
+                  <span
+                    className={word.hl ? "text-gradient-accent" : "text-gradient"}
+                  >
+                    {word.w}
+                  </span>
+                </motion.span>
+              ))}
             </motion.h1>
 
             <motion.p
