@@ -24,6 +24,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress as ProgressBar } from "@/components/ui/progress";
 import { ProgressRing } from "@/components/dashboard/progress-ring";
+import { Counter } from "@/components/shared/counter";
 
 const MATERIAIS_URL =
   "https://drive.google.com/file/d/1KFM6JqIY5DH7qACk0b_XNGKlVOuN550L/view?usp=drive_link";
@@ -55,10 +56,22 @@ export default function DashboardPage() {
   const isStarted = Boolean(lastId) || doneCount > 0;
 
   const stats = [
-    { icon: Film, valor: totalLessons, label: "Aulas no total" },
-    { icon: Layers, valor: modulosCount, label: "Módulos" },
-    { icon: CheckCircle2, valor: doneCount, label: "Aulas concluídas" },
+    { icon: Film, valor: totalLessons, label: "Aulas no total", accent: false },
+    { icon: Layers, valor: modulosCount, label: "Módulos", accent: false },
+    {
+      icon: CheckCircle2,
+      valor: doneCount,
+      label: "Aulas concluídas",
+      accent: true,
+    },
   ];
+
+  const jornadaMsg =
+    pct === 100
+      ? "Você concluiu o método. Agora é colocar em prática e cobrar como profissional."
+      : isStarted
+        ? `Você já concluiu ${doneCount} ${doneCount === 1 ? "aula" : "aulas"}. Continue de onde parou e mantenha o ritmo.`
+        : "Sua jornada começa agora. Bora desenvolver seu primeiro escudo?";
 
   return (
     <div className="relative">
@@ -77,10 +90,7 @@ export default function DashboardPage() {
           <h1 className="mt-1 text-3xl font-semibold tracking-tight md:text-4xl">
             Olá, {formatName(user?.nome)} 👋
           </h1>
-          <p className="mt-2 text-muted-foreground">
-            Bem-vindo à sua área de aluno. Continue de onde parou e evolua no seu
-            ritmo.
-          </p>
+          <p className="mt-2 text-muted-foreground">{jornadaMsg}</p>
         </motion.div>
 
         {/* Estatísticas */}
@@ -95,9 +105,16 @@ export default function DashboardPage() {
               key={s.label}
               className="flex min-w-[8rem] flex-1 items-center gap-3.5 px-6 py-5"
             >
-              <s.icon className="h-5 w-5 shrink-0 text-primary" />
+              <s.icon
+                className={cn(
+                  "h-5 w-5 shrink-0",
+                  s.accent ? "text-[hsl(var(--energy))]" : "text-primary"
+                )}
+              />
               <div>
-                <p className="text-2xl font-semibold leading-none">{s.valor}</p>
+                <p className="text-2xl font-semibold leading-none tabular-nums">
+                  <Counter value={s.valor} />
+                </p>
                 <p className="mt-1 text-xs text-muted-foreground">{s.label}</p>
               </div>
             </div>
