@@ -24,6 +24,14 @@ export function Offer() {
               Leve tudo isso hoje
             </h2>
 
+            <p className="mx-auto mt-3 max-w-md text-center text-sm text-muted-foreground">
+              A{" "}
+              <span className="font-semibold text-foreground">
+                1ª turma de 100 alunos esgotou
+              </span>
+              . Esta é a 2ª, também com 100 vagas.
+            </p>
+
             {/* Empilhamento de valor */}
             <div className="mt-7 space-y-1 text-left">
               {oferta.itens.map((i) => (

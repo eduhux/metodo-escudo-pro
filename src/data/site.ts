@@ -75,7 +75,7 @@ export const oferta = {
     { nome: "Bônus: pacote com +200 fontes premium", valor: "R$ 49,90" },
     { nome: "Materiais e arquivos das aulas", valor: "incluso" },
   ],
-  escassez: "Oferta por tempo limitado · vagas limitadas",
+  escassez: "2ª turma aberta · 100 vagas",
 };
 
 export const benefits = [
@@ -198,7 +198,7 @@ export const faq = [
   {
     pergunta: "As vagas são limitadas mesmo?",
     resposta:
-      "Sim. Abrimos em turmas com vagas limitadas para conseguir dar atenção e suporte aos alunos. Quando lota, o carrinho fecha e só reabre na próxima janela, pelo valor cheio.",
+      "Sim, de verdade. A 1ª turma abriu com 100 vagas e esgotou. Esta é a 2ª turma, também com 100 vagas, para conseguirmos dar atenção e suporte a cada aluno. Quando lotar, o carrinho fecha e só reabre em uma próxima turma, pelo valor cheio.",
   },
   {
     pergunta: "Preciso já saber usar o CorelDRAW?",
