@@ -20,8 +20,8 @@ export const site = {
 
 export const hero = {
   badge: "Método validado em +100 escudos reais",
-  headline: "Do primeiro traço ao escudo de futebol profissional",
-  headlineHighlight: "escudo de futebol profissional",
+  headline: "Do primeiro traço ao escudo esportivo profissional",
+  headlineHighlight: "escudo esportivo profissional",
   subheadline:
     "Um método passo a passo, construído a partir de mais de 100 escudos reais, que leva você do zero ao domínio do CorelDRAW. Feito para quem está começando agora.",
   ctaPrimary: "Quero desenvolver meu primeiro escudo",
@@ -132,9 +132,9 @@ export const paraQuemE = [
   },
   {
     icon: Trophy,
-    titulo: "Apaixonados por futebol",
+    titulo: "Apaixonados por esporte",
     texto:
-      "Ama o esporte e quer desenvolver escudos de várzea, e-sports ou projetos pessoais.",
+      "Ama esporte e quer desenvolver escudos de times, e-sports ou projetos pessoais.",
   },
   {
     icon: Rocket,
