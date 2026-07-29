@@ -8,7 +8,7 @@ export function Benefits() {
       <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
         {/* Título fixo à esquerda */}
         <Reveal className="lg:sticky lg:top-28 lg:self-start">
-          <span className="text-sm font-medium uppercase tracking-widest text-primary">
+          <span className="text-sm font-medium uppercase tracking-widest text-energy">
             Por que este método
           </span>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-gradient md:text-4xl">
@@ -25,7 +25,7 @@ export function Benefits() {
           {benefits.map((b, i) => (
             <Reveal key={b.titulo} delay={i % 3}>
               <div className="group flex gap-5 py-6 first:pt-0 sm:gap-7">
-                <span className="pt-1 font-mono text-sm text-primary/60">
+                <span className="pt-1 font-mono text-sm text-[hsl(var(--energy)/0.7)]">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div className="flex-1">

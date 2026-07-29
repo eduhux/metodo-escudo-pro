@@ -143,6 +143,14 @@
       transparent 2px 16px
     );
   }
+  /* CTA de conversão: anel/glow limão no hover */
+  .cta-energy {
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+  }
+  .cta-energy:hover {
+    box-shadow: 0 0 0 2px hsl(var(--energy) / 0.55),
+      0 22px 55px -18px hsl(var(--energy) / 0.45);
+  }
 }
 
 /* Scrollbar sutil */

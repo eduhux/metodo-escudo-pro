@@ -39,7 +39,7 @@ export function EscudosShowcase() {
   return (
     <section id="escudos" className="py-20 sm:py-28">
       <div className="container text-center">
-        <p className="text-sm font-semibold uppercase tracking-widest text-primary">
+        <p className="text-sm font-semibold uppercase tracking-widest text-energy">
           Portfólio
         </p>
         <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">

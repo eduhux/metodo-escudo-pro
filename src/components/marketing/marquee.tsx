@@ -20,7 +20,7 @@ export function Marquee() {
             <span className="whitespace-nowrap text-sm font-semibold uppercase tracking-widest text-muted-foreground/60 md:text-base">
               {t}
             </span>
-            <Shield className="h-4 w-4 shrink-0 text-primary/50" />
+            <Shield className="h-4 w-4 shrink-0 text-[hsl(var(--energy)/0.6)]" />
           </div>
         ))}
       </div>
