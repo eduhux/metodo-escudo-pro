@@ -36,19 +36,19 @@ export function Bonus() {
   return (
     <Section id="bonus">
       <Reveal>
-        <Card className="relative overflow-hidden border-primary/30 bg-gradient-to-br from-card to-secondary/40 p-8 md:p-12">
+        <Card className="relative overflow-hidden rounded-none border-border bg-card p-8 md:p-12">
           <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
           <div className="pointer-events-none absolute inset-0 grid-pattern opacity-20" />
 
           <div className="relative grid items-center gap-10 lg:grid-cols-2">
             {/* Texto */}
             <div>
-              <Badge className="border-energy">
+              <Badge className="rounded-none border-energy font-mono text-xs uppercase tracking-wider">
                 <Gift className="h-3.5 w-3.5 text-[hsl(var(--energy))]" />
                 Bônus 1 · grátis
               </Badge>
 
-              <h2 className="mt-5 text-3xl font-semibold tracking-tight md:text-4xl">
+              <h2 className="mt-5 text-3xl uppercase tracking-tight md:text-4xl">
                 <span className="text-gradient-accent">+200 fontes premium</span>{" "}
                 de brinde
               </h2>
@@ -74,7 +74,9 @@ export function Bonus() {
               </ul>
 
               <div className="mt-8">
-                <BuyButton>Quero o curso + bônus</BuyButton>
+                <BuyButton className="rounded-none font-display text-lg uppercase tracking-wide">
+                  Quero o curso + bônus
+                </BuyButton>
               </div>
             </div>
 
@@ -84,7 +86,7 @@ export function Bonus() {
                 {amostras.map((f, i) => (
                   <div
                     key={i}
-                    className="flex aspect-square items-center justify-center rounded-xl border border-border bg-card/70 text-4xl text-foreground/90"
+                    className="flex aspect-square items-center justify-center rounded-none border border-border bg-card text-4xl text-foreground/90"
                     style={{ fontFamily: f.family }}
                   >
                     {f.label}
@@ -92,7 +94,7 @@ export function Bonus() {
                 ))}
               </div>
 
-              <div className="absolute -bottom-5 -right-2 flex flex-col items-center justify-center rounded-2xl bg-primary px-5 py-3 text-center text-primary-foreground shadow-lg shadow-primary/30">
+              <div className="absolute -bottom-5 -right-2 flex flex-col items-center justify-center rounded-none hard-shadow bg-primary px-5 py-3 text-center text-primary-foreground shadow-lg shadow-primary/30">
                 <span className="text-2xl font-bold leading-none">+200</span>
                 <span className="text-[11px] font-medium uppercase tracking-wider">
                   fontes
@@ -104,7 +106,7 @@ export function Bonus() {
       </Reveal>
 
       <Reveal className="mt-6">
-        <Card className="relative overflow-hidden border-primary/30 bg-gradient-to-br from-card to-secondary/40 p-8 md:p-12">
+        <Card className="relative overflow-hidden rounded-none border-border bg-card p-8 md:p-12">
           <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
           <div className="pointer-events-none absolute inset-0 grid-pattern opacity-20" />
 
@@ -115,7 +117,7 @@ export function Bonus() {
                 {escudosAmostra.map((src) => (
                   <div
                     key={src}
-                    className="relative flex aspect-square items-center justify-center rounded-xl border border-border bg-card/70 p-2"
+                    className="relative flex aspect-square items-center justify-center rounded-none border border-border bg-card p-2"
                   >
                     <Image
                       src={`/escudos/${src}`}
@@ -128,7 +130,7 @@ export function Bonus() {
                 ))}
               </div>
 
-              <div className="absolute -bottom-5 -left-2 flex flex-col items-center justify-center rounded-2xl bg-[hsl(var(--energy))] px-5 py-3 text-center text-[hsl(var(--energy-foreground))] shadow-lg">
+              <div className="absolute -bottom-5 -left-2 flex flex-col items-center justify-center rounded-none hard-shadow bg-[hsl(var(--energy))] px-5 py-3 text-center text-[hsl(var(--energy-foreground))] shadow-lg">
                 <span className="text-2xl font-bold leading-none">+120</span>
                 <span className="text-[11px] font-medium uppercase tracking-wider">
                   escudos
@@ -138,12 +140,12 @@ export function Bonus() {
 
             {/* Texto */}
             <div className="order-1 lg:order-2">
-              <Badge className="border-energy">
+              <Badge className="rounded-none border-energy font-mono text-xs uppercase tracking-wider">
                 <Gift className="h-3.5 w-3.5 text-[hsl(var(--energy))]" />
                 Bônus 2 · grátis
               </Badge>
 
-              <h2 className="mt-5 text-3xl font-semibold tracking-tight md:text-4xl">
+              <h2 className="mt-5 text-3xl uppercase tracking-tight md:text-4xl">
                 <span className="text-gradient-accent">+120 escudos</span> de
                 referência
               </h2>
@@ -172,7 +174,9 @@ export function Bonus() {
               </ul>
 
               <div className="mt-8">
-                <BuyButton>Quero o curso + bônus</BuyButton>
+                <BuyButton className="rounded-none font-display text-lg uppercase tracking-wide">
+                  Quero o curso + bônus
+                </BuyButton>
               </div>
             </div>
           </div>

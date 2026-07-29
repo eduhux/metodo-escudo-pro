@@ -1,20 +1,29 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Archivo } from "next/font/google";
+import { Anton, Archivo, Space_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 import { AuthProvider } from "@/context/auth-context";
 import { PwaRegister } from "@/components/shared/pwa-register";
 import "./globals.css";
 
-// Corpo: Manrope (limpo e legível). Títulos: Archivo (display atlético).
-const sans = Manrope({
+// Corpo: Archivo. Títulos display: Anton (condensado, impacto underground).
+// Rótulos técnicos: Space Mono.
+const sans = Archivo({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const display = Archivo({
+const display = Anton({
   subsets: ["latin"],
+  weight: "400",
   variable: "--font-display",
+  display: "swap",
+});
+
+const mono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -25,9 +34,13 @@ export const metadata: Metadata = {
   applicationName: "Método Escudo PRO",
   manifest: "/manifest.webmanifest",
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    icon: [
+      { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    shortcut: "/icon-192.png",
+    apple: "/apple-icon.png",
   },
   appleWebApp: {
     capable: true,
@@ -43,7 +56,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a12",
+  themeColor: "#0b0a07",
 };
 
 export default function RootLayout({
@@ -51,7 +64,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR" className="dark" suppressHydrationWarning>
-      <body className={`${sans.variable} ${display.variable} font-sans`}>
+      <body
+        className={`${sans.variable} ${display.variable} ${mono.variable} font-sans`}
+      >
         <AuthProvider>{children}</AuthProvider>
         <PwaRegister />
         <Toaster

@@ -4,37 +4,37 @@
 
 @layer base {
   :root {
-    /* Dark premium theme — vivid violet accent */
-    --background: 258 24% 5%;
-    --foreground: 250 20% 98%;
+    /* Underground / várzea — preto quente + lime primário + laranja quente */
+    --background: 48 20% 4%;
+    --foreground: 45 33% 94%;
 
-    --card: 258 20% 8%;
-    --card-foreground: 250 20% 98%;
+    --card: 48 14% 7%;
+    --card-foreground: 45 33% 94%;
 
-    --primary: 258 90% 66%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 72 100% 61%;
+    --primary-foreground: 66 100% 6%;
 
-    --secondary: 258 14% 13%;
-    --secondary-foreground: 250 20% 98%;
+    --secondary: 45 10% 11%;
+    --secondary-foreground: 45 33% 94%;
 
-    --muted: 258 14% 13%;
-    --muted-foreground: 256 12% 64%;
+    --muted: 45 8% 12%;
+    --muted-foreground: 44 9% 60%;
 
-    --accent: 258 16% 15%;
-    --accent-foreground: 250 20% 98%;
+    --accent: 45 10% 14%;
+    --accent-foreground: 45 33% 94%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 258 16% 17%;
-    --input: 258 16% 17%;
-    --ring: 258 90% 66%;
+    --border: 45 10% 16%;
+    --input: 45 10% 16%;
+    --ring: 72 100% 61%;
 
-    /* Acento de energia esportiva (verde-limão elétrico) */
-    --energy: 76 100% 60%;
-    --energy-foreground: 76 60% 12%;
+    /* Acento quente secundário (laranja várzea) */
+    --energy: 14 100% 60%;
+    --energy-foreground: 20 90% 8%;
 
-    --radius: 0.9rem;
+    --radius: 0.25rem;
   }
 }
 
@@ -54,10 +54,21 @@
   h3,
   h4 {
     font-family: var(--font-display), system-ui, sans-serif;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.01em;
   }
   ::selection {
-    @apply bg-primary/30 text-foreground;
+    @apply bg-primary text-primary-foreground;
+  }
+  /* Grão de filme global (textura underground) */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 }
 
@@ -79,14 +90,14 @@
 
   /* Gradiente de texto premium */
   .text-gradient {
-    background: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(255 20% 72%) 100%);
+    background: linear-gradient(180deg, hsl(45 30% 96%) 0%, hsl(44 12% 60%) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
   .text-gradient-accent {
-    background: linear-gradient(120deg, hsl(255 96% 78%) 0%, hsl(268 88% 62%) 100%);
+    background: linear-gradient(120deg, hsl(72 100% 72%) 0%, hsl(72 100% 52%) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -96,7 +107,7 @@
   .glow-primary {
     background: radial-gradient(
       ellipse 50% 50% at 50% 0%,
-      hsl(258 90% 66% / 0.20),
+      hsl(72 100% 61% / 0.08),
       transparent 70%
     );
   }
@@ -104,8 +115,8 @@
   .glow-orb {
     background: radial-gradient(
       circle at 50% 50%,
-      hsl(258 90% 62% / 0.55),
-      hsl(268 85% 45% / 0.15) 45%,
+      hsl(72 100% 61% / 0.2),
+      hsl(14 100% 55% / 0.1) 45%,
       transparent 70%
     );
   }
@@ -117,8 +128,32 @@
   }
 
   .card-glow:hover {
-    box-shadow: 0 0 0 1px hsl(258 90% 66% / 0.25),
-      0 18px 60px -20px hsl(258 90% 55% / 0.45);
+    box-shadow: 8px 10px 0 hsl(0 0% 0% / 0.45),
+      0 0 0 1px hsl(72 100% 61% / 0.3);
+    transform: translate(-1px, -1px);
+  }
+
+  /* Texturas underground */
+  .halftone-lime {
+    background-image: radial-gradient(
+      hsl(var(--primary)) 1.3px,
+      transparent 1.5px
+    );
+    background-size: 15px 15px;
+  }
+  .stripe-lime {
+    background-image: repeating-linear-gradient(
+      -18deg,
+      hsl(var(--primary) / 0.16) 0 8px,
+      transparent 8px 22px
+    );
+  }
+  .hard-shadow {
+    box-shadow: 12px 16px 0 hsl(0 0% 0% / 0.5);
+  }
+  .outline-text {
+    -webkit-text-stroke: 2px hsl(var(--foreground));
+    color: transparent;
   }
 
   /* ===== Acento de energia esportiva ===== */

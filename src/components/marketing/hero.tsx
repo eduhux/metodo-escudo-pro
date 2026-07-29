@@ -1,16 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
-import { Check, Star } from "lucide-react";
-import { hero, heroChecklist, socialProof, trustCards } from "@/data/site";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { Check } from "lucide-react";
+import { hero, heroChecklist, trustCards } from "@/data/site";
 import { BuyButton } from "./buy-button";
 import { HeroEscudos } from "./hero-escudos";
 
 const fade = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0, y: 20 },
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
@@ -19,73 +17,51 @@ const fade = {
 };
 
 export function Hero() {
-  const [pre, highlight, post] = hero.headline.split(
-    new RegExp(`(${hero.headlineHighlight})`)
-  );
-
-  const reduce = useReducedMotion();
-  const words: { w: string; hl: boolean }[] = [];
-  const pushWords = (text: string, hl: boolean) =>
-    text
-      .split(" ")
-      .filter(Boolean)
-      .forEach((w) => words.push({ w, hl }));
-  pushWords(pre ?? "", false);
-  pushWords(highlight ?? "", true);
-  pushWords(post ?? "", false);
-
   return (
-    <section className="relative overflow-hidden pt-32 pb-16 md:pt-40 md:pb-24">
-      <div className="pointer-events-none absolute inset-0 grid-pattern opacity-50" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[640px] glow-primary" />
+    <section className="relative overflow-hidden pt-32 pb-16 md:pt-36 md:pb-24">
+      {/* halftone no canto */}
+      <div
+        className="halftone-lime pointer-events-none absolute -right-16 -top-16 hidden h-[420px] w-[420px] opacity-40 lg:block"
+        style={{
+          maskImage: "radial-gradient(circle at 70% 30%, #000, transparent 70%)",
+          WebkitMaskImage:
+            "radial-gradient(circle at 70% 30%, #000, transparent 70%)",
+        }}
+      />
 
       <div className="container relative">
-        <div className="grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-24">
-          {/* Coluna de texto */}
-          <div>
-            <motion.div variants={fade} custom={0} initial="hidden" animate="visible">
-              <Badge className="border-energy">
-                <Star className="h-3.5 w-3.5 fill-[hsl(var(--energy))] text-[hsl(var(--energy))]" />
-                {hero.badge}
-              </Badge>
-            </motion.div>
+        {/* faixa de listras (camisa) */}
+        <div className="stripe-lime pointer-events-none absolute inset-y-0 right-[33%] hidden w-16 -skew-x-6 opacity-70 lg:block" />
+        {/* palavra fantasma */}
+        <span className="pointer-events-none absolute -top-4 left-0 hidden font-display text-[13rem] uppercase leading-[0.8] tracking-tight text-foreground/[0.04] lg:block">
+          Vetor
+        </span>
 
-            <motion.h1
-              aria-label={hero.headline}
+        <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="relative">
+            <motion.p
+              variants={fade}
+              custom={0}
               initial="hidden"
               animate="visible"
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: { staggerChildren: 0.055, delayChildren: 0.12 },
-                },
-              }}
-              className="mt-6 text-balance text-4xl font-semibold leading-[1.06] tracking-tight sm:text-5xl md:text-[3.4rem]"
+              className="font-mono text-xs uppercase tracking-[0.25em] text-primary"
             >
-              {words.map((word, i) => (
-                <motion.span
-                  key={`${word.w}-${i}`}
-                  aria-hidden
-                  className="mr-[0.25em] inline-block"
-                  variants={{
-                    hidden: reduce
-                      ? { opacity: 0 }
-                      : { opacity: 0, y: "0.5em", filter: "blur(10px)" },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      filter: "blur(0px)",
-                      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
-                    },
-                  }}
-                >
-                  <span
-                    className={word.hl ? "text-gradient-accent" : "text-gradient"}
-                  >
-                    {word.w}
-                  </span>
-                </motion.span>
-              ))}
+              <span className="mr-3 inline-block h-px w-8 bg-primary align-middle" />
+              Método // CorelDRAW // Do zero
+            </motion.p>
+
+            <motion.h1
+              variants={fade}
+              custom={1}
+              initial="hidden"
+              animate="visible"
+              className="mt-6 font-display text-5xl uppercase leading-[0.92] sm:text-6xl md:text-[5rem]"
+            >
+              Do primeiro traço
+              <br />
+              ao <span className="outline-text">escudo</span>
+              <br />
+              <span className="text-primary">profissional.</span>
             </motion.h1>
 
             <motion.p
@@ -93,7 +69,7 @@ export function Hero() {
               custom={2}
               initial="hidden"
               animate="visible"
-              className="mt-6 max-w-lg text-pretty text-base leading-relaxed text-muted-foreground md:text-lg"
+              className="mt-6 max-w-md text-pretty leading-relaxed text-muted-foreground md:text-lg"
             >
               {hero.subheadline}
             </motion.p>
@@ -103,13 +79,14 @@ export function Hero() {
               custom={3}
               initial="hidden"
               animate="visible"
-              className="mt-9 flex flex-col gap-3.5"
+              className="mt-6 flex flex-col gap-2"
             >
               {heroChecklist.map((item) => (
-                <li key={item} className="flex items-center gap-2.5 text-sm text-foreground/90">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
-                    <Check className="h-3.5 w-3.5" strokeWidth={3} />
-                  </span>
+                <li
+                  key={item}
+                  className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-wide text-foreground/80"
+                >
+                  <Check className="h-3.5 w-3.5 text-primary" strokeWidth={3} />
                   {item}
                 </li>
               ))}
@@ -120,17 +97,17 @@ export function Hero() {
               custom={4}
               initial="hidden"
               animate="visible"
-              className="mt-11 flex flex-col gap-3 sm:flex-row sm:items-center"
+              className="mt-9 flex flex-wrap items-center gap-6"
             >
-              <BuyButton className="w-full sm:w-auto">{hero.ctaPrimary}</BuyButton>
-              <Button
-                asChild
-                variant="ghost"
-                size="lg"
-                className="w-full text-muted-foreground hover:text-foreground sm:w-auto"
+              <BuyButton className="rounded-none font-display text-lg uppercase tracking-wide">
+                {hero.ctaPrimary}
+              </BuyButton>
+              <Link
+                href="#conteudo"
+                className="border-b-2 border-[hsl(var(--energy))] pb-1 font-mono text-xs uppercase tracking-widest text-foreground/90 transition-colors hover:text-foreground"
               >
-                <Link href="#conteudo">{hero.ctaSecondary}</Link>
-              </Button>
+                {hero.ctaSecondary}
+              </Link>
             </motion.div>
 
             <motion.p
@@ -138,77 +115,49 @@ export function Hero() {
               custom={5}
               initial="hidden"
               animate="visible"
-              className="mt-4 flex items-center gap-2 text-xs text-muted-foreground"
+              className="mt-9 font-mono text-[11px] uppercase tracking-wider text-muted-foreground"
             >
-              <Check className="h-3.5 w-3.5 text-energy" strokeWidth={3} />
-              {hero.reassurance}
+              1ª turma esgotada &nbsp;/&nbsp;{" "}
+              <span className="text-[hsl(var(--energy))]">
+                2ª turma aberta · 100 vagas
+              </span>
             </motion.p>
-
-            <motion.div
-              variants={fade}
-              custom={6}
-              initial="hidden"
-              animate="visible"
-              className="mt-8 flex items-center gap-4"
-            >
-              <div className="flex -space-x-3">
-                {["from-violet-400 to-violet-600", "from-fuchsia-400 to-purple-600", "from-indigo-400 to-violet-600", "from-purple-400 to-fuchsia-600"].map(
-                  (g, i) => (
-                    <span
-                      key={i}
-                      className={`h-9 w-9 rounded-full border-2 border-background bg-gradient-to-br ${g}`}
-                    />
-                  )
-                )}
-              </div>
-              <div>
-                <div className="flex items-center gap-0.5 text-primary">
-                  {Array.from({ length: socialProof.estrelas }).map((_, i) => (
-                    <Star key={i} className="h-3.5 w-3.5 fill-current" />
-                  ))}
-                </div>
-                <p className="mt-0.5 text-xs text-muted-foreground">
-                  <span className="font-semibold text-foreground">{socialProof.nota}/5</span>{" "}
-                  · {socialProof.total} que começaram do zero
-                </p>
-              </div>
-            </motion.div>
           </div>
 
-          {/* Coluna do emblema */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="relative flex justify-center"
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="relative"
           >
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <div className="h-72 w-72 rounded-full glow-orb blur-2xl md:h-96 md:w-96" />
-            </div>
             <HeroEscudos />
           </motion.div>
         </div>
 
-        {/* Cartões de confiança */}
+        {/* Cartões de confiança — blocos duros, divididos */}
         <motion.div
           variants={fade}
           custom={6}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-16 grid border border-border sm:grid-cols-2 lg:grid-cols-4"
         >
-          {trustCards.map((c) => (
+          {trustCards.map((c, i) => (
             <div
               key={c.titulo}
-              className="card-glow flex items-start gap-3.5 rounded-xl border border-border bg-card/60 p-4 transition-all duration-300 hover:-translate-y-1"
+              className={`flex items-start gap-3.5 p-5 ${
+                i > 0 ? "border-t border-border sm:border-l sm:border-t-0" : ""
+              }`}
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-primary/10 text-primary">
                 <c.icon className="h-5 w-5" />
               </span>
               <div>
-                <p className="text-sm font-semibold">{c.titulo}</p>
-                <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+                <p className="font-mono text-xs uppercase tracking-wide">
+                  {c.titulo}
+                </p>
+                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
                   {c.texto}
                 </p>
               </div>

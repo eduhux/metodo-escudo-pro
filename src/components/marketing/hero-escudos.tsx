@@ -4,49 +4,47 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 /**
- * Vitrine de escudos reais na hero. Grade 2x2 alinhada (dois em cima, dois
- * embaixo) com flutuação coordenada: a linha de cima e a de baixo se movem
- * em sentidos opostos.
+ * Vitrine de escudos na hero — cluster sobreposto e rotacionado, com sombra
+ * dura (pegada underground). Um escudo em destaque + de apoio, vazando.
  */
-const featured = [
-  "escudo-14.png", // Hydra
-  "escudo-13.png", // Dragões
-  "escudo-06.png", // Bruxos
-  "escudo-18.png", // Magic
+const cluster = [
+  { src: "escudo-14.png", pos: "w-[62%] left-[14%] top-[-4%]", z: "z-30", border: "border-primary", rot: -7 },
+  { src: "escudo-06.png", pos: "w-[44%] left-[-2%] top-[30%]", z: "z-20", border: "border-border", rot: 6 },
+  { src: "escudo-18.png", pos: "w-[46%] left-[52%] top-[24%]", z: "z-20", border: "border-border", rot: 9 },
+  { src: "escudo-15.png", pos: "w-[36%] left-[26%] top-[62%]", z: "z-10", border: "border-border", rot: -4 },
 ];
 
 export function HeroEscudos() {
   return (
-    <div className="relative mx-auto grid w-full max-w-[440px] grid-cols-2 gap-6">
-      {featured.map((src, i) => {
-        const topRow = i < 2; // 0,1 = cima | 2,3 = baixo
-        return (
-          <motion.div
-            key={src}
-            initial={{ opacity: 0, y: 24, scale: 0.92 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{
-              duration: 0.6,
-              delay: 0.15 + i * 0.1,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-          >
-            <motion.div
-              animate={{ y: topRow ? [0, -10, 0] : [0, 10, 0] }}
-              transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-              className="relative aspect-square rounded-3xl border border-border/60 bg-gradient-to-br from-primary/10 to-white/[0.02] p-4 shadow-xl shadow-black/25 backdrop-blur-sm"
-            >
-              <Image
-                src={`/escudos/${src}`}
-                alt="Escudo desenvolvido no Método Escudo PRO"
-                fill
-                sizes="220px"
-                className="object-contain p-2 drop-shadow-lg"
-              />
-            </motion.div>
-          </motion.div>
-        );
-      })}
+    <div className="relative mx-auto aspect-square w-full max-w-[440px]">
+      {/* nós de vetor (motivo CorelDRAW) */}
+      <span className="absolute -left-2 top-6 font-mono text-primary/70">+</span>
+      <span className="absolute right-0 top-16 font-mono text-primary/70">□</span>
+      <span className="absolute bottom-8 left-8 font-mono text-primary/70">□</span>
+
+      {cluster.map((e, i) => (
+        <motion.div
+          key={e.src}
+          initial={{ opacity: 0, y: 26, rotate: e.rot }}
+          animate={{ opacity: 1, y: 0, rotate: e.rot }}
+          transition={{
+            duration: 0.6,
+            delay: 0.15 + i * 0.1,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className={`absolute aspect-square border bg-card hard-shadow ${e.pos} ${e.z} ${e.border}`}
+        >
+          <div className="relative h-full w-full p-3">
+            <Image
+              src={`/escudos/${e.src}`}
+              alt="Escudo desenvolvido no Método Escudo PRO"
+              fill
+              sizes="280px"
+              className="object-contain"
+            />
+          </div>
+        </motion.div>
+      ))}
     </div>
   );
 }

@@ -63,8 +63,10 @@ export function Navbar() {
       <div className="container">
         <div
           className={cn(
-            "flex items-center justify-between rounded-2xl px-4 py-2.5 transition-all duration-300",
-            scrolled ? "glass-strong shadow-lg" : "bg-transparent"
+            "flex items-center justify-between border px-4 py-2.5 transition-all duration-300",
+            scrolled
+              ? "border-border bg-background/90 backdrop-blur-md"
+              : "border-transparent bg-transparent"
           )}
         >
           <Logo />
@@ -78,7 +80,7 @@ export function Navbar() {
                   href={l.href}
                   aria-current={isActive ? "true" : undefined}
                   className={cn(
-                    "relative rounded-lg px-3.5 py-2 text-sm transition-colors",
+                    "relative px-3 py-2 font-mono text-xs uppercase tracking-wider transition-colors",
                     isActive
                       ? "text-foreground"
                       : "text-muted-foreground hover:text-foreground"
@@ -98,10 +100,19 @@ export function Navbar() {
           </nav>
 
           <div className="hidden items-center gap-2 md:flex">
-            <Button asChild variant="ghost" size="sm">
+            <Button
+              asChild
+              variant="ghost"
+              size="sm"
+              className="font-mono text-xs uppercase tracking-wider"
+            >
               <Link href="/login">Portal do Aluno</Link>
             </Button>
-            <Button asChild size="sm">
+            <Button
+              asChild
+              size="sm"
+              className="rounded-none font-mono text-xs uppercase tracking-wider"
+            >
               <a href={KIWIFY_CHECKOUT_URL} target="_blank" rel="noopener noreferrer">
                 Comprar Agora
               </a>
@@ -124,7 +135,7 @@ export function Navbar() {
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
-              className="mt-2 overflow-hidden rounded-2xl glass-strong p-4 md:hidden"
+              className="mt-2 overflow-hidden border border-border bg-background/95 p-4 backdrop-blur-md md:hidden"
             >
               <nav className="flex flex-col gap-1">
                 {links.map((l) => {
@@ -136,7 +147,7 @@ export function Navbar() {
                       onClick={() => setOpen(false)}
                       aria-current={isActive ? "true" : undefined}
                       className={cn(
-                        "rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-accent hover:text-foreground",
+                        "px-3 py-2.5 font-mono text-xs uppercase tracking-wider transition-colors hover:bg-accent hover:text-foreground",
                         isActive ? "text-energy" : "text-muted-foreground"
                       )}
                     >

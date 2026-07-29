@@ -17,17 +17,27 @@ export function Curriculum() {
       <div className="mx-auto mt-14 max-w-3xl space-y-3">
         {course.modulos.map((m, i) => (
           <Reveal key={m.id} delay={i}>
-            <Card className="card-glow flex items-center gap-4 bg-card/60 p-5 transition-all duration-300 hover:border-primary/30">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <Card className="card-glow flex items-center gap-4 rounded-none border-border bg-card p-5 transition-all duration-300 hover:border-primary/40">
+              <span className="font-mono text-xl leading-none text-primary">
+                {String(i).padStart(2, "0")}
+              </span>
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-none bg-primary/10 text-primary">
                 <Shield className="h-5 w-5" />
               </span>
-              <p className="font-medium md:text-lg">{m.titulo}</p>
+              <p className="font-medium uppercase tracking-wide md:text-lg">
+                {m.titulo}
+              </p>
             </Card>
           </Reveal>
         ))}
 
         <div className="flex justify-center pt-3">
-          <Badge variant="glass">+ Bônus e atualizações futuras inclusos</Badge>
+          <Badge
+            variant="outline"
+            className="rounded-none font-mono text-xs uppercase tracking-wider"
+          >
+            + Bônus e atualizações inclusos
+          </Badge>
         </div>
       </div>
     </Section>

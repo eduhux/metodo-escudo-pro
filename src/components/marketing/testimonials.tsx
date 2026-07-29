@@ -17,8 +17,8 @@ export function Testimonials() {
       <div className="mt-14 grid gap-5 sm:grid-cols-2">
         {depoimentos.map((d, i) => (
           <Reveal key={d.nome} delay={i % 2}>
-            <Card className="relative h-full bg-card/60 p-6">
-              <Quote className="absolute right-6 top-6 h-8 w-8 text-primary/15" />
+            <Card className="relative h-full rounded-none border-border bg-card p-6">
+              <Quote className="absolute right-6 top-6 h-8 w-8 text-primary/20" />
               <div className="flex gap-0.5 text-primary">
                 {Array.from({ length: 5 }).map((_, k) => (
                   <Star key={k} className="h-4 w-4 fill-current" />
@@ -28,8 +28,10 @@ export function Testimonials() {
                 “{d.texto}”
               </p>
               <div className="mt-6 flex items-center gap-3">
-                <Avatar>
-                  <AvatarFallback>{d.avatar}</AvatarFallback>
+                <Avatar className="rounded-none border border-border">
+                  <AvatarFallback className="rounded-none">
+                    {d.avatar}
+                  </AvatarFallback>
                 </Avatar>
                 <div>
                   <p className="text-sm font-semibold">{d.nome}</p>

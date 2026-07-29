@@ -14,7 +14,7 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="flex flex-col items-center gap-3 text-sm text-muted-foreground md:items-end">
+          <div className="flex flex-col items-center gap-3 font-mono text-xs uppercase tracking-wide text-muted-foreground md:items-end">
             <Link href="/login" className="transition-colors hover:text-foreground">
               Área do aluno
             </Link>

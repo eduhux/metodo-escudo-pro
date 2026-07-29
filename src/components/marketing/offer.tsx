@@ -10,17 +10,14 @@ export function Offer() {
   return (
     <Section id="oferta">
       <Reveal className="mx-auto max-w-xl">
-        <Card className="relative overflow-hidden border-primary/40 bg-gradient-to-b from-card to-secondary/40 p-8 text-center md:p-10">
-          <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/15 blur-3xl" />
-          <div className="pointer-events-none absolute inset-0 grid-pattern opacity-20" />
-
+        <Card className="relative overflow-hidden rounded-none border-primary/50 bg-card p-8 text-center hard-shadow md:p-10">
           <div className="relative">
-            <Badge className="mx-auto border-energy">
+            <Badge className="mx-auto rounded-none border-energy font-mono text-xs uppercase tracking-wider">
               <Flame className="h-3.5 w-3.5 text-[hsl(var(--energy))]" />
               {oferta.escassez}
             </Badge>
 
-            <h2 className="mt-5 text-2xl font-semibold tracking-tight text-gradient md:text-3xl">
+            <h2 className="mt-5 text-2xl uppercase tracking-tight md:text-4xl">
               Leve tudo isso hoje
             </h2>
 
@@ -65,7 +62,7 @@ export function Offer() {
                 <span className="pb-1 text-xl text-muted-foreground line-through">
                   R$ {oferta.precoDe}
                 </span>
-                <span className="text-5xl font-bold text-gradient-accent md:text-6xl">
+                <span className="font-display text-6xl text-primary md:text-7xl">
                   R$ {oferta.precoPor}
                 </span>
               </div>
@@ -74,7 +71,10 @@ export function Offer() {
               </p>
             </div>
 
-            <BuyButton className="mt-7 w-full" size="lg">
+            <BuyButton
+              className="mt-7 w-full rounded-none font-display text-lg uppercase tracking-wide"
+              size="lg"
+            >
               Quero garantir por R$97
             </BuyButton>
 

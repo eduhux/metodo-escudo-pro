@@ -19,7 +19,11 @@ export function Faq() {
       <Reveal className="mx-auto mt-14 max-w-3xl">
         <Accordion type="single" collapsible className="space-y-3">
           {faq.map((f, i) => (
-            <AccordionItem key={i} value={`faq-${i}`}>
+            <AccordionItem
+              key={i}
+              value={`faq-${i}`}
+              className="rounded-none border border-border bg-card px-4"
+            >
               <AccordionTrigger>{f.pergunta}</AccordionTrigger>
               <AccordionContent>{f.resposta}</AccordionContent>
             </AccordionItem>

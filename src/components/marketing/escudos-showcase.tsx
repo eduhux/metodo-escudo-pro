@@ -12,7 +12,7 @@ function Row({ items, reverse = false }: { items: string[]; reverse?: boolean })
         {[...items, ...items].map((src, i) => (
           <div
             key={`${src}-${i}`}
-            className="relative h-32 w-32 shrink-0 rounded-2xl border border-border/60 bg-gradient-to-br from-secondary/40 to-background/40 sm:h-40 sm:w-40"
+            className="relative h-32 w-32 shrink-0 rounded-none border border-border bg-card sm:h-40 sm:w-40"
           >
             <Image
               src={`/escudos/${src}`}
@@ -40,10 +40,11 @@ export function EscudosShowcase() {
   return (
     <section id="escudos" className="py-20 sm:py-28">
       <div className="container text-center">
-        <p className="text-sm font-semibold uppercase tracking-widest text-energy">
+        <p className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-primary">
+          <span aria-hidden>//</span>
           Portfólio
         </p>
-        <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+        <h2 className="mt-4 text-3xl uppercase leading-[1.05] sm:text-5xl">
           Escudos desenvolvidos pelo professor
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
