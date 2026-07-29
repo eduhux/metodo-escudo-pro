@@ -23,6 +23,17 @@ export default function LandingPage() {
       <Audience />
       <Testimonials />
       <Guarantee />
+      <div aria-hidden className="container">
+        <div
+          className="mx-auto h-7 max-w-4xl stripes-energy opacity-30"
+          style={{
+            maskImage:
+              "linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent)",
+            WebkitMaskImage:
+              "linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent)",
+          }}
+        />
+      </div>
       <Offer />
       <Faq />
       <FinalCta />

@@ -201,7 +201,7 @@ export function Hero() {
           {trustCards.map((c) => (
             <div
               key={c.titulo}
-              className="card-glow flex items-start gap-3.5 rounded-xl border border-border bg-card/60 p-4 transition-all duration-300"
+              className="card-glow flex items-start gap-3.5 rounded-xl border border-border bg-card/60 p-4 transition-all duration-300 hover:-translate-y-1"
             >
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <c.icon className="h-5 w-5" />

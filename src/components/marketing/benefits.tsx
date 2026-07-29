@@ -30,7 +30,7 @@ export function Benefits() {
                 </span>
                 <div className="flex-1">
                   <div className="flex items-center gap-3">
-                    <b.icon className="h-5 w-5 shrink-0 text-primary transition-transform group-hover:scale-110" />
+                    <b.icon className="h-5 w-5 shrink-0 text-primary transition-all duration-300 group-hover:scale-110 group-hover:text-[hsl(var(--energy))]" />
                     <h3 className="text-lg font-semibold">{b.titulo}</h3>
                   </div>
                   <p className="mt-2 leading-relaxed text-muted-foreground">
