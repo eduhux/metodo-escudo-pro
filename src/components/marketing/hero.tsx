@@ -29,7 +29,7 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[640px] glow-primary" />
 
       <div className="container relative">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-24">
           {/* Coluna de texto */}
           <div>
             <motion.div variants={fade} custom={0} initial="hidden" animate="visible">
@@ -56,7 +56,7 @@ export function Hero() {
               custom={2}
               initial="hidden"
               animate="visible"
-              className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground md:text-lg"
+              className="mt-6 max-w-lg text-pretty text-base leading-relaxed text-muted-foreground md:text-lg"
             >
               {hero.subheadline}
             </motion.p>
@@ -66,7 +66,7 @@ export function Hero() {
               custom={3}
               initial="hidden"
               animate="visible"
-              className="mt-7 grid gap-3 sm:grid-cols-2"
+              className="mt-9 grid gap-x-6 gap-y-3.5 sm:grid-cols-2"
             >
               {heroChecklist.map((item) => (
                 <li key={item} className="flex items-center gap-2.5 text-sm text-foreground/90">
@@ -83,7 +83,7 @@ export function Hero() {
               custom={4}
               initial="hidden"
               animate="visible"
-              className="mt-9 flex flex-col gap-3 sm:flex-row"
+              className="mt-11 flex flex-col gap-3 sm:flex-row"
             >
               <BuyButton className="w-full sm:w-auto">{hero.ctaPrimary}</BuyButton>
               <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
@@ -96,7 +96,7 @@ export function Hero() {
               custom={5}
               initial="hidden"
               animate="visible"
-              className="mt-8 flex items-center gap-4"
+              className="mt-10 flex items-center gap-4"
             >
               <div className="flex -space-x-3">
                 {["from-violet-400 to-violet-600", "from-fuchsia-400 to-purple-600", "from-indigo-400 to-violet-600", "from-purple-400 to-fuchsia-600"].map(

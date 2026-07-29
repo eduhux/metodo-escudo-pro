@@ -17,7 +17,7 @@ const featured = [
 
 export function HeroEscudos() {
   return (
-    <div className="relative mx-auto grid w-full max-w-[440px] grid-cols-2 gap-5">
+    <div className="relative mx-auto grid w-full max-w-[440px] grid-cols-2 gap-6">
       {featured.map((src, i) => (
         <motion.div
           key={src}
@@ -28,6 +28,7 @@ export function HeroEscudos() {
             delay: 0.15 + i * 0.1,
             ease: [0.22, 1, 0.36, 1],
           }}
+          className={i % 2 === 1 ? "mt-8 sm:mt-12" : ""}
         >
           <motion.div
             animate={{ y: [0, -10, 0] }}

@@ -24,7 +24,7 @@ export const hero = {
     "Desenvolva escudos de futebol profissionais que fazem qualquer time parecer grande",
   headlineHighlight: "parecer grande",
   subheadline:
-    "O passo a passo completo no CorelDRAW, do primeiro traço à exportação final. O mesmo método por trás de mais de 100 escudos reais: você domina a técnica, monta um portfólio que vende e passa a cobrar como profissional, mesmo que nunca tenha aberto o programa.",
+    "O passo a passo completo no CorelDRAW para você dominar a técnica, montar um portfólio que vende e cobrar como profissional. Mesmo começando do zero.",
   ctaPrimary: "Quero desenvolver meus escudos",
   ctaSecondary: "Ver o que tem dentro",
 };
