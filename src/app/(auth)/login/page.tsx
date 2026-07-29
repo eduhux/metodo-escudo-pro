@@ -56,7 +56,7 @@ export default function LoginPage() {
       <CardHeader className="text-center">
         <CardTitle className="text-2xl">Entrar na plataforma</CardTitle>
         <CardDescription>
-          Acesse o Método Escudo PRO e continue seus estudos.
+          Entre para continuar desenvolvendo seus escudos.
         </CardDescription>
       </CardHeader>
       <CardContent>

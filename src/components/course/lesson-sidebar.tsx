@@ -44,9 +44,9 @@ export function LessonSidebar({
                   >
                     <span
                       className={cn(
-                        "relative z-10 flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border bg-background transition-colors",
+                        "relative z-10 flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border bg-background transition-all group-hover:scale-110",
                         isDone
-                          ? "border-primary bg-primary text-primary-foreground"
+                          ? "border-[hsl(var(--energy))] bg-[hsl(var(--energy))] text-[hsl(var(--energy-foreground))]"
                           : isCurrent
                             ? "border-primary"
                             : "border-border group-hover:border-primary/50"

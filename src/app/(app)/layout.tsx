@@ -47,7 +47,13 @@ export default function AppLayout({
           </p>
           <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
             <Button asChild variant="outline">
-              <a href="mailto:designer@eduhux.com.br">Falar com o suporte</a>
+              <a
+                href="https://wa.me/5567993079077?text=Ol%C3%A1!%20Comprei%20o%20M%C3%A9todo%20Escudo%20PRO%20mas%20meu%20acesso%20ainda%20n%C3%A3o%20est%C3%A1%20liberado."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Falar com o suporte
+              </a>
             </Button>
             <Button
               onClick={async () => {
