@@ -44,13 +44,13 @@ export const socialProof = {
 export const trustCards = [
   {
     icon: Zap,
-    titulo: "Acesso imediato",
-    texto: "Comece a assistir na hora da compra.",
+    titulo: "Acesso na hora",
+    texto: "Comece a assistir assim que a compra é aprovada.",
   },
   {
     icon: MonitorPlay,
     titulo: "Aulas práticas",
-    texto: "Veja o desenvolvimento passo a passo, na tela.",
+    texto: "Acompanhe o desenvolvimento passo a passo, na tela.",
   },
   {
     icon: Headphones,
@@ -60,7 +60,7 @@ export const trustCards = [
   {
     icon: ShieldCheck,
     titulo: "Garantia de 7 dias",
-    texto: "Risco zero. Não gostou, devolvemos.",
+    texto: "Não gostou? Devolvemos 100%.",
   },
 ];
 
@@ -83,37 +83,37 @@ export const benefits = [
     icon: PenTool,
     titulo: "O atalho do CorelDRAW",
     texto:
-      "As ferramentas certas, na ordem certa. Pare de perder horas em tutoriais soltos que não levam a lugar nenhum.",
+      "As ferramentas certas, na ordem certa. Chega de juntar tutoriais soltos que não levam a lugar nenhum.",
   },
   {
     icon: ShieldCheck,
-    titulo: "Nível profissional de verdade",
+    titulo: "O acabamento profissional",
     texto:
-      "Proporção, cor e acabamento que separam o escudo amador do trabalho que o cliente paga bem para ter.",
+      "Proporção, cor e brilho: os detalhes que separam o escudo amador do trabalho que o cliente paga bem para ter.",
   },
   {
     icon: Sparkles,
-    titulo: "Passo a passo à prova de iniciante",
+    titulo: "Feito para quem começa do zero",
     texto:
-      "Um caminho claro do básico ao avançado. Se você sabe ligar o computador, você consegue.",
+      "Um caminho claro do básico ao avançado. Se você sabe ligar o computador, você acompanha.",
   },
   {
     icon: Palette,
     titulo: "Escudos com identidade",
     texto:
-      "Desenvolva marcas que traduzem a força e a história de cada time, que as pessoas querem vestir.",
+      "Desenvolva marcas que traduzem a força e a história de cada time. Arte que a torcida quer vestir.",
   },
   {
     icon: Rocket,
-    titulo: "Do hobby ao dinheiro no bolso",
+    titulo: "Do hobby à renda",
     texto:
       "Monte um portfólio que vende, aprenda a precificar e feche seus primeiros clientes pagantes.",
   },
   {
     icon: MonitorPlay,
-    titulo: "Veja acontecendo na tela",
+    titulo: "Você vê acontecendo na tela",
     texto:
-      "Nada de teoria vazia: você acompanha o desenvolvimento de escudos reais, do primeiro traço à exportação.",
+      "Nada de teoria solta. Você acompanha o desenvolvimento de escudos reais, do primeiro traço à exportação.",
   },
 ];
 
@@ -121,25 +121,26 @@ export const paraQuemE = [
   {
     icon: GraduationCap,
     titulo: "Iniciantes completos",
-    texto: "Nunca abriu o CorelDRAW? Sem problema. Começamos do absoluto zero.",
+    texto:
+      "Nunca abriu o CorelDRAW? A gente começa do absoluto zero, sem pular etapas.",
   },
   {
     icon: PenTool,
     titulo: "Designers e ilustradores",
     texto:
-      "Quer se especializar em escudos e adicionar um serviço lucrativo ao portfólio.",
+      "Quer se especializar em escudos e somar um serviço lucrativo ao seu portfólio.",
   },
   {
     icon: Trophy,
     titulo: "Apaixonados por futebol",
     texto:
-      "Ama times e quer desenvolver escudos de amadores, várzea, e-sports ou projetos pessoais.",
+      "Ama o esporte e quer desenvolver escudos de várzea, e-sports ou projetos pessoais.",
   },
   {
     icon: Rocket,
-    titulo: "Quem busca renda extra",
+    titulo: "Quem busca renda",
     texto:
-      "Quer aprender uma habilidade com demanda real e transformar em fonte de renda.",
+      "Quer dominar uma habilidade com demanda real e transformar isso em fonte de renda.",
   },
 ];
 
@@ -178,7 +179,7 @@ export const garantia = {
   icon: BadgeCheck,
   titulo: "Garantia incondicional de 7 dias",
   texto:
-    "Entre, assista às aulas e coloque em prática. Se em 7 dias você achar que não é para você, devolvemos 100% do seu investimento, sem perguntas. O risco é todo nosso, não seu.",
+    "Entre, assista às aulas e coloque em prática. Se em 7 dias você achar que não é para você, devolvemos 100% do que pagou, sem burocracia. O risco é todo nosso, não seu.",
 };
 
 export const beneficiosAcesso = [
@@ -227,8 +228,8 @@ export const faq = [
 ];
 
 export const finalCta = {
-  titulo: "Comece hoje por R$97, antes que a promoção acabe",
+  titulo: "Seu primeiro escudo profissional começa hoje",
   subtitulo:
-    "Curso completo + 200 fontes premium de bônus, com 7 dias de garantia. O risco é todo nosso.",
-  cta: "Quero garantir por R$97",
+    "Curso completo, mais de 200 fontes premium de bônus e 7 dias de garantia. Hoje por R$97, enquanto a promoção de lançamento está no ar.",
+  cta: "Quero garantir meu acesso",
 };
