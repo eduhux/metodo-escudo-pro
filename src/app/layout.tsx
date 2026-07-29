@@ -1,13 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Manrope, Archivo } from "next/font/google";
 import { Toaster } from "sonner";
 import { AuthProvider } from "@/context/auth-context";
 import { PwaRegister } from "@/components/shared/pwa-register";
 import "./globals.css";
 
-const inter = Inter({
+// Corpo: Manrope (limpo e legível). Títulos: Archivo (display atlético).
+const sans = Manrope({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
+});
+
+const display = Archivo({
+  subsets: ["latin"],
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -44,7 +51,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR" className="dark" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans`}>
+      <body className={`${sans.variable} ${display.variable} font-sans`}>
         <AuthProvider>{children}</AuthProvider>
         <PwaRegister />
         <Toaster
