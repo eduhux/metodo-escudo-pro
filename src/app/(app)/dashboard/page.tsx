@@ -14,6 +14,7 @@ import {
   Layers,
   Gift,
   Type,
+  Shield,
 } from "lucide-react";
 import { useAuth } from "@/context/auth-context";
 import { loadProgress, syncProgressFromCloud } from "@/lib/progress";
@@ -31,6 +32,9 @@ const MATERIAIS_URL =
 
 const FONTES_URL =
   "https://drive.google.com/drive/folders/1MOl_YdmujRUcd1fW5J80JN5gdfz3S4SK?usp=sharing";
+
+// TODO: substituir pelo link real do pack de 120 escudos (Google Drive).
+const ESCUDOS_URL = "#";
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -195,7 +199,7 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.18 }}
-          className="mt-5 grid gap-5 lg:grid-cols-2"
+          className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
         >
           {/* Materiais do curso */}
           <Card className="relative h-full overflow-hidden bg-gradient-to-br from-card to-secondary/40">
@@ -252,6 +256,37 @@ export default function DashboardPage() {
               <Button asChild size="lg" className="mt-auto w-full sm:w-fit">
                 <a href={FONTES_URL} target="_blank" rel="noopener noreferrer">
                   <Download /> Baixar fontes
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Bônus — pack de 120 escudos de referência */}
+          <Card className="relative h-full overflow-hidden border-primary/30 bg-gradient-to-br from-primary/10 via-card to-secondary/40">
+            <div className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full bg-primary/20 blur-3xl" />
+            <CardContent className="relative flex h-full flex-col gap-4 p-6">
+              <div className="flex items-start gap-4">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
+                  <Shield className="h-6 w-6" />
+                </span>
+                <div>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-3 py-1 text-xs font-medium text-primary">
+                    <Gift className="h-3.5 w-3.5" />
+                    Bônus exclusivo
+                  </span>
+                  <h3 className="mt-2 text-lg font-semibold">
+                    Pack com 120 escudos de referência
+                  </h3>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                    120 escudos profissionais em PNG para usar como referência
+                    nos seus projetos. Estude proporção, cores e estilos, e nunca
+                    mais comece do zero. É o seu bônus por ter entrado no curso.
+                  </p>
+                </div>
+              </div>
+              <Button asChild size="lg" className="mt-auto w-full sm:w-fit">
+                <a href={ESCUDOS_URL} target="_blank" rel="noopener noreferrer">
+                  <Download /> Baixar pack de escudos
                 </a>
               </Button>
             </CardContent>
