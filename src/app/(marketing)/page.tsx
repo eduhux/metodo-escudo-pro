@@ -1,5 +1,6 @@
 import { Hero } from "@/components/marketing/hero";
 import { Marquee } from "@/components/marketing/marquee";
+import { EscudosShowcase } from "@/components/marketing/escudos-showcase";
 import { Benefits } from "@/components/marketing/benefits";
 import { Curriculum } from "@/components/marketing/curriculum";
 import { Bonus } from "@/components/marketing/bonus";
@@ -15,6 +16,7 @@ export default function LandingPage() {
     <>
       <Hero />
       <Marquee />
+      <EscudosShowcase />
       <Benefits />
       <Curriculum />
       <Bonus />
