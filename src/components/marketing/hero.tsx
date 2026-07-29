@@ -33,8 +33,8 @@ export function Hero() {
           {/* Coluna de texto */}
           <div>
             <motion.div variants={fade} custom={0} initial="hidden" animate="visible">
-              <Badge>
-                <Star className="h-3.5 w-3.5 fill-primary" />
+              <Badge className="border-energy">
+                <Star className="h-3.5 w-3.5 fill-[hsl(var(--energy))] text-[hsl(var(--energy))]" />
                 {hero.badge}
               </Badge>
             </motion.div>
@@ -103,7 +103,7 @@ export function Hero() {
               animate="visible"
               className="mt-4 flex items-center gap-2 text-xs text-muted-foreground"
             >
-              <Check className="h-3.5 w-3.5 text-primary" strokeWidth={3} />
+              <Check className="h-3.5 w-3.5 text-energy" strokeWidth={3} />
               {hero.reassurance}
             </motion.p>
 

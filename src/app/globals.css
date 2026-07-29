@@ -30,6 +30,10 @@
     --input: 258 16% 17%;
     --ring: 258 90% 66%;
 
+    /* Acento de energia esportiva (verde-limão elétrico) */
+    --energy: 76 100% 60%;
+    --energy-foreground: 76 60% 12%;
+
     --radius: 0.9rem;
   }
 }
@@ -108,6 +112,36 @@
   .card-glow:hover {
     box-shadow: 0 0 0 1px hsl(258 90% 66% / 0.25),
       0 18px 60px -20px hsl(258 90% 55% / 0.45);
+  }
+
+  /* ===== Acento de energia esportiva ===== */
+  .text-energy {
+    color: hsl(var(--energy));
+  }
+  .border-energy {
+    border-color: hsl(var(--energy) / 0.55);
+  }
+  .bg-energy {
+    background: hsl(var(--energy));
+    color: hsl(var(--energy-foreground));
+  }
+  .text-gradient-energy {
+    background: linear-gradient(100deg, hsl(var(--energy)) 0%, hsl(150 85% 55%) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .glow-energy {
+    box-shadow: 0 0 0 1px hsl(var(--energy) / 0.3),
+      0 20px 60px -22px hsl(var(--energy) / 0.4);
+  }
+  /* Textura de listras diagonais (vibe camisa / esporte) */
+  .stripes-energy {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      hsl(var(--energy) / 0.1) 0 2px,
+      transparent 2px 16px
+    );
   }
 }
 
