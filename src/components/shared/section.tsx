@@ -1,3 +1,4 @@
+import { ChevronsRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Reveal } from "./reveal";
 
@@ -34,7 +35,8 @@ export function SectionHeading({
   return (
     <Reveal className={cn("mx-auto max-w-2xl text-center", className)}>
       {eyebrow && (
-        <span className="text-sm font-medium uppercase tracking-widest text-primary">
+        <span className="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest text-energy">
+          <ChevronsRight className="h-4 w-4" strokeWidth={2.5} />
           {eyebrow}
         </span>
       )}

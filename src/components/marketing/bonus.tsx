@@ -27,8 +27,8 @@ export function Bonus() {
           <div className="relative grid items-center gap-10 lg:grid-cols-2">
             {/* Texto */}
             <div>
-              <Badge>
-                <Gift className="h-3.5 w-3.5" />
+              <Badge className="border-energy">
+                <Gift className="h-3.5 w-3.5 text-[hsl(var(--energy))]" />
                 Bônus exclusivo · grátis
               </Badge>
 

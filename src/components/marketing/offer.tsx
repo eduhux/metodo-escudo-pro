@@ -15,8 +15,8 @@ export function Offer() {
           <div className="pointer-events-none absolute inset-0 grid-pattern opacity-20" />
 
           <div className="relative">
-            <Badge className="mx-auto">
-              <Flame className="h-3.5 w-3.5" />
+            <Badge className="mx-auto border-energy">
+              <Flame className="h-3.5 w-3.5 text-[hsl(var(--energy))]" />
               {oferta.escassez}
             </Badge>
 
