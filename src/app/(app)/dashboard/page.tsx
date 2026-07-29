@@ -33,8 +33,8 @@ const MATERIAIS_URL =
 const FONTES_URL =
   "https://drive.google.com/drive/folders/1MOl_YdmujRUcd1fW5J80JN5gdfz3S4SK?usp=sharing";
 
-// TODO: substituir pelo link real do pack de 120 escudos (Google Drive).
-const ESCUDOS_URL = "#";
+const ESCUDOS_URL =
+  "https://drive.google.com/file/d/12e5QEAb7uJ-7VeHRhdXvC2EmxhHLvnmI/view?usp=drive_link";
 
 export default function DashboardPage() {
   const { user } = useAuth();
