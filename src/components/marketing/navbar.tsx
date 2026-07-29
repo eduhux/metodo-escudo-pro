@@ -71,7 +71,8 @@ export function Navbar() {
           <button
             className="flex h-10 w-10 items-center justify-center rounded-lg text-foreground md:hidden"
             onClick={() => setOpen((v) => !v)}
-            aria-label="Menu"
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={open}
           >
             {open ? <X /> : <Menu />}
           </button>
