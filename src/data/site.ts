@@ -19,21 +19,20 @@ export const site = {
 };
 
 export const hero = {
-  badge: "+100 escudos desenvolvidos no método",
-  headline:
-    "Desenvolva escudos de futebol profissionais que fazem qualquer time parecer grande",
-  headlineHighlight: "parecer grande",
+  badge: "Método validado em +100 escudos reais",
+  headline: "Do primeiro traço ao escudo de futebol profissional",
+  headlineHighlight: "escudo de futebol profissional",
   subheadline:
-    "O passo a passo completo no CorelDRAW para você dominar a técnica, montar um portfólio que vende e cobrar como profissional. Mesmo começando do zero.",
-  ctaPrimary: "Quero desenvolver meus escudos",
-  ctaSecondary: "Ver o que tem dentro",
+    "Um método passo a passo, construído a partir de mais de 100 escudos reais, que leva você do zero ao domínio do CorelDRAW. Feito para quem está começando agora.",
+  ctaPrimary: "Quero desenvolver meu primeiro escudo",
+  ctaSecondary: "Ver o método por dentro",
+  reassurance: "Comece do zero, sem saber desenhar. 7 dias de garantia.",
 };
 
 export const heroChecklist = [
-  "Do zero ao avançado, sem enrolação",
-  "Técnicas que fazem cliente pagar bem",
-  "200 fontes premium de bônus (grátis)",
-  "Garantia de 7 dias, risco zero",
+  "Escudos com cara de estúdio, não de iniciante",
+  "Um portfólio pronto para atrair seus primeiros clientes",
+  "A habilidade para cobrar mais pelos seus projetos",
 ];
 
 export const socialProof = {

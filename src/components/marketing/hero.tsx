@@ -66,7 +66,7 @@ export function Hero() {
               custom={3}
               initial="hidden"
               animate="visible"
-              className="mt-9 grid gap-x-6 gap-y-3.5 sm:grid-cols-2"
+              className="mt-9 flex flex-col gap-3.5"
             >
               {heroChecklist.map((item) => (
                 <li key={item} className="flex items-center gap-2.5 text-sm text-foreground/90">
@@ -83,20 +83,36 @@ export function Hero() {
               custom={4}
               initial="hidden"
               animate="visible"
-              className="mt-11 flex flex-col gap-3 sm:flex-row"
+              className="mt-11 flex flex-col gap-3 sm:flex-row sm:items-center"
             >
               <BuyButton className="w-full sm:w-auto">{hero.ctaPrimary}</BuyButton>
-              <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
+              <Button
+                asChild
+                variant="ghost"
+                size="lg"
+                className="w-full text-muted-foreground hover:text-foreground sm:w-auto"
+              >
                 <Link href="#conteudo">{hero.ctaSecondary}</Link>
               </Button>
             </motion.div>
 
-            <motion.div
+            <motion.p
               variants={fade}
               custom={5}
               initial="hidden"
               animate="visible"
-              className="mt-10 flex items-center gap-4"
+              className="mt-4 flex items-center gap-2 text-xs text-muted-foreground"
+            >
+              <Check className="h-3.5 w-3.5 text-primary" strokeWidth={3} />
+              {hero.reassurance}
+            </motion.p>
+
+            <motion.div
+              variants={fade}
+              custom={6}
+              initial="hidden"
+              animate="visible"
+              className="mt-8 flex items-center gap-4"
             >
               <div className="flex -space-x-3">
                 {["from-violet-400 to-violet-600", "from-fuchsia-400 to-purple-600", "from-indigo-400 to-violet-600", "from-purple-400 to-fuchsia-600"].map(
@@ -115,8 +131,8 @@ export function Hero() {
                   ))}
                 </div>
                 <p className="mt-0.5 text-xs text-muted-foreground">
-                  <span className="font-semibold text-foreground">{socialProof.nota}</span>{" "}
-                  · {socialProof.total}
+                  <span className="font-semibold text-foreground">{socialProof.nota}/5</span>{" "}
+                  · {socialProof.total} que começaram do zero
                 </p>
               </div>
             </motion.div>
