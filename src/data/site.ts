@@ -19,13 +19,13 @@ export const site = {
 };
 
 export const hero = {
-  badge: "Oferta de lançamento",
+  badge: "+100 escudos desenvolvidos no método",
   headline:
-    "Desenvolva escudos de futebol de nível profissional no CorelDRAW, mesmo começando do zero",
-  headlineHighlight: "mesmo começando do zero",
+    "Desenvolva escudos de futebol profissionais que fazem qualquer time parecer grande",
+  headlineHighlight: "parecer grande",
   subheadline:
-    "O método passo a passo que leva você do primeiro traço à exportação final. Aprenda a técnica, monte um portfólio que vende e transforme isso em renda, do jeito profissional.",
-  ctaPrimary: "Quero começar por R$97",
+    "O passo a passo completo no CorelDRAW, do primeiro traço à exportação final. O mesmo método por trás de mais de 100 escudos reais: você domina a técnica, monta um portfólio que vende e passa a cobrar como profissional, mesmo que nunca tenha aberto o programa.",
+  ctaPrimary: "Quero desenvolver meus escudos",
   ctaSecondary: "Ver o que tem dentro",
 };
 

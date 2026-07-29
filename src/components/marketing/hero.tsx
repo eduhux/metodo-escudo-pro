@@ -3,17 +3,11 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Check, Star } from "lucide-react";
-import {
-  hero,
-  heroChecklist,
-  socialProof,
-  trustCards,
-  oferta,
-} from "@/data/site";
+import { hero, heroChecklist, socialProof, trustCards } from "@/data/site";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BuyButton } from "./buy-button";
-import { AnimatedShield } from "./animated-shield";
+import { HeroEscudos } from "./hero-escudos";
 
 const fade = {
   hidden: { opacity: 0, y: 22 },
@@ -97,24 +91,6 @@ export function Hero() {
               </Button>
             </motion.div>
 
-            <motion.p
-              variants={fade}
-              custom={5}
-              initial="hidden"
-              animate="visible"
-              className="mt-4 text-sm"
-            >
-              <span className="text-muted-foreground line-through">
-                R$ {oferta.precoDe}
-              </span>{" "}
-              <span className="font-semibold text-foreground">
-                por R$ {oferta.precoPor}
-              </span>{" "}
-              <span className="text-muted-foreground">
-                · oferta por tempo limitado
-              </span>
-            </motion.p>
-
             <motion.div
               variants={fade}
               custom={5}
@@ -156,13 +132,7 @@ export function Hero() {
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
               <div className="h-72 w-72 rounded-full glow-orb blur-2xl md:h-96 md:w-96" />
             </div>
-            <motion.div
-              animate={{ y: [0, -14, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="relative"
-            >
-              <AnimatedShield />
-            </motion.div>
+            <HeroEscudos />
           </motion.div>
         </div>
 
