@@ -3,7 +3,7 @@
 import { use, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowLeft,
   ArrowRight,
@@ -40,6 +40,7 @@ export default function CoursePage({
   const { user } = useAuth();
   const [progress, setProgress] = useState<Progress | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [celebrate, setCelebrate] = useState(false);
 
   const data = useMemo(() => findLesson(aulaId), [aulaId]);
 
@@ -52,6 +53,33 @@ export default function CoursePage({
     if (data) setProgress(saveLastLesson(user?.uid, aulaId));
     setSidebarOpen(false);
   }, [aulaId, data, user?.uid]);
+
+  // Atalhos de teclado (recurso de usuário avançado): C conclui, setas navegam.
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (!data || e.metaKey || e.ctrlKey || e.altKey) return;
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA") return;
+      if (e.key === "ArrowRight" && data.next) {
+        router.push(`/curso/${data.next.id}`);
+      } else if (e.key === "ArrowLeft" && data.prev) {
+        router.push(`/curso/${data.prev.id}`);
+      } else if (e.key.toLowerCase() === "c") {
+        const done = Boolean(progress?.aulasConcluidas[data.lesson.id]);
+        setProgress(toggleLessonDone(user?.uid, data.lesson.id, !done));
+        if (!done) setCelebrate(true);
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [data, progress, router, user?.uid]);
+
+  // Auto-fecha a micro-celebração.
+  useEffect(() => {
+    if (!celebrate) return;
+    const t = setTimeout(() => setCelebrate(false), 1600);
+    return () => clearTimeout(t);
+  }, [celebrate]);
 
   if (!data) {
     return (
@@ -73,14 +101,41 @@ export default function CoursePage({
   const lessonIndex = flatLessons.findIndex((l) => l.id === lesson.id) + 1;
 
   function handleToggleDone() {
-    const updated = toggleLessonDone(user?.uid, lesson.id, !isDone);
-    setProgress(updated);
+    const willBeDone = !isDone;
+    setProgress(toggleLessonDone(user?.uid, lesson.id, willBeDone));
+    if (willBeDone) setCelebrate(true);
   }
 
   return (
     <div className="relative">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[340px] glow-primary opacity-60" />
       <div className="pointer-events-none absolute inset-0 grid-pattern opacity-[0.1]" />
+
+      {/* Micro-celebração ao concluir uma aula */}
+      <AnimatePresence>
+        {celebrate && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="pointer-events-none fixed inset-0 z-[60] flex items-center justify-center"
+          >
+            <motion.div
+              initial={{ scale: 0.5, opacity: 0, y: 10 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 18 }}
+              className="flex flex-col items-center gap-3 rounded-3xl border border-energy bg-card/90 px-10 py-8 shadow-2xl backdrop-blur"
+            >
+              <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-[hsl(var(--energy))] text-[hsl(var(--energy-foreground))]">
+                <Check className="h-8 w-8" strokeWidth={3} />
+                <span className="absolute inset-0 rounded-full bg-[hsl(var(--energy))] opacity-40 animate-ping" />
+              </span>
+              <p className="text-lg font-semibold">Aula concluída!</p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="container relative py-6 lg:py-8">
         {/* Mobile: barra superior com progresso */}
@@ -166,7 +221,7 @@ export default function CoursePage({
             </div>
 
             {/* Ações */}
-            <div className="mt-6">
+            <div className="mt-6 flex flex-wrap items-center gap-4">
               <Button
                 onClick={handleToggleDone}
                 size="lg"
@@ -174,7 +229,8 @@ export default function CoursePage({
               >
                 {isDone ? (
                   <>
-                    <CheckCircle2 /> Aula concluída
+                    <CheckCircle2 className="text-[hsl(var(--energy))]" /> Aula
+                    concluída
                   </>
                 ) : (
                   <>
@@ -182,6 +238,21 @@ export default function CoursePage({
                   </>
                 )}
               </Button>
+              <p className="hidden items-center gap-1.5 text-xs text-muted-foreground sm:flex">
+                Atalhos:
+                <kbd className="rounded border border-border bg-card px-1.5 py-0.5 font-mono text-[11px]">
+                  C
+                </kbd>
+                concluir
+                <span className="text-muted-foreground/40">·</span>
+                <kbd className="rounded border border-border bg-card px-1.5 py-0.5 font-mono text-[11px]">
+                  ←
+                </kbd>
+                <kbd className="rounded border border-border bg-card px-1.5 py-0.5 font-mono text-[11px]">
+                  →
+                </kbd>
+                navegar
+              </p>
             </div>
 
             {/* Materiais */}
