@@ -44,7 +44,7 @@ export function EscudosShowcase() {
           <span aria-hidden>//</span>
           Portfólio
         </p>
-        <h2 className="mt-4 text-3xl uppercase leading-[1.05] sm:text-5xl">
+        <h2 className="mt-4 text-3xl uppercase leading-[1.08] sm:text-4xl">
           Escudos desenvolvidos pelo professor
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">

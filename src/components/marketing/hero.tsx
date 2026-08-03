@@ -21,7 +21,7 @@ export function Hero() {
     <section className="relative overflow-hidden pt-32 pb-16 md:pt-36 md:pb-24">
       {/* halftone no canto */}
       <div
-        className="halftone-lime pointer-events-none absolute -right-16 -top-16 hidden h-[420px] w-[420px] opacity-40 lg:block"
+        className="halftone-lime pointer-events-none absolute -right-16 -top-16 hidden h-[420px] w-[420px] opacity-25 lg:block"
         style={{
           maskImage: "radial-gradient(circle at 70% 30%, #000, transparent 70%)",
           WebkitMaskImage:
@@ -31,9 +31,9 @@ export function Hero() {
 
       <div className="container relative">
         {/* faixa de listras (camisa) */}
-        <div className="stripe-lime pointer-events-none absolute inset-y-0 right-[33%] hidden w-16 -skew-x-6 opacity-70 lg:block" />
+        <div className="stripe-lime pointer-events-none absolute inset-y-0 right-[33%] hidden w-16 -skew-x-6 opacity-40 lg:block" />
         {/* palavra fantasma */}
-        <span className="pointer-events-none absolute -top-4 left-0 hidden font-display text-[13rem] uppercase leading-[0.8] tracking-tight text-foreground/[0.04] lg:block">
+        <span className="pointer-events-none absolute top-0 left-0 hidden font-display text-[9rem] uppercase leading-[0.8] tracking-tight text-foreground/[0.03] lg:block">
           Vetor
         </span>
 
@@ -55,7 +55,7 @@ export function Hero() {
               custom={1}
               initial="hidden"
               animate="visible"
-              className="mt-6 font-display text-5xl uppercase leading-[0.92] sm:text-6xl md:text-[5rem]"
+              className="mt-6 font-display text-4xl uppercase leading-[0.95] sm:text-5xl md:text-[4rem]"
             >
               Do primeiro traço
               <br />

@@ -39,7 +39,7 @@ export function SectionHeading({
           {eyebrow}
         </span>
       )}
-      <h2 className="mt-4 text-3xl uppercase leading-[1.05] md:text-5xl">
+      <h2 className="mt-4 text-3xl uppercase leading-[1.08] md:text-4xl">
         {title}
       </h2>
       {subtitle && (

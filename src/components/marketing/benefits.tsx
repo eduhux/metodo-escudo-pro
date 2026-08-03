@@ -12,7 +12,7 @@ export function Benefits() {
             <span aria-hidden>//</span>
             Por que este método
           </span>
-          <h2 className="mt-4 text-3xl uppercase leading-[1.05] md:text-5xl">
+          <h2 className="mt-4 text-3xl uppercase leading-[1.08] md:text-4xl">
             Tudo o que você precisa para dominar o desenvolvimento de escudos
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
