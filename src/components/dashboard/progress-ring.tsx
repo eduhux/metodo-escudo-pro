@@ -36,8 +36,8 @@ export function ProgressRing({
       <svg width={size} height={size} className="-rotate-90">
         <defs>
           <linearGradient id="ring-grad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="hsl(258 90% 66%)" />
-            <stop offset="1" stopColor="hsl(76 100% 60%)" />
+            <stop offset="0" stopColor="hsl(var(--primary))" />
+            <stop offset="1" stopColor="hsl(var(--energy))" />
           </linearGradient>
         </defs>
         <circle

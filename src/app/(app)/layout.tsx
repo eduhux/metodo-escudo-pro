@@ -24,7 +24,7 @@ export default function AppLayout({
 
   if (loading || !user) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="portal flex min-h-screen items-center justify-center bg-background">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
@@ -32,7 +32,7 @@ export default function AppLayout({
 
   if (!user.acessoLiberado) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center px-6 text-center">
+      <div className="portal flex min-h-screen flex-col items-center justify-center bg-background px-6 text-center">
         <div className="max-w-md">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-destructive/10 text-destructive">
             <Lock className="h-6 w-6" />
@@ -70,7 +70,7 @@ export default function AppLayout({
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="portal min-h-screen bg-background">
       <AppNavbar />
       {children}
       <SupportButton />

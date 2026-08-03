@@ -11,6 +11,10 @@ export default function MarketingLayout({
       <Navbar />
       <main>{children}</main>
       <Footer />
+      <div
+        aria-hidden
+        className="film-grain pointer-events-none fixed inset-0 z-[100]"
+      />
     </>
   );
 }
