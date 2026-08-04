@@ -47,7 +47,7 @@ export function Hero() {
               className="font-mono text-xs uppercase tracking-[0.25em] text-primary"
             >
               <span className="mr-3 inline-block h-px w-8 bg-primary align-middle" />
-              Método // CorelDRAW // Do zero
+              Escudos esportivos // do zero ao pro
             </motion.p>
 
             <motion.h1
