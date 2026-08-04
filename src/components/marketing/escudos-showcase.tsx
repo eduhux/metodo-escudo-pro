@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { escudos, totalEscudos } from "@/data/escudos";
-import { Counter } from "@/components/shared/counter";
 
 function Row({ items, reverse = false }: { items: string[]; reverse?: boolean }) {
   return (
@@ -48,12 +47,11 @@ export function EscudosShowcase() {
           Escudos desenvolvidos pelo professor
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Uma amostra do nível que você vai aprender a alcançar. Mais de{" "}
-          <Counter
-            value={totalEscudos}
-            className="font-semibold text-foreground"
-          />{" "}
-          escudos criados do zero no CorelDRAW.
+          Uma amostra do nível que você vai aprender a alcançar.{" "}
+          <span className="font-semibold text-foreground">
+            +{totalEscudos} escudos
+          </span>{" "}
+          criados do zero no CorelDRAW.
         </p>
       </div>
 
