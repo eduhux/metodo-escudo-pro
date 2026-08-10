@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, Zap } from "lucide-react";
 import { hero, heroChecklist, trustCards } from "@/data/site";
+import { promo } from "@/lib/promo";
+import { usePromo } from "@/hooks/use-promo";
 import { BuyButton } from "./buy-button";
 import { HeroEscudos } from "./hero-escudos";
 
@@ -17,6 +19,8 @@ const fade = {
 };
 
 export function Hero() {
+  const { ativa: promoAtiva } = usePromo();
+
   return (
     <section className="relative overflow-hidden pt-32 pb-16 md:pt-36 md:pb-24">
       {/* halftone no canto */}
@@ -99,7 +103,10 @@ export function Hero() {
               animate="visible"
               className="mt-9 flex flex-wrap items-center gap-6"
             >
-              <BuyButton className="rounded-none font-display text-lg uppercase tracking-wide">
+              <BuyButton
+                promoLabel="Garantir por R$47"
+                className="rounded-none font-display text-lg uppercase tracking-wide"
+              >
                 {hero.ctaPrimary}
               </BuyButton>
               <Link
@@ -117,10 +124,25 @@ export function Hero() {
               animate="visible"
               className="mt-9 font-mono text-[11px] uppercase tracking-wider text-muted-foreground"
             >
-              1ª turma esgotada &nbsp;/&nbsp;{" "}
-              <span className="text-[hsl(var(--energy))]">
-                2ª turma aberta · 100 vagas
-              </span>
+              {promoAtiva ? (
+                <span className="inline-flex items-center gap-1.5">
+                  <Zap className="h-3.5 w-3.5 text-primary" aria-hidden />
+                  Promoção 72h — de{" "}
+                  <span className="line-through opacity-60">R${promo.precoDe}</span>{" "}
+                  por{" "}
+                  <span className="font-bold text-primary">
+                    R${promo.precoPor}
+                  </span>{" "}
+                  · -{promo.descontoPct}% OFF
+                </span>
+              ) : (
+                <>
+                  1ª turma esgotada &nbsp;/&nbsp;{" "}
+                  <span className="text-[hsl(var(--energy))]">
+                    2ª turma aberta · 100 vagas
+                  </span>
+                </>
+              )}
             </motion.p>
           </div>
 

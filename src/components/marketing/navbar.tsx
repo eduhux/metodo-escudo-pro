@@ -6,7 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
 import { Button } from "@/components/ui/button";
-import { KIWIFY_CHECKOUT_URL } from "@/lib/config";
+import { usePromo } from "@/hooks/use-promo";
+import { checkoutUrl } from "@/lib/promo";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -22,6 +23,10 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("");
+  const { ativa: promoAtiva } = usePromo();
+
+  const checkout = checkoutUrl(promoAtiva);
+  const ctaLabel = promoAtiva ? "Garantir por R$47" : "Comprar Agora";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -55,8 +60,9 @@ export function Navbar() {
 
   return (
     <header
+      style={{ top: "var(--promo-h, 0px)" }}
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        "fixed inset-x-0 z-50 transition-all duration-300",
         scrolled ? "py-3" : "py-5"
       )}
     >
@@ -113,8 +119,8 @@ export function Navbar() {
               size="sm"
               className="rounded-none font-mono text-xs uppercase tracking-wider"
             >
-              <a href={KIWIFY_CHECKOUT_URL} target="_blank" rel="noopener noreferrer">
-                Comprar Agora
+              <a href={checkout} target="_blank" rel="noopener noreferrer">
+                {ctaLabel}
               </a>
             </Button>
           </div>
@@ -160,8 +166,8 @@ export function Navbar() {
                     <Link href="/login">Portal do Aluno</Link>
                   </Button>
                   <Button asChild>
-                    <a href={KIWIFY_CHECKOUT_URL} target="_blank" rel="noopener noreferrer">
-                      Comprar Agora
+                    <a href={checkout} target="_blank" rel="noopener noreferrer">
+                      {ctaLabel}
                     </a>
                   </Button>
                 </div>

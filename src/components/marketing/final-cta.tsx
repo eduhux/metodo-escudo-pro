@@ -1,8 +1,18 @@
+"use client";
+
 import { finalCta, beneficiosAcesso } from "@/data/site";
+import { promo } from "@/lib/promo";
+import { usePromo } from "@/hooks/use-promo";
 import { Reveal } from "@/components/shared/reveal";
 import { BuyButton } from "./buy-button";
 
 export function FinalCta() {
+  const { ativa } = usePromo();
+
+  const subtitulo = ativa
+    ? `Curso completo, +200 fontes premium de bônus e 7 dias de garantia. Só por 72 horas: de R$${promo.precoDe} por R$${promo.precoPor} — depois volta pra R$${promo.precoDe}.`
+    : finalCta.subtitulo;
+
   return (
     <section className="relative overflow-hidden border-t border-border py-24 md:py-32">
       <div
@@ -22,11 +32,14 @@ export function FinalCta() {
             {finalCta.titulo}
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-pretty leading-relaxed text-muted-foreground md:text-lg">
-            {finalCta.subtitulo}
+            {subtitulo}
           </p>
 
           <div className="mt-9 flex justify-center">
-            <BuyButton className="rounded-none px-10 font-display text-lg uppercase tracking-wide">
+            <BuyButton
+              promoLabel="Garantir por R$47"
+              className="rounded-none px-10 font-display text-lg uppercase tracking-wide"
+            >
               {finalCta.cta}
             </BuyButton>
           </div>

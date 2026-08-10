@@ -1,3 +1,4 @@
+import { AnnouncementBar } from "@/components/marketing/announcement-bar";
 import { Navbar } from "@/components/marketing/navbar";
 import { Footer } from "@/components/marketing/footer";
 
@@ -8,8 +9,9 @@ export default function MarketingLayout({
 }) {
   return (
     <>
+      <AnnouncementBar />
       <Navbar />
-      <main>{children}</main>
+      <main style={{ paddingTop: "var(--promo-h, 0px)" }}>{children}</main>
       <Footer />
       <div
         aria-hidden
