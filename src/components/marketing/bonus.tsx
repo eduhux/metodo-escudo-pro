@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Gift, Check } from "lucide-react";
+import { Gift, Check, Shirt, Sparkles, MonitorPlay } from "lucide-react";
 import { Section } from "@/components/shared/section";
 import { Reveal } from "@/components/shared/reveal";
 import { Card } from "@/components/ui/card";
@@ -30,6 +30,18 @@ const escudosPerks = [
   "120 escudos em PNG",
   "Referência de proporção e cores",
   "Na sua área de aluno",
+];
+
+const mockupEscudoPerks = [
+  "Textura e relevo realistas",
+  "É só trocar a sua arte",
+  "Pronto para apresentar ao cliente",
+];
+
+const mockupCamisaPerks = [
+  "Camisa 100% personalizável",
+  "Escudo aplicado no uniforme",
+  "Ideal para fechar clientes",
 ];
 
 export function Bonus() {
@@ -172,6 +184,155 @@ export function Bonus() {
                   </li>
                 ))}
               </ul>
+
+              <div className="mt-8">
+                <BuyButton className="rounded-none font-display text-lg uppercase tracking-wide">
+                  Quero o curso + bônus
+                </BuyButton>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </Reveal>
+
+      {/* Bônus 3 — Mockup de apresentação do escudo */}
+      <Reveal className="mt-6">
+        <Card className="relative overflow-hidden rounded-none border-border bg-card p-8 md:p-12">
+          <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
+          <div className="pointer-events-none absolute inset-0 grid-pattern opacity-20" />
+
+          <div className="relative grid items-center gap-10 lg:grid-cols-2">
+            {/* Texto */}
+            <div>
+              <Badge className="rounded-none border-energy font-mono text-xs uppercase tracking-wider">
+                <Gift className="h-3.5 w-3.5 text-[hsl(var(--energy))]" />
+                Bônus 3 · grátis
+              </Badge>
+
+              <h2 className="mt-5 text-3xl uppercase tracking-tight md:text-4xl">
+                <span className="text-gradient-accent">Mockup de apresentação</span>{" "}
+                do escudo
+              </h2>
+
+              <p className="mt-4 max-w-lg text-pretty leading-relaxed text-muted-foreground">
+                O mesmo mockup que eu uso para apresentar escudos aos meus
+                clientes. Você coloca a sua arte e entrega uma{" "}
+                <strong className="text-foreground/90">
+                  prévia realista, com textura e relevo
+                </strong>
+                . É a diferença entre "mandar um PNG" e "entregar um projeto
+                profissional".
+              </p>
+
+              <ul className="mt-6 flex flex-wrap gap-2.5">
+                {mockupEscudoPerks.map((p) => (
+                  <li
+                    key={p}
+                    className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3.5 py-1.5 text-sm"
+                  >
+                    <Check className="h-4 w-4 text-primary" strokeWidth={3} />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+
+              <p className="mt-5 inline-flex items-center gap-2 rounded-none border border-primary/40 bg-primary/10 px-3.5 py-2 font-mono text-[11px] uppercase tracking-wider text-foreground">
+                <MonitorPlay className="h-4 w-4 shrink-0 text-primary" />
+                Inclui aula exclusiva: aplicação passo a passo
+              </p>
+
+              <div className="mt-8">
+                <BuyButton className="rounded-none font-display text-lg uppercase tracking-wide">
+                  Quero o curso + bônus
+                </BuyButton>
+              </div>
+            </div>
+
+            {/* Visual do mockup */}
+            <div className="relative mx-auto w-full max-w-sm">
+              <div className="relative aspect-square overflow-hidden rounded-none border border-border bg-card hard-shadow">
+                <Image
+                  src="/bonus/mockup-escudo.jpg"
+                  alt="Mockup de apresentação do escudo aplicado em tecido"
+                  fill
+                  sizes="(max-width: 1024px) 90vw, 420px"
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="absolute -bottom-5 -right-2 inline-flex items-center gap-2 rounded-none hard-shadow bg-primary px-4 py-2.5 text-primary-foreground shadow-lg shadow-primary/30">
+                <Sparkles className="h-4 w-4" />
+                <span className="text-[11px] font-bold uppercase tracking-wider">
+                  Mockup editável
+                </span>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </Reveal>
+
+      {/* Bônus 4 — Mockup de camisa personalizável */}
+      <Reveal className="mt-6">
+        <Card className="relative overflow-hidden rounded-none border-border bg-card p-8 md:p-12">
+          <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
+          <div className="pointer-events-none absolute inset-0 grid-pattern opacity-20" />
+
+          <div className="relative grid items-center gap-10 lg:grid-cols-2">
+            {/* Visual do mockup */}
+            <div className="relative order-2 mx-auto w-full max-w-md lg:order-1">
+              <div className="relative aspect-[16/13] overflow-hidden rounded-none border border-border bg-card hard-shadow">
+                <Image
+                  src="/bonus/mockup-camisa.png"
+                  alt="Mockup de camisa de time com o escudo aplicado, em várias cores"
+                  fill
+                  sizes="(max-width: 1024px) 90vw, 460px"
+                  className="object-contain p-2"
+                />
+              </div>
+
+              <div className="absolute -bottom-5 -left-2 inline-flex items-center gap-2 rounded-none hard-shadow bg-[hsl(var(--energy))] px-4 py-2.5 text-[hsl(var(--energy-foreground))] shadow-lg">
+                <Shirt className="h-4 w-4" />
+                <span className="text-[11px] font-bold uppercase tracking-wider">
+                  Camisa personalizável
+                </span>
+              </div>
+            </div>
+
+            {/* Texto */}
+            <div className="order-1 lg:order-2">
+              <Badge className="rounded-none border-energy font-mono text-xs uppercase tracking-wider">
+                <Gift className="h-3.5 w-3.5 text-[hsl(var(--energy))]" />
+                Bônus 4 · grátis
+              </Badge>
+
+              <h2 className="mt-5 text-3xl uppercase tracking-tight md:text-4xl">
+                <span className="text-gradient-accent">Mockup de camisa</span> do
+                time
+              </h2>
+
+              <p className="mt-4 max-w-lg text-pretty leading-relaxed text-muted-foreground">
+                Apresente o escudo onde ele realmente vive:{" "}
+                <strong className="text-foreground/90">no uniforme</strong>.
+                Personalize as cores e mostre ao cliente como a arte fica na
+                camisa do time. É o argumento visual que fecha o projeto.
+              </p>
+
+              <ul className="mt-6 flex flex-wrap gap-2.5">
+                {mockupCamisaPerks.map((p) => (
+                  <li
+                    key={p}
+                    className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3.5 py-1.5 text-sm"
+                  >
+                    <Check className="h-4 w-4 text-primary" strokeWidth={3} />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+
+              <p className="mt-5 inline-flex items-center gap-2 rounded-none border border-primary/40 bg-primary/10 px-3.5 py-2 font-mono text-[11px] uppercase tracking-wider text-foreground">
+                <MonitorPlay className="h-4 w-4 shrink-0 text-primary" />
+                Inclui aula exclusiva: aplicação passo a passo
+              </p>
 
               <div className="mt-8">
                 <BuyButton className="rounded-none font-display text-lg uppercase tracking-wide">
