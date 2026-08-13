@@ -67,7 +67,7 @@ export const trustCards = [
 /** Oferta (ancoragem de preço + escassez) */
 export const oferta = {
   precoDe: "297",
-  precoPor: "97",
+  precoPor: "197",
   bonusValor: "49,90",
   valorTotal: "446,60",
   itens: [
@@ -196,7 +196,7 @@ export const faq = [
   {
     pergunta: "Quanto custa e até quando esse preço?",
     resposta:
-      "O curso vale R$297, e está com preço promocional de lançamento: R$97, por tempo limitado. Quando as vagas desta turma fecharem ou a promoção acabar, ele volta ao valor cheio. Não deixe para depois.",
+      "O curso vale R$297, e está com preço promocional de lançamento: R$197, por tempo limitado. Quando as vagas desta turma fecharem ou a promoção acabar, ele volta ao valor cheio. Não deixe para depois.",
   },
   {
     pergunta: "As vagas são limitadas mesmo?",
@@ -233,6 +233,6 @@ export const faq = [
 export const finalCta = {
   titulo: "Seu primeiro escudo profissional começa hoje",
   subtitulo:
-    "Curso completo, mais de 200 fontes premium de bônus e 7 dias de garantia. Hoje por R$97, enquanto a promoção de lançamento está no ar.",
+    "Curso completo, mais de 200 fontes premium de bônus e 7 dias de garantia. Hoje por R$197, enquanto a promoção de lançamento está no ar.",
   cta: "Quero garantir meu acesso",
 };

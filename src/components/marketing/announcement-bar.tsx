@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { Zap } from "lucide-react";
 import { usePromo } from "@/hooks/use-promo";
-import { checkoutUrl } from "@/lib/promo";
+import { checkoutUrl, promo } from "@/lib/promo";
 import { Countdown } from "./countdown";
 
 /**
@@ -54,8 +54,8 @@ export function AnnouncementBar() {
           <Zap className="h-3.5 w-3.5 shrink-0 text-primary" aria-hidden />
           <span>
             <span className="font-bold text-primary">Promoção 72h</span> — de{" "}
-            <span className="line-through opacity-60">R$97</span> por{" "}
-            <span className="font-bold text-primary">R$47</span>
+            <span className="line-through opacity-60">R${promo.precoDe}</span> por{" "}
+            <span className="font-bold text-primary">R${promo.precoPor}</span>
           </span>
         </p>
 

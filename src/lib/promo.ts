@@ -14,7 +14,9 @@ import { KIWIFY_CHECKOUT_URL } from "@/lib/config";
  *    NEXT_PUBLIC_KIWIFY_CHECKOUT_URL_PROMO ou troque o fallback abaixo.
  */
 export const promo = {
-  ativaManual: null as boolean | null,
+  // Promoção 72h encerrada — forçada desligada. Para uma nova promo,
+  // volte para `null` e ajuste as datas/preços abaixo.
+  ativaManual: false as boolean | null,
 
   dataInicio: "2026-08-10T13:20:00-03:00",
   dataFim: "2026-08-13T13:20:00-03:00",

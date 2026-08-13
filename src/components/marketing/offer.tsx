@@ -159,7 +159,7 @@ export function Offer() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {ativa ? "Garantir por R$47" : "Quero garantir por R$97"}
+                {ativa ? "Garantir por R$47" : "Quero garantir por R$197"}
               </a>
             </Button>
 
