@@ -50,7 +50,7 @@ export function Countdown({
         <div key={u.l} className="flex items-center gap-1" aria-hidden="true">
           <div
             className={cn(
-              "flex flex-col items-center justify-center rounded-none border border-primary/40 bg-black/40 font-display leading-none text-primary tabular-nums",
+              "flex flex-col items-center justify-center rounded-lg border border-primary/30 bg-black/30 font-display leading-none text-primary tabular-nums",
               box
             )}
           >

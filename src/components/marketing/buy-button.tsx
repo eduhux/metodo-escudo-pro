@@ -24,7 +24,7 @@ export function BuyButton({
     <Button
       asChild
       size="lg"
-      className={cn("cta-energy", className)}
+      className={cn("cta-energy rounded-full font-semibold", className)}
       {...props}
     >
       <a href={checkoutUrl(ativa)} target="_blank" rel="noopener noreferrer">

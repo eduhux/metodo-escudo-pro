@@ -47,7 +47,7 @@ export function AnnouncementBar() {
       ref={ref}
       role="region"
       aria-label="Oferta por tempo limitado"
-      className="fixed inset-x-0 top-0 z-[60] border-b border-primary/30 bg-[#0b0a07]/95 backdrop-blur-md"
+      className="fixed inset-x-0 top-0 z-[60] border-b border-primary/25 bg-background/95 backdrop-blur-xl"
     >
       <div className="container flex flex-col items-center justify-center gap-2 py-2 text-center sm:flex-row sm:gap-4">
         <p className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-foreground sm:text-xs">
@@ -65,7 +65,7 @@ export function AnnouncementBar() {
           href={checkoutUrl(true)}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-none bg-primary px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-primary-foreground transition hover:brightness-110 sm:text-xs"
+          className="rounded-full bg-primary px-4 py-1.5 text-[11px] font-bold uppercase tracking-wider text-primary-foreground transition hover:brightness-110 sm:text-xs"
         >
           Garantir agora
         </a>

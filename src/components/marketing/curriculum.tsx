@@ -22,29 +22,32 @@ export function Curriculum() {
   const totalAulas = course.modulos.reduce((n, m) => n + m.aulas.length, 0);
 
   return (
-    <Section id="conteudo" className="bg-secondary/20">
+    <Section id="conteudo">
       <SectionHeading
         eyebrow="Conteúdo do curso"
-        title="O que você vai aprender, módulo a módulo"
+        title={
+          <>
+            O que você vai aprender,{" "}
+            <span className="serif-accent text-primary">módulo a módulo</span>
+          </>
+        }
         subtitle={`Uma aula inicial e 6 módulos práticos — ${totalAulas} aulas do primeiro traço à precificação e venda.`}
       />
 
       <div className="mx-auto mt-14 max-w-3xl space-y-3">
         {course.modulos.map((m, i) => (
           <Reveal key={m.id} delay={i}>
-            <Card className="card-glow flex items-start gap-4 rounded-none border-border bg-card p-5 transition-all duration-300 hover:border-primary/40">
-              <span className="pt-0.5 font-mono text-xl leading-none text-primary">
+            <Card className="card-glow flex items-start gap-4 rounded-2xl border-white/10 bg-card p-5">
+              <span className="pt-0.5 font-mono text-sm tabular-nums text-primary/70">
                 {String(i).padStart(2, "0")}
               </span>
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-none bg-primary/10 text-primary">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/12 text-primary">
                 <Shield className="h-5 w-5" />
               </span>
               <div className="flex-1">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                  <p className="font-medium uppercase tracking-wide md:text-lg">
-                    {m.titulo}
-                  </p>
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                  <p className="font-semibold md:text-lg">{m.titulo}</p>
+                  <span className="text-[0.7rem] font-medium uppercase tracking-wider text-muted-foreground">
                     {m.aulas.length} {m.aulas.length === 1 ? "aula" : "aulas"}
                   </span>
                 </div>
@@ -58,10 +61,10 @@ export function Curriculum() {
           </Reveal>
         ))}
 
-        <div className="flex justify-center pt-3">
+        <div className="flex justify-center pt-4">
           <Badge
             variant="outline"
-            className="rounded-none font-mono text-xs uppercase tracking-wider"
+            className="rounded-full border-white/15 px-4 py-1.5 text-xs font-medium"
           >
             + Bônus e atualizações inclusos
           </Badge>

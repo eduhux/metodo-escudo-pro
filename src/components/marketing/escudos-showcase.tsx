@@ -11,7 +11,7 @@ function Row({ items, reverse = false }: { items: string[]; reverse?: boolean })
         {[...items, ...items].map((src, i) => (
           <div
             key={`${src}-${i}`}
-            className="relative h-32 w-32 shrink-0 rounded-none border border-border bg-card sm:h-40 sm:w-40"
+            className="surface relative h-32 w-32 shrink-0 sm:h-40 sm:w-40"
           >
             <Image
               src={`/escudos/${src}`}
@@ -37,16 +37,14 @@ export function EscudosShowcase() {
   const row2 = escudos.slice(half);
 
   return (
-    <section id="escudos" className="py-20 sm:py-28">
+    <section id="escudos" className="py-24 sm:py-28">
       <div className="container text-center">
-        <p className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-primary">
-          <span aria-hidden>//</span>
-          Portfólio
-        </p>
-        <h2 className="mt-4 text-3xl uppercase leading-[1.08] sm:text-4xl">
-          Escudos desenvolvidos pelo professor
+        <span className="eyebrow text-[0.7rem] text-primary">Portfólio</span>
+        <h2 className="mt-4 text-[2rem] leading-[1.04] md:text-5xl">
+          Escudos desenvolvidos{" "}
+          <span className="serif-accent text-primary">pelo professor</span>
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+        <p className="mx-auto mt-5 max-w-xl text-muted-foreground md:text-lg">
           Uma amostra do nível que você vai aprender a alcançar.{" "}
           <span className="font-semibold text-foreground">
             +{totalEscudos} escudos
@@ -55,7 +53,7 @@ export function EscudosShowcase() {
         </p>
       </div>
 
-      <div className="mt-12 space-y-5">
+      <div className="mt-14 space-y-5">
         <Row items={row1} />
         <Row items={row2.length ? row2 : row1} reverse />
       </div>

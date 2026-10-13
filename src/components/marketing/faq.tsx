@@ -10,10 +10,15 @@ import {
 
 export function Faq() {
   return (
-    <Section id="faq" className="bg-secondary/20">
+    <Section id="faq">
       <SectionHeading
         eyebrow="Dúvidas frequentes"
-        title="Perguntas que talvez você tenha"
+        title={
+          <>
+            Perguntas que{" "}
+            <span className="serif-accent text-primary">talvez você tenha</span>
+          </>
+        }
       />
 
       <Reveal className="mx-auto mt-14 max-w-3xl">
@@ -22,10 +27,14 @@ export function Faq() {
             <AccordionItem
               key={i}
               value={`faq-${i}`}
-              className="rounded-none border border-border bg-card px-4"
+              className="overflow-hidden rounded-2xl border border-white/10 bg-card px-5 transition-colors hover:border-white/20"
             >
-              <AccordionTrigger>{f.pergunta}</AccordionTrigger>
-              <AccordionContent>{f.resposta}</AccordionContent>
+              <AccordionTrigger className="text-left font-medium">
+                {f.pergunta}
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                {f.resposta}
+              </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

@@ -44,70 +44,83 @@ const mockupCamisaPerks = [
   "Ideal para fechar clientes",
 ];
 
+function BonusBadge({ children }: { children: React.ReactNode }) {
+  return (
+    <Badge className="rounded-full border-energy bg-transparent text-xs font-medium">
+      <Gift className="h-3.5 w-3.5 text-[hsl(var(--energy))]" />
+      {children}
+    </Badge>
+  );
+}
+
+function Perks({ items }: { items: string[] }) {
+  return (
+    <ul className="mt-6 flex flex-wrap gap-2.5">
+      {items.map((p) => (
+        <li
+          key={p}
+          className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-card/60 px-3.5 py-1.5 text-sm"
+        >
+          <Check className="h-4 w-4 text-primary" strokeWidth={3} />
+          {p}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function AulaCallout() {
+  return (
+    <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-wider text-foreground">
+      <MonitorPlay className="h-4 w-4 shrink-0 text-primary" />
+      Inclui aula exclusiva: aplicação passo a passo
+    </p>
+  );
+}
+
+const cardCls =
+  "relative overflow-hidden rounded-3xl border-white/10 bg-gradient-to-br from-card to-secondary/40 p-8 md:p-12";
+
 export function Bonus() {
   return (
     <Section id="bonus">
+      {/* Bônus 1 — fontes */}
       <Reveal>
-        <Card className="relative overflow-hidden rounded-none border-border bg-card p-8 md:p-12">
+        <Card className={cardCls}>
           <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
-          <div className="pointer-events-none absolute inset-0 grid-pattern opacity-20" />
-
           <div className="relative grid items-center gap-10 lg:grid-cols-2">
-            {/* Texto */}
             <div>
-              <Badge className="rounded-none border-energy font-mono text-xs uppercase tracking-wider">
-                <Gift className="h-3.5 w-3.5 text-[hsl(var(--energy))]" />
-                Bônus 1 · grátis
-              </Badge>
-
-              <h2 className="mt-5 text-3xl uppercase tracking-tight md:text-4xl">
+              <BonusBadge>Bônus 1 · grátis</BonusBadge>
+              <h2 className="mt-5 text-3xl md:text-4xl">
                 <span className="text-gradient-accent">+200 fontes premium</span>{" "}
                 de brinde
               </h2>
-
               <p className="mt-4 max-w-lg text-pretty leading-relaxed text-muted-foreground">
                 As mesmas fontes que eu uso nos meus projetos profissionais,
                 inclusas{" "}
                 <strong className="text-foreground/90">gratuitamente</strong> ao
-                entrar no curso. Acesso imediato junto com as aulas, para você
-                desenvolver escudos com tipografia de alto nível desde o primeiro dia.
+                entrar no curso. Tipografia de alto nível desde o primeiro dia.
               </p>
-
-              <ul className="mt-6 flex flex-wrap gap-2.5">
-                {perks.map((p) => (
-                  <li
-                    key={p}
-                    className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3.5 py-1.5 text-sm"
-                  >
-                    <Check className="h-4 w-4 text-primary" strokeWidth={3} />
-                    {p}
-                  </li>
-                ))}
-              </ul>
-
+              <Perks items={perks} />
               <div className="mt-8">
-                <BuyButton className="rounded-none font-display text-lg uppercase tracking-wide">
-                  Quero o curso + bônus
-                </BuyButton>
+                <BuyButton>Quero o curso + bônus</BuyButton>
               </div>
             </div>
 
-            {/* Visual das fontes */}
             <div className="relative mx-auto w-full max-w-sm">
               <div className="grid grid-cols-3 gap-3">
                 {amostras.map((f, i) => (
                   <div
                     key={i}
-                    className="flex aspect-square items-center justify-center rounded-none border border-border bg-card text-4xl text-foreground/90"
+                    className="surface flex aspect-square items-center justify-center text-4xl text-foreground/90"
                     style={{ fontFamily: f.family }}
                   >
                     {f.label}
                   </div>
                 ))}
               </div>
-
-              <div className="absolute -bottom-5 -right-2 flex flex-col items-center justify-center rounded-none hard-shadow bg-primary px-5 py-3 text-center text-primary-foreground shadow-lg shadow-primary/30">
-                <span className="text-2xl font-bold leading-none">+200</span>
+              <div className="absolute -bottom-5 -right-2 flex flex-col items-center justify-center rounded-2xl bg-primary px-5 py-3 text-center text-primary-foreground lift">
+                <span className="text-2xl font-extrabold leading-none">+200</span>
                 <span className="text-[11px] font-medium uppercase tracking-wider">
                   fontes
                 </span>
@@ -117,19 +130,17 @@ export function Bonus() {
         </Card>
       </Reveal>
 
+      {/* Bônus 2 — escudos de referência */}
       <Reveal className="mt-6">
-        <Card className="relative overflow-hidden rounded-none border-border bg-card p-8 md:p-12">
+        <Card className={cardCls}>
           <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
-          <div className="pointer-events-none absolute inset-0 grid-pattern opacity-20" />
-
           <div className="relative grid items-center gap-10 lg:grid-cols-2">
-            {/* Visual dos escudos */}
             <div className="relative order-2 mx-auto w-full max-w-sm lg:order-1">
               <div className="grid grid-cols-3 gap-3">
                 {escudosAmostra.map((src) => (
                   <div
                     key={src}
-                    className="relative flex aspect-square items-center justify-center rounded-none border border-border bg-card p-2"
+                    className="surface relative flex aspect-square items-center justify-center p-2"
                   >
                     <Image
                       src={`/escudos/${src}`}
@@ -141,116 +152,65 @@ export function Bonus() {
                   </div>
                 ))}
               </div>
-
-              <div className="absolute -bottom-5 -left-2 flex flex-col items-center justify-center rounded-none hard-shadow bg-[hsl(var(--energy))] px-5 py-3 text-center text-[hsl(var(--energy-foreground))] shadow-lg">
-                <span className="text-2xl font-bold leading-none">+120</span>
+              <div className="absolute -bottom-5 -left-2 flex flex-col items-center justify-center rounded-2xl bg-[hsl(var(--energy))] px-5 py-3 text-center text-[hsl(var(--energy-foreground))] lift">
+                <span className="text-2xl font-extrabold leading-none">+120</span>
                 <span className="text-[11px] font-medium uppercase tracking-wider">
                   escudos
                 </span>
               </div>
             </div>
 
-            {/* Texto */}
             <div className="order-1 lg:order-2">
-              <Badge className="rounded-none border-energy font-mono text-xs uppercase tracking-wider">
-                <Gift className="h-3.5 w-3.5 text-[hsl(var(--energy))]" />
-                Bônus 2 · grátis
-              </Badge>
-
-              <h2 className="mt-5 text-3xl uppercase tracking-tight md:text-4xl">
+              <BonusBadge>Bônus 2 · grátis</BonusBadge>
+              <h2 className="mt-5 text-3xl md:text-4xl">
                 <span className="text-gradient-accent">+120 escudos</span> de
                 referência
               </h2>
-
               <p className="mt-4 max-w-lg text-pretty leading-relaxed text-muted-foreground">
-                Toda vez que você trava na tela em branco, o aprendizado para.
-                Por isso você leva uma biblioteca com{" "}
+                Nunca mais trave na tela em branco. Você leva uma biblioteca com{" "}
                 <strong className="text-foreground/90">
                   120 escudos reais em PNG
                 </strong>{" "}
-                para consultar em qualquer projeto: estude proporção, cores e
-                estilos que funcionam, se inspire na hora e nunca mais comece do
-                zero.
+                para estudar proporção, cores e estilos que funcionam — e se
+                inspirar na hora.
               </p>
-
-              <ul className="mt-6 flex flex-wrap gap-2.5">
-                {escudosPerks.map((p) => (
-                  <li
-                    key={p}
-                    className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3.5 py-1.5 text-sm"
-                  >
-                    <Check className="h-4 w-4 text-primary" strokeWidth={3} />
-                    {p}
-                  </li>
-                ))}
-              </ul>
-
+              <Perks items={escudosPerks} />
               <div className="mt-8">
-                <BuyButton className="rounded-none font-display text-lg uppercase tracking-wide">
-                  Quero o curso + bônus
-                </BuyButton>
+                <BuyButton>Quero o curso + bônus</BuyButton>
               </div>
             </div>
           </div>
         </Card>
       </Reveal>
 
-      {/* Bônus 3 — Mockup de apresentação do escudo */}
+      {/* Bônus 3 — mockup do escudo */}
       <Reveal className="mt-6">
-        <Card className="relative overflow-hidden rounded-none border-border bg-card p-8 md:p-12">
+        <Card className={cardCls}>
           <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
-          <div className="pointer-events-none absolute inset-0 grid-pattern opacity-20" />
-
           <div className="relative grid items-center gap-10 lg:grid-cols-2">
-            {/* Texto */}
             <div>
-              <Badge className="rounded-none border-energy font-mono text-xs uppercase tracking-wider">
-                <Gift className="h-3.5 w-3.5 text-[hsl(var(--energy))]" />
-                Bônus 3 · grátis
-              </Badge>
-
-              <h2 className="mt-5 text-3xl uppercase tracking-tight md:text-4xl">
+              <BonusBadge>Bônus 3 · grátis</BonusBadge>
+              <h2 className="mt-5 text-3xl md:text-4xl">
                 <span className="text-gradient-accent">Mockup de apresentação</span>{" "}
                 do escudo
               </h2>
-
               <p className="mt-4 max-w-lg text-pretty leading-relaxed text-muted-foreground">
                 O mesmo mockup que eu uso para apresentar escudos aos meus
                 clientes. Você coloca a sua arte e entrega uma{" "}
                 <strong className="text-foreground/90">
                   prévia realista, com textura e relevo
                 </strong>
-                . É a diferença entre "mandar um PNG" e "entregar um projeto
-                profissional".
+                . A diferença entre "mandar um PNG" e "entregar um projeto".
               </p>
-
-              <ul className="mt-6 flex flex-wrap gap-2.5">
-                {mockupEscudoPerks.map((p) => (
-                  <li
-                    key={p}
-                    className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3.5 py-1.5 text-sm"
-                  >
-                    <Check className="h-4 w-4 text-primary" strokeWidth={3} />
-                    {p}
-                  </li>
-                ))}
-              </ul>
-
-              <p className="mt-5 inline-flex items-center gap-2 rounded-none border border-primary/40 bg-primary/10 px-3.5 py-2 font-mono text-[11px] uppercase tracking-wider text-foreground">
-                <MonitorPlay className="h-4 w-4 shrink-0 text-primary" />
-                Inclui aula exclusiva: aplicação passo a passo
-              </p>
-
+              <Perks items={mockupEscudoPerks} />
+              <AulaCallout />
               <div className="mt-8">
-                <BuyButton className="rounded-none font-display text-lg uppercase tracking-wide">
-                  Quero o curso + bônus
-                </BuyButton>
+                <BuyButton>Quero o curso + bônus</BuyButton>
               </div>
             </div>
 
-            {/* Visual do mockup */}
             <div className="relative mx-auto w-full max-w-sm">
-              <div className="relative aspect-square overflow-hidden rounded-none border border-border bg-card hard-shadow">
+              <div className="surface relative aspect-square overflow-hidden hard-shadow">
                 <Image
                   src="/bonus/mockup-escudo.jpg"
                   alt="Mockup de apresentação do escudo aplicado em tecido"
@@ -259,8 +219,7 @@ export function Bonus() {
                   className="object-cover"
                 />
               </div>
-
-              <div className="absolute -bottom-5 -right-2 inline-flex items-center gap-2 rounded-none hard-shadow bg-primary px-4 py-2.5 text-primary-foreground shadow-lg shadow-primary/30">
+              <div className="absolute -bottom-5 -right-2 inline-flex items-center gap-2 rounded-2xl bg-primary px-4 py-2.5 text-primary-foreground lift">
                 <Sparkles className="h-4 w-4" />
                 <span className="text-[11px] font-bold uppercase tracking-wider">
                   Mockup editável
@@ -271,16 +230,13 @@ export function Bonus() {
         </Card>
       </Reveal>
 
-      {/* Bônus 4 — Mockup de camisa personalizável */}
+      {/* Bônus 4 — mockup de camisa */}
       <Reveal className="mt-6">
-        <Card className="relative overflow-hidden rounded-none border-border bg-card p-8 md:p-12">
+        <Card className={cardCls}>
           <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
-          <div className="pointer-events-none absolute inset-0 grid-pattern opacity-20" />
-
           <div className="relative grid items-center gap-10 lg:grid-cols-2">
-            {/* Visual do mockup */}
             <div className="relative order-2 mx-auto w-full max-w-md lg:order-1">
-              <div className="relative aspect-[16/13] overflow-hidden rounded-none border border-border bg-card hard-shadow">
+              <div className="surface relative aspect-[16/13] overflow-hidden hard-shadow">
                 <Image
                   src="/bonus/mockup-camisa.png"
                   alt="Mockup de camisa de time com o escudo aplicado, em várias cores"
@@ -289,8 +245,7 @@ export function Bonus() {
                   className="object-contain p-2"
                 />
               </div>
-
-              <div className="absolute -bottom-5 -left-2 inline-flex items-center gap-2 rounded-none hard-shadow bg-[hsl(var(--energy))] px-4 py-2.5 text-[hsl(var(--energy-foreground))] shadow-lg">
+              <div className="absolute -bottom-5 -left-2 inline-flex items-center gap-2 rounded-2xl bg-[hsl(var(--energy))] px-4 py-2.5 text-[hsl(var(--energy-foreground))] lift">
                 <Shirt className="h-4 w-4" />
                 <span className="text-[11px] font-bold uppercase tracking-wider">
                   Camisa personalizável
@@ -298,46 +253,22 @@ export function Bonus() {
               </div>
             </div>
 
-            {/* Texto */}
             <div className="order-1 lg:order-2">
-              <Badge className="rounded-none border-energy font-mono text-xs uppercase tracking-wider">
-                <Gift className="h-3.5 w-3.5 text-[hsl(var(--energy))]" />
-                Bônus 4 · grátis
-              </Badge>
-
-              <h2 className="mt-5 text-3xl uppercase tracking-tight md:text-4xl">
+              <BonusBadge>Bônus 4 · grátis</BonusBadge>
+              <h2 className="mt-5 text-3xl md:text-4xl">
                 <span className="text-gradient-accent">Mockup de camisa</span> do
                 time
               </h2>
-
               <p className="mt-4 max-w-lg text-pretty leading-relaxed text-muted-foreground">
                 Apresente o escudo onde ele realmente vive:{" "}
                 <strong className="text-foreground/90">no uniforme</strong>.
                 Personalize as cores e mostre ao cliente como a arte fica na
-                camisa do time. É o argumento visual que fecha o projeto.
+                camisa do time. É o argumento que fecha o projeto.
               </p>
-
-              <ul className="mt-6 flex flex-wrap gap-2.5">
-                {mockupCamisaPerks.map((p) => (
-                  <li
-                    key={p}
-                    className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3.5 py-1.5 text-sm"
-                  >
-                    <Check className="h-4 w-4 text-primary" strokeWidth={3} />
-                    {p}
-                  </li>
-                ))}
-              </ul>
-
-              <p className="mt-5 inline-flex items-center gap-2 rounded-none border border-primary/40 bg-primary/10 px-3.5 py-2 font-mono text-[11px] uppercase tracking-wider text-foreground">
-                <MonitorPlay className="h-4 w-4 shrink-0 text-primary" />
-                Inclui aula exclusiva: aplicação passo a passo
-              </p>
-
+              <Perks items={mockupCamisaPerks} />
+              <AulaCallout />
               <div className="mt-8">
-                <BuyButton className="rounded-none font-display text-lg uppercase tracking-wide">
-                  Quero o curso + bônus
-                </BuyButton>
+                <BuyButton>Quero o curso + bônus</BuyButton>
               </div>
             </div>
           </div>
