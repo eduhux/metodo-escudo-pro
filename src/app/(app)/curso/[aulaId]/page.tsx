@@ -10,7 +10,8 @@ import {
   Check,
   CheckCircle2,
   Download,
-  FileText,
+  FolderDown,
+  ExternalLink,
   Menu,
   X,
 } from "lucide-react";
@@ -269,26 +270,40 @@ export default function CoursePage({
 
             {/* Materiais */}
             {lesson.materiais && lesson.materiais.length > 0 && (
-              <div className="mt-8">
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                  Materiais complementares
-                </h2>
-                <div className="mt-3 space-y-2">
+              <div className="mt-10">
+                <div className="flex items-center gap-2">
+                  <FolderDown className="h-4 w-4 text-primary" />
+                  <h2 className="text-sm font-semibold">Materiais desta aula</h2>
+                </div>
+                <div className="mt-3 grid gap-2.5">
                   {lesson.materiais.map((mat) => (
                     <a
                       key={mat.titulo}
                       href={mat.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center gap-3 rounded-xl border border-border bg-card/40 p-3.5 transition-colors hover:border-primary/30 hover:bg-card"
+                      className="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-card to-secondary/40 p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40"
                     >
-                      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                        <FileText className="h-4 w-4" />
+                      <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/10 blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary transition-colors group-hover:bg-primary/25">
+                        <FolderDown className="h-6 w-6" />
                       </span>
-                      <span className="flex-1 text-sm font-medium">
-                        {mat.titulo}
+
+                      <div className="min-w-0 flex-1">
+                        <p className="font-semibold leading-tight">
+                          {mat.titulo}
+                        </p>
+                        <p className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
+                          <ExternalLink className="h-3 w-3" />
+                          Abre a pasta no Google Drive em uma nova aba
+                        </p>
+                      </div>
+
+                      <span className="relative z-10 inline-flex shrink-0 items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-all group-hover:brightness-110">
+                        <Download className="h-4 w-4" />
+                        <span className="hidden sm:inline">Baixar</span>
                       </span>
-                      <Download className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-primary" />
                     </a>
                   ))}
                 </div>
