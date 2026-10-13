@@ -13,6 +13,8 @@ const resultados: Record<string, string> = {
   m2: "Cor, contorno e profundidade: o acabamento que separa o amador do profissional.",
   m3: "Junte tudo e desenvolva um escudo completo, do rascunho à arte final.",
   m4: "Apresente o escudo na camisa com um mockup que impressiona o cliente.",
+  "mockup-3d":
+    "Aplique o escudo em um mockup 3D realista e entregue uma apresentação de impacto.",
   m5: "Saiba quanto cobrar, monte seu portfólio e feche seus primeiros clientes.",
 };
 
@@ -24,7 +26,7 @@ export function Curriculum() {
       <SectionHeading
         eyebrow="Conteúdo do curso"
         title="O que você vai aprender, módulo a módulo"
-        subtitle={`Uma aula inicial e 5 módulos práticos — ${totalAulas} aulas do primeiro traço à precificação e venda.`}
+        subtitle={`Uma aula inicial e 6 módulos práticos — ${totalAulas} aulas do primeiro traço à precificação e venda.`}
       />
 
       <div className="mx-auto mt-14 max-w-3xl space-y-3">

@@ -2,7 +2,7 @@ import type { Course } from "@/types";
 
 /**
  * Conteúdo do curso (seed).
- * Estrutura oficial do Método Escudo PRO: uma Aula Inicial + 5 módulos.
+ * Estrutura oficial do Método Escudo PRO: uma Aula Inicial + 6 módulos.
  *
  * A Aula Inicial já está com o vídeo real do Panda. Nas demais aulas,
  * substitua cada `pandaVideoId` (DEMO-...) pelo ID real do vídeo no Panda
@@ -73,9 +73,17 @@ export const course: Course = {
       ],
     },
     {
-      id: "m5",
-      titulo: "Módulo 5: Precificação",
+      id: "mockup-3d",
+      titulo: "Módulo 5: Aplicando Mockup 3D no Escudo",
       ordem: 6,
+      aulas: [
+        { id: "mockup-3d-1", titulo: "Aula 01", descricao: "", pandaVideoId: "7543176d-0576-428b-a03a-0ef8cb3c257f", ordem: 1 },
+      ],
+    },
+    {
+      id: "m5",
+      titulo: "Módulo 6: Precificação",
+      ordem: 7,
       aulas: [
         { id: "m5-1", titulo: "Aula 01", descricao: "", pandaVideoId: "98e0f188-8f80-4b41-a33b-7fec578b46a0", ordem: 1 },
       ],
