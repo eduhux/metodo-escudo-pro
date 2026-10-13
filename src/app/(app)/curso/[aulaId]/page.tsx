@@ -154,17 +154,27 @@ export default function CoursePage({
         <div className="grid gap-8 lg:grid-cols-[340px_1fr]">
           {/* Coluna esquerda — progresso + lista de aulas (desktop) */}
           <aside className="hidden lg:block">
-            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto rounded-2xl border border-border glass p-5">
-              <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                Seu progresso
-              </p>
-              <div className="mt-2 flex items-center justify-between">
-                <span className="text-sm font-semibold">{pct}% concluído</span>
+            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto rounded-2xl border border-white/10 glass p-5">
+              <div className="flex items-end justify-between">
+                <div>
+                  <p className="eyebrow text-[0.6rem] text-muted-foreground">
+                    Seu progresso
+                  </p>
+                  <p className="mt-1 text-3xl font-bold leading-none tabular-nums">
+                    {pct}
+                    <span className="text-lg text-muted-foreground">%</span>
+                  </p>
+                </div>
                 <span className="text-xs text-muted-foreground">
                   {doneCount}/{totalLessons} aulas
                 </span>
               </div>
-              <ProgressBar value={pct} className="mt-2 h-1.5" />
+              <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-muted">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-primary to-[hsl(var(--energy))] transition-all duration-700 ease-out"
+                  style={{ width: `${pct}%` }}
+                />
+              </div>
 
               <Separator className="my-5" />
 
@@ -194,9 +204,11 @@ export default function CoursePage({
 
             {/* Player com moldura e brilho */}
             <div className="relative">
-              <div className="pointer-events-none absolute -inset-6 -z-10 rounded-3xl bg-primary/10 blur-3xl" />
-              <div className="rounded-2xl border border-border bg-card/40 p-1.5 shadow-2xl shadow-primary/10">
-                <PandaPlayer videoId={lesson.pandaVideoId} title={lesson.titulo} />
+              <div className="glow-orb pointer-events-none absolute -inset-8 -z-10 opacity-60" />
+              <div className="overflow-hidden rounded-[1.25rem] border border-white/10 bg-gradient-to-b from-white/[0.06] to-transparent p-1.5 shadow-2xl shadow-black/40">
+                <div className="overflow-hidden rounded-[0.9rem]">
+                  <PandaPlayer videoId={lesson.pandaVideoId} title={lesson.titulo} />
+                </div>
               </div>
             </div>
 
@@ -286,33 +298,58 @@ export default function CoursePage({
             <Separator className="my-8" />
 
             {/* Navegação entre aulas */}
-            <div className="flex items-center justify-between gap-3">
+            <div className="grid gap-3 sm:grid-cols-2">
               {prev ? (
-                <Button asChild variant="outline">
-                  <Link href={`/curso/${prev.id}`}>
-                    <ArrowLeft />
-                    <span className="hidden sm:inline">Aula anterior</span>
-                    <span className="sm:hidden">Anterior</span>
-                  </Link>
-                </Button>
+                <Link
+                  href={`/curso/${prev.id}`}
+                  className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-card/40 p-4 transition-all duration-200 hover:border-primary/30 hover:bg-card"
+                >
+                  <ArrowLeft className="h-5 w-5 shrink-0 text-muted-foreground transition-all group-hover:-translate-x-0.5 group-hover:text-primary" />
+                  <div className="min-w-0">
+                    <p className="text-[0.62rem] font-semibold uppercase tracking-wider text-muted-foreground">
+                      Aula anterior
+                    </p>
+                    <p className="truncate text-sm font-medium">{prev.titulo}</p>
+                    <p className="truncate text-xs text-muted-foreground">
+                      {prev.moduloTitulo}
+                    </p>
+                  </div>
+                </Link>
               ) : (
-                <span />
+                <span className="hidden sm:block" />
               )}
 
               {next ? (
-                <Button asChild>
-                  <Link href={`/curso/${next.id}`}>
-                    <span className="hidden sm:inline">Próxima aula</span>
-                    <span className="sm:hidden">Próxima</span>
-                    <ArrowRight />
-                  </Link>
-                </Button>
+                <Link
+                  href={`/curso/${next.id}`}
+                  className="group flex items-center justify-end gap-3 rounded-2xl border border-white/10 bg-card/40 p-4 text-right transition-all duration-200 hover:border-primary/30 hover:bg-card"
+                >
+                  <div className="min-w-0">
+                    <p className="text-[0.62rem] font-semibold uppercase tracking-wider text-primary">
+                      Próxima aula
+                    </p>
+                    <p className="truncate text-sm font-medium">{next.titulo}</p>
+                    <p className="truncate text-xs text-muted-foreground">
+                      {next.moduloTitulo}
+                    </p>
+                  </div>
+                  <ArrowRight className="h-5 w-5 shrink-0 text-primary transition-transform group-hover:translate-x-0.5" />
+                </Link>
               ) : (
-                <Button asChild variant="secondary">
-                  <Link href="/dashboard">
-                    Concluir curso <CheckCircle2 />
-                  </Link>
-                </Button>
+                <Link
+                  href="/dashboard"
+                  className="group flex items-center justify-end gap-3 rounded-2xl border border-[hsl(var(--energy))]/30 bg-[hsl(var(--energy))]/10 p-4 text-right transition-all duration-200 hover:bg-[hsl(var(--energy))]/15"
+                >
+                  <div>
+                    <p className="text-[0.62rem] font-semibold uppercase tracking-wider text-[hsl(var(--energy))]">
+                      Fim do curso
+                    </p>
+                    <p className="text-sm font-medium">
+                      Concluir e voltar ao dashboard
+                    </p>
+                  </div>
+                  <CheckCircle2 className="h-5 w-5 shrink-0 text-[hsl(var(--energy))]" />
+                </Link>
               )}
             </div>
           </motion.div>
