@@ -15,6 +15,7 @@ import {
   Gift,
   Type,
   Shield,
+  Sparkles,
 } from "lucide-react";
 import { useAuth } from "@/context/auth-context";
 import { loadProgress, syncProgressFromCloud } from "@/lib/progress";
@@ -35,6 +36,8 @@ const FONTES_URL =
 
 const ESCUDOS_URL =
   "https://drive.google.com/file/d/12e5QEAb7uJ-7VeHRhdXvC2EmxhHLvnmI/view?usp=drive_link";
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -60,13 +63,41 @@ export default function DashboardPage() {
   const isStarted = Boolean(lastId) || doneCount > 0;
 
   const stats = [
-    { icon: Film, valor: totalLessons, label: "Aulas no total", accent: false },
-    { icon: Layers, valor: modulosCount, label: "Módulos", accent: false },
+    { icon: Film, valor: totalLessons, label: "Aulas no total" },
+    { icon: Layers, valor: modulosCount, label: "Módulos" },
+    { icon: CheckCircle2, valor: doneCount, label: "Aulas concluídas", accent: true },
+  ];
+
+  const downloads = [
     {
-      icon: CheckCircle2,
-      valor: doneCount,
-      label: "Aulas concluídas",
-      accent: true,
+      icon: FileArchive,
+      tag: "Material",
+      titulo: "Materiais do curso",
+      texto:
+        "Baixe o pacote com todos os arquivos usados nas aulas e os mockups. Siga a instalação exatamente como nas aulas.",
+      cta: "Baixar materiais",
+      url: MATERIAIS_URL,
+      bonus: false,
+    },
+    {
+      icon: Type,
+      tag: "Bônus",
+      titulo: "+200 fontes premium",
+      texto:
+        "As mesmas fontes que uso nos meus projetos profissionais. Baixe e use nos seus escudos desde o primeiro dia.",
+      cta: "Baixar fontes",
+      url: FONTES_URL,
+      bonus: true,
+    },
+    {
+      icon: Shield,
+      tag: "Bônus",
+      titulo: "120 escudos de referência",
+      texto:
+        "120 escudos profissionais em PNG para estudar proporção, cores e estilos — e nunca mais começar do zero.",
+      cta: "Baixar pack",
+      url: ESCUDOS_URL,
+      bonus: true,
     },
   ];
 
@@ -74,242 +105,194 @@ export default function DashboardPage() {
     pct === 100
       ? "Você concluiu o método. Agora é colocar em prática e cobrar como profissional."
       : isStarted
-        ? `Você já concluiu ${doneCount} ${doneCount === 1 ? "aula" : "aulas"}. Continue de onde parou e mantenha o ritmo.`
+        ? `Você já concluiu ${doneCount} ${doneCount === 1 ? "aula" : "aulas"}. Continue de onde parou.`
         : "Sua jornada começa agora. Bora desenvolver seu primeiro escudo?";
 
   return (
-    <div className="relative">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[380px] glow-primary opacity-70" />
-      <div className="pointer-events-none absolute inset-0 grid-pattern opacity-[0.12]" />
+    <div className="relative overflow-hidden">
+      {/* atmosfera */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[420px] glow-primary" />
+      <div className="pointer-events-none absolute -left-24 top-40 h-72 w-72 animate-pulse rounded-full bg-primary/10 blur-3xl [animation-duration:6s]" />
+      <div className="pointer-events-none absolute -right-20 top-10 h-64 w-64 animate-pulse rounded-full bg-[hsl(var(--energy))]/10 blur-3xl [animation-duration:8s]" />
+      <div className="pointer-events-none absolute inset-0 grid-pattern opacity-[0.1]" />
 
       <div className="container relative py-10 md:py-14">
+        {/* ===== Banner de boas-vindas ===== */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6, ease }}
         >
-          <p className="text-sm text-muted-foreground">
-            {greeting()}, que bom te ver
-          </p>
-          <h1 className="mt-1 text-3xl font-semibold tracking-tight md:text-4xl">
-            Olá, {formatName(user?.nome)} 👋
-          </h1>
-          <p className="mt-2 text-muted-foreground">{jornadaMsg}</p>
+          <Card className="relative overflow-hidden border-white/10 bg-gradient-to-br from-card via-card to-secondary/50">
+            <div className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full bg-primary/15 blur-3xl" />
+            <div className="pointer-events-none absolute inset-0 grid-pattern opacity-[0.15]" />
+            <CardContent className="relative grid gap-8 p-7 md:grid-cols-[1fr_auto] md:items-center md:p-9">
+              <div>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/12 px-3 py-1 text-xs font-medium text-primary">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  {greeting()}
+                </span>
+                <h1 className="mt-4 text-3xl font-semibold tracking-tight md:text-4xl">
+                  Olá,{" "}
+                  <span className="text-gradient-accent">
+                    {formatName(user?.nome)}
+                  </span>{" "}
+                  👋
+                </h1>
+                <p className="mt-2 max-w-md text-muted-foreground">{jornadaMsg}</p>
+
+                <div className="mt-6 flex flex-wrap items-center gap-4">
+                  <Button asChild size="lg" className="rounded-full">
+                    <Link href={`/curso/${continueLesson.id}`}>
+                      <Play className="h-4 w-4 fill-current" />
+                      {isStarted ? "Continuar assistindo" : "Assistir primeira aula"}
+                    </Link>
+                  </Button>
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium">
+                      {continueLesson.titulo}
+                    </p>
+                    <p className="truncate text-xs text-muted-foreground">
+                      {continueLesson.moduloTitulo}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col items-center gap-3 md:border-l md:border-white/10 md:pl-9">
+                <ProgressRing value={pct} />
+                <p className="text-sm font-medium">
+                  {doneCount} de {totalLessons} aulas
+                </p>
+              </div>
+            </CardContent>
+          </Card>
         </motion.div>
 
-        {/* Estatísticas */}
+        {/* ===== Estatísticas ===== */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.05 }}
-          className="mt-8 flex flex-wrap items-stretch divide-x divide-border overflow-hidden rounded-2xl border border-border bg-card/40"
+          initial="hidden"
+          animate="visible"
+          variants={{ visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } } }}
+          className="mt-5 grid gap-4 sm:grid-cols-3"
         >
           {stats.map((s) => (
-            <div
+            <motion.div
               key={s.label}
-              className="flex min-w-[8rem] flex-1 items-center gap-3.5 px-6 py-5"
+              variants={{
+                hidden: { opacity: 0, y: 16 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
+              }}
             >
-              <s.icon
-                className={cn(
-                  "h-5 w-5 shrink-0",
-                  s.accent ? "text-[hsl(var(--energy))]" : "text-primary"
-                )}
-              />
-              <div>
-                <p className="text-2xl font-semibold leading-none tabular-nums">
-                  <Counter value={s.valor} />
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground">{s.label}</p>
-              </div>
-            </div>
+              <Card className="card-glow h-full border-white/10">
+                <CardContent className="flex items-center gap-4 p-5">
+                  <span
+                    className={cn(
+                      "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl",
+                      s.accent
+                        ? "bg-[hsl(var(--energy))]/15 text-[hsl(var(--energy))]"
+                        : "bg-primary/12 text-primary"
+                    )}
+                  >
+                    <s.icon className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <p className="text-2xl font-semibold leading-none tabular-nums">
+                      <Counter value={s.valor} />
+                    </p>
+                    <p className="mt-1.5 text-xs text-muted-foreground">
+                      {s.label}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </motion.div>
 
-        {/* Continuar + Progresso */}
-        <div className="mt-5 grid gap-5 lg:grid-cols-3">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="lg:col-span-2"
-          >
-            <Card className="relative h-full overflow-hidden bg-gradient-to-br from-card to-secondary/40">
-              <div className="pointer-events-none absolute -right-12 -top-12 h-52 w-52 rounded-full bg-primary/10 blur-3xl" />
-              <CardContent className="relative grid h-full gap-6 p-7 sm:grid-cols-[1fr_auto] sm:items-center">
-                <div>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                    <Play className="h-3 w-3 fill-current" />
-                    {isStarted ? "Continuar assistindo" : "Comece por aqui"}
-                  </span>
-                  <h2 className="mt-4 text-xl font-semibold md:text-2xl">
-                    {continueLesson.titulo}
-                  </h2>
-                  <p className="mt-1.5 text-sm text-muted-foreground">
-                    {continueLesson.moduloTitulo}
-                  </p>
-                  <Button asChild size="lg" className="mt-6 w-fit">
-                    <Link href={`/curso/${continueLesson.id}`}>
-                      {isStarted ? "Continuar" : "Assistir primeira aula"}
-                      <ArrowRight />
-                    </Link>
-                  </Button>
-                </div>
-
-                {/* Miniatura estilo player */}
-                <Link
-                  href={`/curso/${continueLesson.id}`}
-                  className="group relative hidden aspect-[4/3] w-44 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-secondary/40 sm:flex"
-                >
-                  <div className="pointer-events-none absolute inset-0 grid-pattern opacity-40" />
-                  <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 transition-transform group-hover:scale-110">
-                    <Play className="h-6 w-6 translate-x-0.5 fill-current" />
-                  </span>
-                </Link>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-          >
-            <Card className="h-full">
-              <CardContent className="flex h-full flex-col items-center justify-center gap-4 p-7">
-                <ProgressRing value={pct} />
-                <div className="text-center">
-                  <p className="text-sm font-medium">
-                    {doneCount} de {totalLessons} aulas
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {pct === 0
-                      ? "Comece sua jornada hoje"
-                      : pct === 100
-                        ? "Parabéns, curso concluído!"
-                        : "Continue no seu ritmo"}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
-
-        {/* Materiais + Bônus (lado a lado) */}
+        {/* ===== Materiais + Bônus ===== */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.18 }}
-          className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
+          className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {/* Materiais do curso */}
-          <Card className="relative h-full overflow-hidden bg-gradient-to-br from-card to-secondary/40">
-            <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
-            <CardContent className="relative flex h-full flex-col gap-4 p-6">
-              <div className="flex items-start gap-4">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <FileArchive className="h-6 w-6" />
-                </span>
-                <div>
-                  <h3 className="text-lg font-semibold">Materiais do curso</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                    Baixe o pacote com todos os arquivos usados nas aulas.{" "}
-                    <strong className="text-foreground/90">Importante:</strong>{" "}
-                    faça o download e a instalação seguindo exatamente as
-                    orientações das aulas.
-                  </p>
-                </div>
-              </div>
-              <Button asChild size="lg" className="mt-auto w-full sm:w-fit">
-                <a href={MATERIAIS_URL} target="_blank" rel="noopener noreferrer">
-                  <Download /> Baixar materiais
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* Bônus — pacote de fontes */}
-          <Card className="relative h-full overflow-hidden border-primary/30 bg-gradient-to-br from-primary/10 via-card to-secondary/40">
-            <div className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full bg-primary/20 blur-3xl" />
-            <CardContent className="relative flex h-full flex-col gap-4 p-6">
-              <div className="flex items-start gap-4">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
-                  <Type className="h-6 w-6" />
-                </span>
-                <div>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-3 py-1 text-xs font-medium text-primary">
-                    <Gift className="h-3.5 w-3.5" />
-                    Bônus exclusivo
-                  </span>
-                  <h3 className="mt-2 text-lg font-semibold">
-                    Pacote com +200 fontes premium
-                  </h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                    Este pack é o seu{" "}
-                    <strong className="text-foreground/90">
-                      bônus por ter adquirido o curso
-                    </strong>
-                    , com as mesmas fontes que uso nos meus projetos. Baixe e use
-                    nos seus escudos.
-                  </p>
-                </div>
-              </div>
-              <Button asChild size="lg" className="mt-auto w-full sm:w-fit">
-                <a href={FONTES_URL} target="_blank" rel="noopener noreferrer">
-                  <Download /> Baixar fontes
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* Bônus — pack de 120 escudos de referência */}
-          <Card className="relative h-full overflow-hidden border-primary/30 bg-gradient-to-br from-primary/10 via-card to-secondary/40">
-            <div className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full bg-primary/20 blur-3xl" />
-            <CardContent className="relative flex h-full flex-col gap-4 p-6">
-              <div className="flex items-start gap-4">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
-                  <Shield className="h-6 w-6" />
-                </span>
-                <div>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-3 py-1 text-xs font-medium text-primary">
-                    <Gift className="h-3.5 w-3.5" />
-                    Bônus exclusivo
-                  </span>
-                  <h3 className="mt-2 text-lg font-semibold">
-                    Pack com 120 escudos de referência
-                  </h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                    120 escudos profissionais em PNG para usar como referência
-                    nos seus projetos. Estude proporção, cores e estilos, e nunca
-                    mais comece do zero. É o seu bônus por ter entrado no curso.
-                  </p>
-                </div>
-              </div>
-              <Button asChild size="lg" className="mt-auto w-full sm:w-fit">
-                <a href={ESCUDOS_URL} target="_blank" rel="noopener noreferrer">
-                  <Download /> Baixar pack de escudos
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
+          {downloads.map((d) => (
+            <motion.div
+              key={d.titulo}
+              variants={{
+                hidden: { opacity: 0, y: 16 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
+              }}
+            >
+              <Card
+                className={cn(
+                  "card-glow group relative h-full overflow-hidden border-white/10",
+                  d.bonus
+                    ? "bg-gradient-to-br from-primary/10 via-card to-secondary/40"
+                    : "bg-gradient-to-br from-card to-secondary/40"
+                )}
+              >
+                <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl transition-transform duration-500 group-hover:scale-125" />
+                <CardContent className="relative flex h-full flex-col gap-4 p-6">
+                  <div className="flex items-center justify-between">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/15 text-primary">
+                      <d.icon className="h-6 w-6" />
+                    </span>
+                    <span
+                      className={cn(
+                        "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-wider",
+                        d.bonus
+                          ? "bg-[hsl(var(--energy))]/15 text-[hsl(var(--energy))]"
+                          : "bg-muted text-muted-foreground"
+                      )}
+                    >
+                      {d.bonus && <Gift className="h-3 w-3" />}
+                      {d.tag}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold">{d.titulo}</h3>
+                    <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                      {d.texto}
+                    </p>
+                  </div>
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="mt-auto w-full rounded-full border-white/15 transition-colors group-hover:border-primary/40 group-hover:text-primary"
+                  >
+                    <a href={d.url} target="_blank" rel="noopener noreferrer">
+                      <Download /> {d.cta}
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
         </motion.div>
 
-        {/* Módulos */}
+        {/* ===== Módulos ===== */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.22 }}
-          className="mt-10"
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5, ease }}
+          className="mt-12"
         >
-          <div className="mb-4 flex items-baseline justify-between">
-            <h3 className="text-lg font-semibold">Conteúdo do curso</h3>
+          <div className="mb-5 flex items-baseline justify-between">
+            <h3 className="text-xl font-semibold tracking-tight">
+              Conteúdo do curso
+            </h3>
             <span className="text-sm text-muted-foreground">
               {course.modulos.length} seções · {totalLessons} aulas
             </span>
           </div>
 
           <div className="relative">
-            <div className="absolute bottom-6 left-[31px] top-6 w-px bg-border" />
-            <div className="space-y-1">
+            <div className="absolute bottom-8 left-[27px] top-8 w-px bg-gradient-to-b from-primary/40 via-border to-transparent" />
+            <div className="space-y-2">
               {course.modulos.map((m) => {
                 const total = m.aulas.length;
                 const done = m.aulas.filter(
@@ -322,11 +305,11 @@ export default function DashboardPage() {
                   <Link
                     key={m.id}
                     href={`/curso/${m.aulas[0].id}`}
-                    className="group relative flex items-center gap-4 rounded-xl px-3 py-3.5 transition-colors hover:bg-card/60"
+                    className="group relative flex items-center gap-4 rounded-2xl border border-transparent px-3 py-3.5 transition-all duration-200 hover:border-white/10 hover:bg-card/70"
                   >
                     <span
                       className={cn(
-                        "relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 bg-background transition-colors",
+                        "relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 bg-background transition-colors",
                         concluido
                           ? "border-primary bg-primary text-primary-foreground"
                           : modIniciado
@@ -350,11 +333,7 @@ export default function DashboardPage() {
                       </div>
                     </div>
                     <span className="hidden shrink-0 items-center gap-1.5 text-sm font-medium text-primary sm:flex">
-                      {concluido
-                        ? "Revisar"
-                        : modIniciado
-                          ? "Continuar"
-                          : "Começar"}
+                      {concluido ? "Revisar" : modIniciado ? "Continuar" : "Começar"}
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </span>
                   </Link>
