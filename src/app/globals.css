@@ -64,24 +64,24 @@
 
   /* Portal do aluno — tema refinado e sóbrio (escopo próprio). */
   .portal {
-    --background: 240 8% 6%;
-    --foreground: 240 10% 96%;
-    --card: 240 8% 9%;
-    --card-foreground: 240 10% 96%;
-    --primary: 245 55% 63%;
+    --background: 229 20% 6%;
+    --foreground: 225 20% 96%;
+    --card: 229 17% 9%;
+    --card-foreground: 225 20% 96%;
+    --primary: 225 83% 64%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 240 6% 13%;
-    --secondary-foreground: 240 10% 96%;
-    --muted: 240 6% 13%;
-    --muted-foreground: 240 5% 62%;
-    --accent: 240 6% 15%;
-    --accent-foreground: 240 10% 96%;
-    --border: 240 6% 16%;
-    --input: 240 6% 16%;
-    --ring: 245 55% 63%;
-    --energy: 168 45% 52%;
-    --energy-foreground: 168 60% 8%;
-    --radius: 0.75rem;
+    --secondary: 229 13% 13%;
+    --secondary-foreground: 225 20% 96%;
+    --muted: 229 13% 13%;
+    --muted-foreground: 225 10% 63%;
+    --accent: 229 13% 16%;
+    --accent-foreground: 225 20% 96%;
+    --border: 228 14% 17%;
+    --input: 228 14% 17%;
+    --ring: 225 83% 64%;
+    --energy: 198 90% 58%;
+    --energy-foreground: 205 60% 8%;
+    --radius: 0.85rem;
   }
   .portal :is(h1, h2, h3, h4) {
     font-family: var(--font-sans), system-ui, sans-serif;

@@ -15,7 +15,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { findLesson, flatLessons, totalLessons } from "@/data/course";
+import { course, findLesson, totalLessons } from "@/data/course";
 import {
   loadProgress,
   saveLastLesson,
@@ -30,6 +30,14 @@ import { Button } from "@/components/ui/button";
 import { Progress as ProgressBar } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+
+function Kbd({ children }: { children: React.ReactNode }) {
+  return (
+    <kbd className="inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-md border border-white/10 bg-white/5 px-1.5 font-mono text-[11px] font-medium text-foreground/80">
+      {children}
+    </kbd>
+  );
+}
 
 export default function CoursePage({
   params,
@@ -99,7 +107,16 @@ export default function CoursePage({
     ? Object.values(progress.aulasConcluidas).filter(Boolean).length
     : 0;
   const pct = progress?.percentual ?? 0;
-  const lessonIndex = flatLessons.findIndex((l) => l.id === lesson.id) + 1;
+  const modulo = course.modulos.find((m) =>
+    m.aulas.some((a) => a.id === lesson.id)
+  );
+  const posNoModulo = modulo
+    ? modulo.aulas.findIndex((a) => a.id === lesson.id) + 1
+    : 1;
+  const totalNoModulo = modulo?.aulas.length ?? 1;
+  const moduloIndex = modulo
+    ? course.modulos.filter((m) => m.id !== "aula-inicial").findIndex((m) => m.id === modulo.id) + 1
+    : 0;
 
   function handleToggleDone() {
     const willBeDone = !isDone;
@@ -214,67 +231,73 @@ export default function CoursePage({
             </div>
 
             {/* Detalhes */}
-            <div className="mt-6">
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                  {lesson.moduloTitulo}
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  Aula {lessonIndex} de {totalLessons}
+            <div className="mt-7">
+              <div className="flex items-center gap-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-primary">
+                {moduloIndex > 0 && (
+                  <span className="tabular-nums">
+                    Módulo {String(moduloIndex).padStart(2, "0")}
+                  </span>
+                )}
+                <span className="h-1 w-1 rounded-full bg-primary/50" />
+                <span className="text-muted-foreground">
+                  Aula {posNoModulo}/{totalNoModulo}
                 </span>
               </div>
-              <h1 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">
+
+              <h1 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
                 {lesson.titulo}
               </h1>
+              <p className="mt-2 text-sm text-muted-foreground">
+                {lesson.moduloTitulo}
+              </p>
               {lesson.descricao && (
-                <p className="mt-3 leading-relaxed text-muted-foreground">
+                <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
                   {lesson.descricao}
                 </p>
               )}
             </div>
 
             {/* Ações */}
-            <div className="mt-6 flex flex-wrap items-center gap-4">
+            <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
               <Button
                 onClick={handleToggleDone}
                 size="lg"
                 variant={isDone ? "secondary" : "default"}
+                className={
+                  isDone
+                    ? "rounded-full"
+                    : "cta-energy rounded-full font-semibold"
+                }
               >
                 {isDone ? (
                   <>
-                    <CheckCircle2 className="text-[hsl(var(--energy))]" /> Aula
-                    concluída
+                    <CheckCircle2 className="text-[hsl(var(--energy))]" />
+                    Aula concluída
                   </>
                 ) : (
                   <>
-                    <Check /> Marcar como concluída
+                    <Check strokeWidth={3} />
+                    Marcar como concluída
                   </>
                 )}
               </Button>
-              <p className="hidden items-center gap-1.5 text-xs text-muted-foreground sm:flex">
-                Atalhos:
-                <kbd className="rounded border border-border bg-card px-1.5 py-0.5 font-mono text-[11px]">
-                  C
-                </kbd>
-                concluir
-                <span className="text-muted-foreground/40">·</span>
-                <kbd className="rounded border border-border bg-card px-1.5 py-0.5 font-mono text-[11px]">
-                  ←
-                </kbd>
-                <kbd className="rounded border border-border bg-card px-1.5 py-0.5 font-mono text-[11px]">
-                  →
-                </kbd>
-                navegar
-              </p>
+
+              <div className="hidden items-center gap-2 text-xs text-muted-foreground sm:flex">
+                <Kbd>C</Kbd>
+                <span>concluir</span>
+                <span className="mx-1 h-3 w-px bg-border" />
+                <Kbd>←</Kbd>
+                <Kbd>→</Kbd>
+                <span>navegar entre aulas</span>
+              </div>
             </div>
 
             {/* Materiais */}
             {lesson.materiais && lesson.materiais.length > 0 && (
               <div className="mt-10">
-                <div className="flex items-center gap-2">
-                  <FolderDown className="h-4 w-4 text-primary" />
-                  <h2 className="text-sm font-semibold">Materiais desta aula</h2>
-                </div>
+                <h2 className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                  Material de apoio
+                </h2>
                 <div className="mt-3 grid gap-2.5">
                   {lesson.materiais.map((mat) => (
                     <a
@@ -296,7 +319,7 @@ export default function CoursePage({
                         </p>
                         <p className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
                           <ExternalLink className="h-3 w-3" />
-                          Abre a pasta no Google Drive em uma nova aba
+                          Google Drive · abre em nova aba
                         </p>
                       </div>
 
