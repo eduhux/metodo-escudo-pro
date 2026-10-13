@@ -4,16 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
-import { Loader2, LogIn, AlertCircle } from "lucide-react";
+import { Loader2, User, Lock, ArrowRight, AlertCircle } from "lucide-react";
 import { useAuth } from "@/context/auth-context";
 import { MOCK_MODE } from "@/lib/config";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -52,17 +45,21 @@ export default function LoginPage() {
   }
 
   return (
-    <Card className="glass-strong">
-      <CardHeader className="text-center">
-        <CardTitle className="text-2xl">Entrar na plataforma</CardTitle>
-        <CardDescription>
+    <div className="glass-strong rounded-2xl border border-white/15 p-8 shadow-2xl shadow-black/40">
+      <div className="text-center">
+        <h1 className="text-3xl font-bold text-white">Bem-vindo de volta</h1>
+        <p className="mt-2 text-sm text-white/60">
           Entre para continuar desenvolvendo seus escudos.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">E-mail</Label>
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="mt-7 space-y-5">
+        <div className="space-y-1.5">
+          <Label htmlFor="email" className="text-white/80">
+            E-mail
+          </Label>
+          <div className="relative">
+            <User className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/40" />
             <Input
               id="email"
               type="email"
@@ -71,18 +68,25 @@ export default function LoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
+              className="border-white/15 bg-white/5 pl-9 text-white placeholder:text-white/30 focus-visible:ring-primary"
             />
           </div>
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <Label htmlFor="password">Senha</Label>
-              <Link
-                href="/recuperar-senha"
-                className="text-xs text-muted-foreground transition-colors hover:text-primary"
-              >
-                Esqueceu a senha?
-              </Link>
-            </div>
+        </div>
+
+        <div className="space-y-1.5">
+          <div className="flex items-center justify-between">
+            <Label htmlFor="password" className="text-white/80">
+              Senha
+            </Label>
+            <Link
+              href="/recuperar-senha"
+              className="text-xs text-white/60 transition-colors hover:text-primary"
+            >
+              Esqueceu a senha?
+            </Link>
+          </div>
+          <div className="relative">
+            <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/40" />
             <Input
               id="password"
               type="password"
@@ -91,33 +95,40 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               autoComplete="current-password"
+              className="border-white/15 bg-white/5 pl-9 text-white placeholder:text-white/30 focus-visible:ring-primary"
             />
           </div>
+        </div>
 
-          {error && (
-            <div className="flex items-start gap-2 rounded-lg border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">
-              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-              <span>{error}</span>
-            </div>
+        {error && (
+          <div className="flex items-start gap-2 rounded-xl border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">
+            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>{error}</span>
+          </div>
+        )}
+
+        <Button
+          type="submit"
+          size="lg"
+          disabled={loading}
+          className="cta-energy group w-full rounded-full font-semibold"
+        >
+          {loading ? (
+            <Loader2 className="animate-spin" />
+          ) : (
+            <>
+              Entrar
+              <ArrowRight className="transition-transform group-hover:translate-x-1" />
+            </>
           )}
+        </Button>
 
-          <Button type="submit" className="w-full" size="lg" disabled={loading}>
-            {loading ? (
-              <Loader2 className="animate-spin" />
-            ) : (
-              <>
-                <LogIn /> Entrar
-              </>
-            )}
-          </Button>
-
-          {MOCK_MODE && (
-            <p className="rounded-lg border border-border bg-secondary/40 p-3 text-center text-xs text-muted-foreground">
-              Modo demonstração ativo — use qualquer e-mail e senha para entrar.
-            </p>
-          )}
-        </form>
-      </CardContent>
-    </Card>
+        {MOCK_MODE && (
+          <p className="rounded-xl border border-white/10 bg-white/5 p-3 text-center text-xs text-white/60">
+            Modo demonstração ativo — use qualquer e-mail e senha para entrar.
+          </p>
+        )}
+      </form>
+    </div>
   );
 }
