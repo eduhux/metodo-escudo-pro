@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
 import { Button } from "@/components/ui/button";
+import { ShinyButton } from "@/components/ui/shiny-button";
 import { usePromo } from "@/hooks/use-promo";
 import { checkoutUrl } from "@/lib/promo";
 import { cn } from "@/lib/utils";
@@ -100,15 +101,8 @@ export function Navbar() {
             })}
           </nav>
 
-          <div className="hidden items-center gap-2 md:flex">
-            <Button
-              asChild
-              variant="ghost"
-              size="sm"
-              className="rounded-full text-[0.8rem] font-medium text-muted-foreground hover:text-foreground"
-            >
-              <Link href="/login">Entrar</Link>
-            </Button>
+          <div className="hidden items-center gap-3 md:flex">
+            <ShinyButton href="/login">Entrar</ShinyButton>
             <Button
               asChild
               size="sm"
@@ -156,10 +150,10 @@ export function Navbar() {
                     </Link>
                   );
                 })}
-                <div className="mt-2 flex flex-col gap-2 border-t border-white/10 pt-3">
-                  <Button asChild variant="outline" className="rounded-full">
-                    <Link href="/login">Entrar no portal</Link>
-                  </Button>
+                <div className="mt-2 flex flex-col items-stretch gap-2.5 border-t border-white/10 pt-3">
+                  <ShinyButton href="/login" className="w-full">
+                    Entrar no portal
+                  </ShinyButton>
                   <Button asChild className="cta-energy rounded-full">
                     <a href={checkout} target="_blank" rel="noopener noreferrer">
                       {ctaLabel}
