@@ -16,8 +16,9 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "var(--font-sans)", "sans-serif"],
-        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+        display: ["var(--font-sans)", "system-ui", "sans-serif"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
+        mono: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
       spacing: {
         "13": "3.25rem",

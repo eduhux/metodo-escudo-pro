@@ -15,7 +15,6 @@ const links = [
   { href: "#conteudo", label: "Conteúdo" },
   { href: "#bonus", label: "Bônus" },
   { href: "#oferta", label: "Preço" },
-  { href: "#depoimentos", label: "Depoimentos" },
   { href: "#faq", label: "FAQ" },
 ];
 
@@ -26,7 +25,7 @@ export function Navbar() {
   const { ativa: promoAtiva } = usePromo();
 
   const checkout = checkoutUrl(promoAtiva);
-  const ctaLabel = promoAtiva ? "Garantir por R$47" : "Comprar Agora";
+  const ctaLabel = promoAtiva ? "Garantir por R$47" : "Garantir vaga";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -35,7 +34,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Scroll-spy: destaca no menu a seção que está no centro da tela.
   useEffect(() => {
     const els = links
       .map((l) => document.getElementById(l.href.slice(1)))
@@ -46,14 +44,11 @@ export function Navbar() {
       (entries) => {
         const visible = entries
           .filter((e) => e.isIntersecting)
-          .sort(
-            (a, b) => a.boundingClientRect.top - b.boundingClientRect.top
-          );
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
         if (visible[0]) setActive(visible[0].target.id);
       },
       { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
     );
-
     els.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
@@ -69,10 +64,10 @@ export function Navbar() {
       <div className="container">
         <div
           className={cn(
-            "flex items-center justify-between border px-4 py-2.5 transition-all duration-300",
+            "flex items-center justify-between gap-4 rounded-full px-3 py-2 pl-5 transition-all duration-300",
             scrolled
-              ? "border-border bg-background/90 backdrop-blur-md"
-              : "border-transparent bg-transparent"
+              ? "border border-white/10 bg-background/70 shadow-lg shadow-black/20 backdrop-blur-xl"
+              : "border border-transparent"
           )}
         >
           <Logo />
@@ -86,7 +81,7 @@ export function Navbar() {
                   href={l.href}
                   aria-current={isActive ? "true" : undefined}
                   className={cn(
-                    "relative px-3 py-2 font-mono text-xs uppercase tracking-wider transition-colors",
+                    "relative rounded-full px-3.5 py-2 text-[0.8rem] font-medium transition-colors",
                     isActive
                       ? "text-foreground"
                       : "text-muted-foreground hover:text-foreground"
@@ -96,7 +91,7 @@ export function Navbar() {
                   {isActive && (
                     <motion.span
                       layoutId="nav-active"
-                      className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-[hsl(var(--energy))]"
+                      className="absolute inset-0 -z-10 rounded-full bg-white/5"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -110,14 +105,14 @@ export function Navbar() {
               asChild
               variant="ghost"
               size="sm"
-              className="font-mono text-xs uppercase tracking-wider"
+              className="rounded-full text-[0.8rem] font-medium text-muted-foreground hover:text-foreground"
             >
-              <Link href="/login">Portal do Aluno</Link>
+              <Link href="/login">Entrar</Link>
             </Button>
             <Button
               asChild
               size="sm"
-              className="rounded-none font-mono text-xs uppercase tracking-wider"
+              className="cta-energy rounded-full px-5 text-[0.8rem] font-semibold"
             >
               <a href={checkout} target="_blank" rel="noopener noreferrer">
                 {ctaLabel}
@@ -126,7 +121,7 @@ export function Navbar() {
           </div>
 
           <button
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-foreground md:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-foreground md:hidden"
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             aria-expanded={open}
@@ -141,7 +136,7 @@ export function Navbar() {
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
-              className="mt-2 overflow-hidden border border-border bg-background/95 p-4 backdrop-blur-md md:hidden"
+              className="mt-2 overflow-hidden rounded-3xl border border-white/10 bg-background/95 p-4 backdrop-blur-xl md:hidden"
             >
               <nav className="flex flex-col gap-1">
                 {links.map((l) => {
@@ -153,19 +148,19 @@ export function Navbar() {
                       onClick={() => setOpen(false)}
                       aria-current={isActive ? "true" : undefined}
                       className={cn(
-                        "px-3 py-2.5 font-mono text-xs uppercase tracking-wider transition-colors hover:bg-accent hover:text-foreground",
-                        isActive ? "text-energy" : "text-muted-foreground"
+                        "rounded-xl px-3 py-2.5 text-sm font-medium transition-colors hover:bg-white/5",
+                        isActive ? "text-primary" : "text-muted-foreground"
                       )}
                     >
                       {l.label}
                     </Link>
                   );
                 })}
-                <div className="mt-2 flex flex-col gap-2 border-t border-border pt-3">
-                  <Button asChild variant="outline">
-                    <Link href="/login">Portal do Aluno</Link>
+                <div className="mt-2 flex flex-col gap-2 border-t border-white/10 pt-3">
+                  <Button asChild variant="outline" className="rounded-full">
+                    <Link href="/login">Entrar no portal</Link>
                   </Button>
-                  <Button asChild>
+                  <Button asChild className="cta-energy rounded-full">
                     <a href={checkout} target="_blank" rel="noopener noreferrer">
                       {ctaLabel}
                     </a>

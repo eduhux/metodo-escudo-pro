@@ -1,29 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Anton, Archivo, Space_Mono } from "next/font/google";
+import { Archivo, Instrument_Serif } from "next/font/google";
 import { Toaster } from "sonner";
 import { AuthProvider } from "@/context/auth-context";
 import { PwaRegister } from "@/components/shared/pwa-register";
 import "./globals.css";
 
-// Corpo: Archivo. Títulos display: Anton (condensado, impacto underground).
-// Rótulos técnicos: Space Mono.
+// Sistema tipográfico — "Ateliê Atlético":
+// Corpo + display: Archivo (grotesca moderna, pesos altos nos títulos).
+// Assinatura editorial: Instrument Serif itálica (palavras de destaque).
 const sans = Archivo({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const display = Anton({
+const serif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
-  variable: "--font-display",
-  display: "swap",
-});
-
-const mono = Space_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-mono",
+  style: ["normal", "italic"],
+  variable: "--font-serif",
   display: "swap",
 });
 
@@ -56,7 +51,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0a07",
+  themeColor: "#0a0b12",
 };
 
 export default function RootLayout({
@@ -65,7 +60,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="dark" suppressHydrationWarning>
       <body
-        className={`${sans.variable} ${display.variable} ${mono.variable} font-sans`}
+        className={`${sans.variable} ${serif.variable} font-sans`}
       >
         <AuthProvider>{children}</AuthProvider>
         <PwaRegister />

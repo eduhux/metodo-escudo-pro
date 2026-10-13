@@ -4,37 +4,37 @@
 
 @layer base {
   :root {
-    /* Underground / várzea — preto quente + lime primário + laranja quente */
-    --background: 48 20% 4%;
-    --foreground: 45 33% 94%;
+    /* "Ateliê Atlético" — tinta profunda + cobalto elétrico */
+    --background: 230 24% 5%;
+    --foreground: 225 20% 96%;
 
-    --card: 48 14% 7%;
-    --card-foreground: 45 33% 94%;
+    --card: 230 18% 8%;
+    --card-foreground: 225 20% 96%;
 
-    --primary: 72 92% 60%;
-    --primary-foreground: 66 100% 6%;
+    --primary: 226 100% 66%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 45 10% 11%;
-    --secondary-foreground: 45 33% 94%;
+    --secondary: 230 14% 12%;
+    --secondary-foreground: 225 20% 96%;
 
-    --muted: 45 8% 12%;
-    --muted-foreground: 44 9% 60%;
+    --muted: 230 12% 13%;
+    --muted-foreground: 225 10% 64%;
 
-    --accent: 45 10% 14%;
-    --accent-foreground: 45 33% 94%;
+    --accent: 230 12% 15%;
+    --accent-foreground: 225 20% 96%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 45 10% 16%;
-    --input: 45 10% 16%;
-    --ring: 72 92% 60%;
+    --border: 228 16% 17%;
+    --input: 228 16% 17%;
+    --ring: 226 100% 66%;
 
-    /* Acento quente secundário (laranja várzea) */
-    --energy: 14 100% 60%;
-    --energy-foreground: 20 90% 8%;
+    /* Acento azure para gradientes/realces */
+    --energy: 205 100% 64%;
+    --energy-foreground: 215 60% 8%;
 
-    --radius: 0.25rem;
+    --radius: 1rem;
   }
 }
 
@@ -47,18 +47,21 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
   }
   h1,
   h2,
   h3,
   h4 {
-    font-family: var(--font-display), system-ui, sans-serif;
-    letter-spacing: 0.01em;
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.04;
   }
   ::selection {
     @apply bg-primary text-primary-foreground;
   }
+
   /* Portal do aluno — tema refinado e sóbrio (escopo próprio). */
   .portal {
     --background: 240 8% 6%;
@@ -80,144 +83,188 @@
     --energy-foreground: 168 60% 8%;
     --radius: 0.75rem;
   }
-  /* No portal, títulos voltam ao sans refinado (nada de Anton/caixa-alta). */
   .portal :is(h1, h2, h3, h4) {
     font-family: var(--font-sans), system-ui, sans-serif;
-    letter-spacing: -0.01em;
+    font-weight: 650;
+    letter-spacing: -0.015em;
     text-transform: none;
   }
 }
 
 @layer utilities {
-  /* Glassmorphism discreto */
+  /* Palavra-assinatura em serifa itálica (alto/baixo contraste editorial) */
+  .serif-accent {
+    font-family: var(--font-serif), Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  /* Rótulo/eyebrow premium */
+  .eyebrow {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+  }
+
+  /* Superfície de card padrão */
+  .surface {
+    background: hsl(var(--card));
+    border: 1px solid hsl(0 0% 100% / 0.07);
+    border-radius: var(--radius);
+  }
+
+  /* Vidro discreto */
   .glass {
-    background: hsl(258 20% 9% / 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid hsl(0 0% 100% / 0.06);
+    background: hsl(230 24% 7% / 0.6);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid hsl(0 0% 100% / 0.07);
   }
-
   .glass-strong {
-    background: hsl(258 22% 9% / 0.82);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid hsl(0 0% 100% / 0.08);
+    background: hsl(230 24% 6% / 0.85);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid hsl(0 0% 100% / 0.09);
   }
 
-  /* Gradiente de texto premium */
+  /* Gradientes de texto */
   .text-gradient {
-    background: linear-gradient(180deg, hsl(45 30% 96%) 0%, hsl(44 12% 60%) 100%);
+    background: linear-gradient(180deg, hsl(225 25% 98%) 0%, hsl(225 12% 66%) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-
   .text-gradient-accent {
-    background: linear-gradient(120deg, hsl(72 100% 72%) 0%, hsl(72 100% 52%) 100%);
+    background: linear-gradient(
+      100deg,
+      hsl(226 100% 72%) 0%,
+      hsl(205 100% 66%) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-gradient-energy {
+    background: linear-gradient(
+      100deg,
+      hsl(var(--energy)) 0%,
+      hsl(226 100% 70%) 100%
+    );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  /* Glow radial de fundo */
+  /* Glows atmosféricos */
   .glow-primary {
     background: radial-gradient(
-      ellipse 50% 50% at 50% 0%,
-      hsl(72 92% 60% / 0.08),
-      transparent 70%
+      ellipse 55% 50% at 50% 0%,
+      hsl(226 100% 60% / 0.12),
+      transparent 72%
     );
   }
-
   .glow-orb {
     background: radial-gradient(
       circle at 50% 50%,
-      hsl(72 92% 60% / 0.2),
-      hsl(14 100% 55% / 0.1) 45%,
-      transparent 70%
+      hsl(226 100% 62% / 0.28),
+      hsl(205 100% 60% / 0.12) 45%,
+      transparent 72%
     );
   }
 
+  /* Malha de pontos / grade fina */
   .grid-pattern {
-    background-image: linear-gradient(hsl(0 0% 100% / 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(0 0% 100% / 0.035) 1px, transparent 1px);
-    background-size: 56px 56px;
+    background-image: linear-gradient(hsl(0 0% 100% / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(0 0% 100% / 0.03) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  .dot-grid {
+    background-image: radial-gradient(hsl(0 0% 100% / 0.08) 1px, transparent 1.4px);
+    background-size: 22px 22px;
   }
 
+  /* Sombra premium (reaproveita o nome antigo "hard-shadow") */
+  .hard-shadow {
+    box-shadow: 0 40px 80px -42px hsl(230 70% 2% / 0.85),
+      0 10px 28px -16px hsl(0 0% 0% / 0.55);
+  }
+  .lift {
+    box-shadow: 0 24px 60px -34px hsl(230 70% 2% / 0.8),
+      0 6px 18px -12px hsl(0 0% 0% / 0.5);
+  }
+  .card-glow {
+    transition: box-shadow 0.35s ease, transform 0.35s ease;
+  }
   .card-glow:hover {
-    box-shadow: 8px 10px 0 hsl(0 0% 0% / 0.45),
-      0 0 0 1px hsl(72 92% 60% / 0.3);
-    transform: translate(-1px, -1px);
+    transform: translateY(-3px);
+    box-shadow: 0 0 0 1px hsl(var(--primary) / 0.35),
+      0 30px 70px -36px hsl(226 100% 50% / 0.4);
   }
 
-  /* Texturas underground */
+  /* Texturas refinadas (nomes antigos reaproveitados, agora sutis) */
   .halftone-lime {
     background-image: radial-gradient(
-      hsl(var(--primary)) 1.3px,
-      transparent 1.5px
+      hsl(var(--primary) / 0.5) 1px,
+      transparent 1.4px
     );
-    background-size: 15px 15px;
+    background-size: 18px 18px;
   }
   .stripe-lime {
     background-image: repeating-linear-gradient(
-      -18deg,
-      hsl(var(--primary) / 0.16) 0 8px,
-      transparent 8px 22px
+      -20deg,
+      hsl(var(--primary) / 0.12) 0 6px,
+      transparent 6px 24px
     );
   }
-  .hard-shadow {
-    box-shadow: 8px 11px 0 hsl(0 0% 0% / 0.4);
+  .stripes-energy {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      hsl(0 0% 100% / 0.04) 0 1px,
+      transparent 1px 14px
+    );
   }
+
   .outline-text {
-    -webkit-text-stroke: 2px hsl(var(--foreground));
+    -webkit-text-stroke: 1.5px hsl(var(--foreground));
     color: transparent;
   }
+
   .film-grain {
-    opacity: 0.04;
+    opacity: 0.03;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* ===== Acento de energia esportiva ===== */
+  /* Acentos (energy = azure) */
   .text-energy {
     color: hsl(var(--energy));
   }
   .border-energy {
-    border-color: hsl(var(--energy) / 0.55);
+    border-color: hsl(var(--energy) / 0.5);
   }
   .bg-energy {
     background: hsl(var(--energy));
     color: hsl(var(--energy-foreground));
   }
-  .text-gradient-energy {
-    background: linear-gradient(100deg, hsl(var(--energy)) 0%, hsl(150 85% 55%) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
   .glow-energy {
     box-shadow: 0 0 0 1px hsl(var(--energy) / 0.3),
       0 20px 60px -22px hsl(var(--energy) / 0.4);
   }
-  /* Textura de listras diagonais (vibe camisa / esporte) */
-  .stripes-energy {
-    background-image: repeating-linear-gradient(
-      -45deg,
-      hsl(var(--energy) / 0.1) 0 2px,
-      transparent 2px 16px
-    );
-  }
-  /* CTA de conversão: anel/glow limão no hover */
+
+  /* CTA de conversão — anel/brilho cobalto no hover */
   .cta-energy {
     transition: box-shadow 0.3s ease, transform 0.2s ease;
   }
   .cta-energy:hover {
-    box-shadow: 0 0 0 2px hsl(var(--energy) / 0.55),
-      0 22px 55px -18px hsl(var(--energy) / 0.45);
+    transform: translateY(-1px);
+    box-shadow: 0 0 0 2px hsl(var(--primary) / 0.5),
+      0 24px 60px -18px hsl(226 100% 55% / 0.55);
   }
-  /* Brilho no preço promocional (R$47) */
+
   .promo-glow {
-    text-shadow: 0 0 24px hsl(var(--primary) / 0.55),
-      0 0 6px hsl(var(--primary) / 0.4);
+    text-shadow: 0 0 26px hsl(var(--primary) / 0.6),
+      0 0 6px hsl(var(--primary) / 0.45);
   }
 }
 
@@ -230,17 +277,17 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(258 12% 22%);
+  background: hsl(228 12% 22%);
   border-radius: 999px;
-  border: 2px solid hsl(258 24% 5%);
+  border: 2px solid hsl(230 24% 5%);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(258 14% 30%);
+  background: hsl(228 14% 30%);
 }
 
 /* ===== Escudo animado do hero (loop) ===== */
 .as-shield {
-  filter: drop-shadow(0 24px 60px rgba(124, 92, 246, 0.5));
+  filter: drop-shadow(0 24px 60px hsl(226 100% 55% / 0.45));
 }
 .as-p,
 .as-rivet {
@@ -294,15 +341,9 @@
   animation: marquee 36s linear infinite;
 }
 @keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
-  }
+  .marquee-track { animation: none; }
 }
