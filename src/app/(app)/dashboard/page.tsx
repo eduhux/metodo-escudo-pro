@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Play,
-  ArrowRight,
+  MoveRight,
   CheckCircle2,
   BookOpen,
   FileArchive,
@@ -335,16 +335,16 @@ export default function DashboardPage() {
                       >
                         {m.titulo}
                       </HoverBorderGradient>
-                      <div className="mt-1.5 flex items-center gap-3">
-                        <ProgressBar value={modPct} className="h-1.5 max-w-44" />
-                        <span className="shrink-0 text-xs text-muted-foreground">
-                          {done}/{total}
+                      <div className="mt-2.5 flex items-center gap-3">
+                        <ProgressBar value={modPct} className="h-2 max-w-56" />
+                        <span className="shrink-0 text-sm font-medium tabular-nums text-muted-foreground">
+                          {done} de {total} {total === 1 ? "aula" : "aulas"}
                         </span>
                       </div>
                     </div>
-                    <span className="hidden shrink-0 items-center gap-1.5 text-sm font-medium text-primary sm:flex">
+                    <span className="hidden shrink-0 items-center gap-2.5 rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-primary transition-colors group-hover:border-primary/40 group-hover:bg-primary/10 sm:inline-flex">
                       {concluido ? "Revisar" : modIniciado ? "Continuar" : "Começar"}
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      <MoveRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                     </span>
                   </Link>
                 );
