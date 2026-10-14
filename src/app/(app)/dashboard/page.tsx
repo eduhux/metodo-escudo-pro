@@ -28,6 +28,7 @@ import { Progress as ProgressBar } from "@/components/ui/progress";
 import { ProgressRing } from "@/components/dashboard/progress-ring";
 import { Counter } from "@/components/shared/counter";
 import { BorderBeam } from "@/components/ui/border-beam";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 
 const MATERIAIS_URL =
   "https://drive.google.com/file/d/1KFM6JqIY5DH7qACk0b_XNGKlVOuN550L/view?usp=drive_link";
@@ -327,7 +328,13 @@ export default function DashboardPage() {
                       )}
                     </span>
                     <div className="min-w-0 flex-1">
-                      <p className="truncate font-medium">{m.titulo}</p>
+                      <HoverBorderGradient
+                        as="div"
+                        duration={1.6}
+                        className="px-3.5 py-1.5 text-sm font-medium"
+                      >
+                        {m.titulo}
+                      </HoverBorderGradient>
                       <div className="mt-1.5 flex items-center gap-3">
                         <ProgressBar value={modPct} className="h-1.5 max-w-44" />
                         <span className="shrink-0 text-xs text-muted-foreground">
