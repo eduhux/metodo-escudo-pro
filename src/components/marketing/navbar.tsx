@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
 import { Button } from "@/components/ui/button";
 import { ShinyButton } from "@/components/ui/shiny-button";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { usePromo } from "@/hooks/use-promo";
 import { checkoutUrl } from "@/lib/promo";
 import { cn } from "@/lib/utils";
@@ -73,33 +74,40 @@ export function Navbar() {
         >
           <Logo />
 
-          <nav className="hidden items-center gap-1 md:flex">
-            {links.map((l) => {
-              const isActive = active === l.href.slice(1);
-              return (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  aria-current={isActive ? "true" : undefined}
-                  className={cn(
-                    "relative rounded-full px-3.5 py-2 text-[0.8rem] font-medium transition-colors",
-                    isActive
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground"
-                  )}
-                >
-                  {l.label}
-                  {isActive && (
-                    <motion.span
-                      layoutId="nav-active"
-                      className="absolute inset-0 -z-10 rounded-full bg-white/5"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </Link>
-              );
-            })}
-          </nav>
+          <HoverBorderGradient
+            as="div"
+            duration={1.4}
+            containerClassName="hidden md:block"
+            className="px-1.5 py-1"
+          >
+            <nav className="flex items-center gap-1">
+              {links.map((l) => {
+                const isActive = active === l.href.slice(1);
+                return (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    aria-current={isActive ? "true" : undefined}
+                    className={cn(
+                      "relative rounded-full px-3.5 py-2 text-[0.8rem] font-medium transition-colors",
+                      isActive
+                        ? "text-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                    )}
+                  >
+                    {l.label}
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-active"
+                        className="absolute inset-0 -z-10 rounded-full bg-white/5"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
+          </HoverBorderGradient>
 
           <div className="hidden items-center gap-3 md:flex">
             <ShinyButton href="/login">Entrar</ShinyButton>
