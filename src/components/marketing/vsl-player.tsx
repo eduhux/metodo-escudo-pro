@@ -181,10 +181,10 @@ export function VslPlayer({
               <AnimatePresence>
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.4, ease }}
+                  initial={{ opacity: 0, x: "7%", scale: 1.05 }}
+                  animate={{ opacity: 1, x: "0%", scale: 1 }}
+                  exit={{ opacity: 0, x: "-7%", scale: 0.97 }}
+                  transition={{ duration: 0.5, ease }}
                   className="absolute inset-0"
                 >
                   {i === 0 && <S1 />}
@@ -293,7 +293,9 @@ function Glow() {
   );
 }
 
-/** Fundo vivo comum a todas as cenas: grade de pontos + varredura de luz. */
+/** Fundo vivo comum a todas as cenas: grade + varredura de luz + partículas. */
+const PARTICLES = [8, 22, 37, 52, 68, 84, 93];
+
 function SceneBg({ glow }: { glow?: boolean }) {
   return (
     <>
@@ -308,6 +310,22 @@ function SceneBg({ glow }: { glow?: boolean }) {
         animate={{ x: ["-12%", "12%"] }}
         transition={{ duration: 7, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
       />
+      {/* partículas subindo */}
+      {PARTICLES.map((left, k) => (
+        <motion.span
+          key={k}
+          aria-hidden
+          className="pointer-events-none absolute h-1 w-1 rounded-full bg-primary/50"
+          style={{ left: `${left}%`, top: "100%" }}
+          animate={{ y: [0, -460], opacity: [0, 0.7, 0] }}
+          transition={{
+            duration: 5 + (k % 4),
+            repeat: Infinity,
+            delay: k * 0.7,
+            ease: "linear",
+          }}
+        />
+      ))}
       {glow && <Glow />}
     </>
   );
@@ -452,6 +470,12 @@ function S3() {
         transition={{ type: "spring", stiffness: 300, damping: 13, delay: 1.2 }}
         className="relative"
       >
+        <motion.div
+          aria-hidden
+          className="absolute -inset-8 -z-10 rounded-full bg-primary/15 blur-2xl"
+          animate={{ opacity: [0.3, 0.7, 0.3], scale: [1, 1.12, 1] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1.6 }}
+        />
         <Logo className="h-16 sm:h-20" />
       </motion.div>
       <motion.p
@@ -492,7 +516,11 @@ const CHIPS: [string, number][] = [
 function S4() {
   return (
     <Scene>
-      <div className="relative grid grid-cols-4 gap-3">
+      <motion.div
+        animate={{ y: [0, -7, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        className="relative grid grid-cols-4 gap-3"
+      >
         {GRID.map((src, idx) => (
           <motion.div
             key={src}
@@ -514,7 +542,7 @@ function S4() {
           animate={{ x: "120%" }}
           transition={{ duration: 1.1, delay: 1.3, ease }}
         />
-      </div>
+      </motion.div>
 
       <motion.p
         {...rise(0.8, 12)}
@@ -543,14 +571,19 @@ function S4() {
 function S5() {
   return (
     <Scene glow>
-      <div className="relative overflow-hidden">
+      <motion.div
+        initial={{ scale: 1 }}
+        animate={{ scale: 1.08 }}
+        transition={{ duration: 7, ease: "easeOut" }}
+        className="relative flex h-[56%] items-center justify-center overflow-hidden"
+      >
         <motion.img
           src="/bonus/mockup-camisa.png"
           alt=""
           initial={{ opacity: 0, scale: 0.85, y: 20, rotate: -3 }}
           animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
           transition={{ type: "spring", stiffness: 220, damping: 18, delay: 0.2 }}
-          className="relative h-[58%] w-auto object-contain"
+          className="h-full w-auto object-contain"
         />
         <motion.div
           aria-hidden
@@ -563,10 +596,10 @@ function S5() {
           animate={{ x: "130%" }}
           transition={{ duration: 1.2, delay: 1.0, ease }}
         />
-      </div>
+      </motion.div>
       <motion.p
         {...popSpring(1.8, 0.9)}
-        className="relative mt-5 text-2xl font-extrabold tracking-tight text-white sm:text-4xl"
+        className="relative mt-6 text-2xl font-extrabold tracking-tight text-white sm:text-4xl"
       >
         Um <span className="text-primary">projeto profissional</span>.
       </motion.p>
@@ -591,18 +624,28 @@ function S6() {
         E ainda leva de bônus
       </motion.p>
       <div className="relative mt-6 grid grid-cols-3 gap-3 sm:gap-5">
-        {BONUS.map(([big, label, delay, x]) => (
+        {BONUS.map(([big, label, delay, x], idx) => (
           <motion.div
             key={label}
-            {...fly(delay, x, 30, x > 0 ? 6 : x < 0 ? -6 : 0)}
-            className="flex min-w-[6rem] flex-col items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br from-white/[0.07] to-transparent px-4 py-5 sm:px-6"
+            animate={{ y: [0, -7, 0] }}
+            transition={{
+              duration: 3.6 + idx * 0.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: delay + 0.6,
+            }}
           >
-            <span className="text-2xl font-extrabold text-primary sm:text-4xl">
-              {big}
-            </span>
-            <span className="mt-1 text-[0.65rem] uppercase tracking-wider text-muted-foreground sm:text-xs">
-              {label}
-            </span>
+            <motion.div
+              {...fly(delay, x, 30, x > 0 ? 6 : x < 0 ? -6 : 0)}
+              className="flex min-w-[6rem] flex-col items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br from-white/[0.07] to-transparent px-4 py-5 sm:px-6"
+            >
+              <span className="text-2xl font-extrabold text-primary sm:text-4xl">
+                {big}
+              </span>
+              <span className="mt-1 text-[0.65rem] uppercase tracking-wider text-muted-foreground sm:text-xs">
+                {label}
+              </span>
+            </motion.div>
           </motion.div>
         ))}
       </div>
