@@ -27,6 +27,7 @@ import { Button } from "@/components/ui/button";
 import { Progress as ProgressBar } from "@/components/ui/progress";
 import { ProgressRing } from "@/components/dashboard/progress-ring";
 import { Counter } from "@/components/shared/counter";
+import { BorderBeam } from "@/components/ui/border-beam";
 
 const MATERIAIS_URL =
   "https://drive.google.com/file/d/1KFM6JqIY5DH7qACk0b_XNGKlVOuN550L/view?usp=drive_link";
@@ -176,7 +177,7 @@ export default function DashboardPage() {
           variants={{ visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } } }}
           className="mt-5 grid gap-4 sm:grid-cols-3"
         >
-          {stats.map((s) => (
+          {stats.map((s, i) => (
             <motion.div
               key={s.label}
               variants={{
@@ -184,7 +185,8 @@ export default function DashboardPage() {
                 visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
               }}
             >
-              <Card className="card-glow h-full border-white/10">
+              <Card className="card-glow relative h-full overflow-hidden border-white/10">
+                <BorderBeam size={110} duration={6} delay={i * 1.6} />
                 <CardContent className="flex items-center gap-4 p-5">
                   <span
                     className={cn(
@@ -218,7 +220,7 @@ export default function DashboardPage() {
           variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
           className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {downloads.map((d) => (
+          {downloads.map((d, i) => (
             <motion.div
               key={d.titulo}
               variants={{
@@ -234,6 +236,7 @@ export default function DashboardPage() {
                     : "bg-gradient-to-br from-card to-secondary/40"
                 )}
               >
+                <BorderBeam size={220} duration={7} delay={i * 1.6} />
                 <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl transition-transform duration-500 group-hover:scale-125" />
                 <CardContent className="relative flex h-full flex-col gap-4 p-6">
                   <div className="flex items-center justify-between">
