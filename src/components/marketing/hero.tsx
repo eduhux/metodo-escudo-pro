@@ -1,13 +1,14 @@
 "use client";
 
-import Link from "next/link";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Check, Star, ArrowDown } from "lucide-react";
+import { Check, Star, Play } from "lucide-react";
 import { hero, heroChecklist, trustCards, socialProof } from "@/data/site";
 import { promo } from "@/lib/promo";
 import { usePromo } from "@/hooks/use-promo";
 import { BuyButton } from "./buy-button";
 import { HeroEscudos } from "./hero-escudos";
+import { VslPlayer } from "./vsl-player";
 
 const fade = {
   hidden: { opacity: 0, y: 24 },
@@ -20,6 +21,7 @@ const fade = {
 
 export function Hero() {
   const { ativa: promoAtiva } = usePromo();
+  const [vslOpen, setVslOpen] = useState(false);
 
   return (
     <section className="relative overflow-hidden pt-36 pb-20 md:pt-44 md:pb-28">
@@ -97,13 +99,17 @@ export function Hero() {
               >
                 {hero.ctaPrimary}
               </BuyButton>
-              <Link
-                href="#conteudo"
-                className="group inline-flex items-center gap-2 rounded-full border border-white/12 px-6 py-3 text-sm font-medium text-foreground/90 transition-colors hover:border-white/25 hover:bg-white/5"
+              <button
+                type="button"
+                onClick={() => setVslOpen(true)}
+                className="group inline-flex items-center gap-2.5 rounded-full border border-white/12 py-2 pl-2 pr-5 text-sm font-medium text-foreground/90 transition-colors hover:border-white/25 hover:bg-white/5"
               >
-                {hero.ctaSecondary}
-                <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
-              </Link>
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                  <Play className="ml-0.5 h-3.5 w-3.5 fill-current" />
+                </span>
+                Assistir ao método
+                <span className="text-muted-foreground">· 51s</span>
+              </button>
             </motion.div>
 
             {/* Prova social */}
@@ -181,6 +187,8 @@ export function Hero() {
           ))}
         </motion.div>
       </div>
+
+      <VslPlayer open={vslOpen} onClose={() => setVslOpen(false)} />
     </section>
   );
 }
