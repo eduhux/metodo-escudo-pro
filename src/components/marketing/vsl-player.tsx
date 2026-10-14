@@ -16,28 +16,33 @@ import { Logo } from "@/components/shared/logo";
 import { usePromo } from "@/hooks/use-promo";
 import { checkoutUrl } from "@/lib/promo";
 
-const SRC = "/vsl/narracao.mp3";
-const TOTAL = 50.65;
-
-const SCENES = [
-  { start: 0 },
-  { start: 5.56 },
-  { start: 13.03 },
-  { start: 20.81 },
-  { start: 30.5 },
-  { start: 37.5 },
-  { start: 43.85 },
+// Um clipe por cena → o visual troca exatamente quando cada áudio começa.
+const CLIPS = [
+  "/vsl/cena-1.mp3",
+  "/vsl/cena-2.mp3",
+  "/vsl/cena-3.mp3",
+  "/vsl/cena-4.mp3",
+  "/vsl/cena-5.mp3",
+  "/vsl/cena-6.mp3",
+  "/vsl/cena-7.mp3",
 ];
+const DUR = [5.59, 7.5, 7.81, 9.72, 7.03, 6.37, 6.79];
+const TOTAL = DUR.reduce((a, b) => a + b, 0);
+const before = (i: number) => DUR.slice(0, i).reduce((a, b) => a + b, 0);
 
 const ease = [0.22, 1, 0.36, 1] as const;
-const vis = { opacity: 1, y: 0, scale: 1 };
-const hid = (y = 16, s = 1) => ({ opacity: 0, y, scale: s });
 
-function sceneIndex(t: number) {
-  let idx = 0;
-  for (let i = 0; i < SCENES.length; i++) if (t >= SCENES[i].start) idx = i;
-  return idx;
-}
+// Entradas mount-based: o atraso (delay) é relativo ao início do clipe da cena.
+const rise = (delay: number, y = 16) => ({
+  initial: { opacity: 0, y },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.55, delay, ease },
+});
+const pop = (delay: number, s = 0.8) => ({
+  initial: { opacity: 0, scale: s },
+  animate: { opacity: 1, scale: 1 },
+  transition: { duration: 0.6, delay, ease },
+});
 
 export function VslPlayer({
   open,
@@ -47,30 +52,46 @@ export function VslPlayer({
   onClose: () => void;
 }) {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [playing, setPlaying] = useState(false);
-  const [muted, setMuted] = useState(false);
+  const [i, setI] = useState(0);
   const [t, setT] = useState(0);
+  const [playing, setPlaying] = useState(false);
   const [ended, setEnded] = useState(false);
+  const [muted, setMuted] = useState(false);
 
   const { ativa } = usePromo();
   const checkout = checkoutUrl(ativa);
 
+  // Abrir/fechar
   useEffect(() => {
     const a = audioRef.current;
     if (!a) return;
     if (open) {
-      a.currentTime = 0;
+      CLIPS.forEach((s) => {
+        const pre = new Audio();
+        pre.preload = "auto";
+        pre.src = s;
+      });
+      setI(0);
       setT(0);
       setEnded(false);
-      a.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
     } else {
       a.pause();
       setPlaying(false);
+      setI(0);
       setT(0);
     }
   }, [open]);
 
-  // Lê o tempo do áudio a ~60fps enquanto toca (sync preciso dos cues).
+  // Toca o clipe atual sempre que a cena muda (e quando abre)
+  useEffect(() => {
+    if (!open) return;
+    const a = audioRef.current;
+    if (!a) return;
+    a.currentTime = 0;
+    a.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+  }, [i, open]);
+
+  // Relógio ~60fps
   useEffect(() => {
     if (!open || !playing) return;
     let raf = 0;
@@ -95,16 +116,24 @@ export function VslPlayer({
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open]);
+  }, [open, ended, playing, i]);
 
   function toggle() {
     const a = audioRef.current;
     if (!a) return;
-    if (a.paused) {
-      if (ended) {
+    if (ended) {
+      setEnded(false);
+      setT(0);
+      if (i === 0) {
         a.currentTime = 0;
-        setEnded(false);
+        a.play();
+        setPlaying(true);
+      } else {
+        setI(0);
       }
+      return;
+    }
+    if (a.paused) {
       a.play();
       setPlaying(true);
     } else {
@@ -113,18 +142,17 @@ export function VslPlayer({
     }
   }
 
-  function seek(e: React.MouseEvent<HTMLDivElement>) {
-    const a = audioRef.current;
-    if (!a) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const ratio = (e.clientX - rect.left) / rect.width;
-    const nt = Math.max(0, Math.min(TOTAL, ratio * TOTAL));
-    a.currentTime = nt;
-    setT(nt);
-    setEnded(false);
+  function onClipEnded() {
+    if (i < CLIPS.length - 1) {
+      setI((v) => v + 1);
+    } else {
+      setPlaying(false);
+      setEnded(true);
+    }
   }
 
-  const progress = Math.min(100, (t / TOTAL) * 100);
+  const globalT = before(i) + t;
+  const progress = Math.min(100, (globalT / TOTAL) * 100);
 
   return (
     <AnimatePresence>
@@ -141,13 +169,9 @@ export function VslPlayer({
         >
           <audio
             ref={audioRef}
-            src={SRC}
+            src={CLIPS[i]}
             muted={muted}
-            onTimeUpdate={(e) => setT(e.currentTarget.currentTime)}
-            onEnded={() => {
-              setPlaying(false);
-              setEnded(true);
-            }}
+            onEnded={onClipEnded}
           />
 
           <motion.div
@@ -159,7 +183,24 @@ export function VslPlayer({
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative aspect-video w-full overflow-hidden">
-              <Stage t={t} checkout={checkout} />
+              <AnimatePresence>
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4, ease }}
+                  className="absolute inset-0"
+                >
+                  {i === 0 && <S1 />}
+                  {i === 1 && <S2 />}
+                  {i === 2 && <S3 />}
+                  {i === 3 && <S4 />}
+                  {i === 4 && <S5 />}
+                  {i === 5 && <S6 />}
+                  {i === 6 && <S7 checkout={checkout} />}
+                </motion.div>
+              </AnimatePresence>
 
               {!playing && (
                 <button
@@ -191,10 +232,7 @@ export function VslPlayer({
                 )}
               </button>
 
-              <div
-                className="relative h-1.5 flex-1 cursor-pointer rounded-full bg-white/15"
-                onClick={seek}
-              >
+              <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-white/15">
                 <div
                   className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-primary to-[hsl(var(--energy))]"
                   style={{ width: `${progress}%` }}
@@ -202,7 +240,7 @@ export function VslPlayer({
               </div>
 
               <span className="shrink-0 font-mono text-xs tabular-nums text-muted-foreground">
-                {fmt(t)} / {fmt(TOTAL)}
+                {fmt(globalT)} / {fmt(TOTAL)}
               </span>
 
               <button
@@ -238,35 +276,10 @@ function fmt(s: number) {
   return `${m}:${String(ss).padStart(2, "0")}`;
 }
 
-/* ============================ Palco ============================ */
-
-function Stage({ t, checkout }: { t: number; checkout: string }) {
-  const idx = sceneIndex(t);
-  return (
-    <AnimatePresence>
-      <motion.div
-        key={idx}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.4, ease }}
-        className="absolute inset-0"
-      >
-        {idx === 0 && <S1 t={t} />}
-        {idx === 1 && <S2 t={t} />}
-        {idx === 2 && <S3 t={t} />}
-        {idx === 3 && <S4 t={t} />}
-        {idx === 4 && <S5 t={t} />}
-        {idx === 5 && <S6 t={t} />}
-        {idx === 6 && <S7 t={t} checkout={checkout} />}
-      </motion.div>
-    </AnimatePresence>
-  );
-}
+/* ============================ Cenas ============================ */
 
 const stageBase =
   "absolute inset-0 flex flex-col items-center justify-center bg-[#07080d] text-center overflow-hidden px-8";
-const tr = { duration: 0.55, ease };
 
 function Glow() {
   return (
@@ -274,23 +287,19 @@ function Glow() {
   );
 }
 
-/* Cena 1 — gancho (0–5.56) */
-function S1({ t }: { t: number }) {
+/* Cena 1 — gancho (5.59s) */
+function S1() {
   return (
     <div className={stageBase}>
       <Glow />
       <motion.img
         src="/escudos/escudo-14.png"
         alt=""
-        initial={false}
-        animate={t >= 0.2 ? { opacity: 1, scale: 1, y: 0 } : hid(20, 0.7)}
-        transition={{ duration: 1, ease }}
+        {...pop(0.2, 0.72)}
         className="relative h-[62%] w-auto object-contain drop-shadow-[0_20px_50px_rgba(82,122,255,0.4)]"
       />
       <motion.p
-        initial={false}
-        animate={t >= 4.4 ? vis : hid(14)}
-        transition={tr}
+        {...rise(4.3)}
         className="relative mt-6 text-lg font-semibold text-white/90 sm:text-2xl"
       >
         Dá pra <span className="text-primary">viver disso.</span>
@@ -299,30 +308,26 @@ function S1({ t }: { t: number }) {
   );
 }
 
-/* Cena 2 — problema (5.56–13.03) */
-function S2({ t }: { t: number }) {
+/* Cena 2 — problema (7.50s) */
+function S2() {
   return (
     <div className={stageBase}>
       <div className="relative">
         <motion.p
-          initial={false}
-          animate={t >= 6.4 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.1 }}
-          transition={tr}
+          {...pop(1.1, 1.08)}
           className="relative text-4xl font-extrabold tracking-tight text-white/70 sm:text-6xl"
         >
           TALENTO
           <motion.span
-            initial={false}
-            animate={t >= 7.3 ? { scaleX: 1 } : { scaleX: 0 }}
-            transition={{ duration: 0.45, ease }}
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.45, delay: 1.7, ease }}
             className="absolute left-0 top-1/2 h-1 w-full origin-left bg-[hsl(var(--energy))]"
           />
         </motion.p>
       </div>
       <motion.p
-        initial={false}
-        animate={t >= 9.1 ? vis : hid(16)}
-        transition={tr}
+        {...rise(3.4)}
         className="mt-6 text-3xl font-extrabold tracking-tight text-primary sm:text-5xl"
       >
         O que falta é o passo a passo.
@@ -331,31 +336,22 @@ function S2({ t }: { t: number }) {
   );
 }
 
-/* Cena 3 — marca (13.03–20.81) */
-function S3({ t }: { t: number }) {
+/* Cena 3 — marca (7.81s) */
+function S3() {
   return (
     <div className={stageBase}>
       <Glow />
-      <motion.div
-        initial={false}
-        animate={t >= 15.3 ? { opacity: 1, scale: 1 } : hid(0, 0.8)}
-        transition={{ duration: 0.8, ease }}
-        className="relative"
-      >
+      <motion.div {...pop(2.8, 0.82)} className="relative">
         <Logo className="h-16 sm:h-20" />
       </motion.div>
       <motion.p
-        initial={false}
-        animate={t >= 17.6 ? vis : hid(14)}
-        transition={tr}
+        {...rise(4.6)}
         className="relative mt-6 text-base uppercase tracking-[0.2em] text-primary sm:text-lg"
       >
         Do zero ao profissional
       </motion.p>
       <motion.p
-        initial={false}
-        animate={t >= 18.4 ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-        transition={tr}
+        {...rise(6.3, 10)}
         className="relative mt-3 flex items-center gap-2 text-sm text-muted-foreground"
       >
         <PenTool className="h-4 w-4 text-primary" /> no CorelDRAW, mesmo começando
@@ -365,7 +361,7 @@ function S3({ t }: { t: number }) {
   );
 }
 
-/* Cena 4 — método / prova (20.81–30.5) */
+/* Cena 4 — método / prova (9.72s) */
 const GRID = [
   "escudo-13.png",
   "escudo-18.png",
@@ -377,22 +373,20 @@ const GRID = [
   "escudo-24.png",
 ];
 const CHIPS: [string, number][] = [
-  ["Forma", 26.0],
-  ["Cor", 26.5],
-  ["Acabamento", 27.4],
-  ["Como cobrar", 28.6],
+  ["Forma", 5.2],
+  ["Cor", 5.7],
+  ["Acabamento", 6.6],
+  ["Como cobrar", 7.8],
 ];
 
-function S4({ t }: { t: number }) {
+function S4() {
   return (
     <div className={stageBase}>
       <div className="relative grid grid-cols-4 gap-3">
-        {GRID.map((src, i) => (
+        {GRID.map((src, idx) => (
           <motion.div
             key={src}
-            initial={false}
-            animate={t >= 20.9 + i * 0.12 ? { opacity: 1, scale: 1 } : hid(0, 0.6)}
-            transition={{ duration: 0.45, ease }}
+            {...pop(0.2 + idx * 0.1, 0.6)}
             className="flex h-14 w-14 items-center justify-center rounded-lg border border-white/10 bg-white/5 p-1.5 sm:h-20 sm:w-20"
           >
             <img src={`/escudos/${src}`} alt="" className="h-full w-full object-contain" />
@@ -401,21 +395,17 @@ function S4({ t }: { t: number }) {
       </div>
 
       <motion.p
-        initial={false}
-        animate={t >= 21.5 ? vis : hid(12)}
-        transition={tr}
+        {...rise(0.8, 12)}
         className="relative mt-6 text-2xl font-extrabold text-white sm:text-4xl"
       >
         <span className="text-primary">+100 escudos</span> reais, destrinchados.
       </motion.p>
 
       <div className="relative mt-4 flex flex-wrap justify-center gap-2.5">
-        {CHIPS.map(([label, at]) => (
+        {CHIPS.map(([label, delay]) => (
           <motion.span
             key={label}
-            initial={false}
-            animate={t >= at ? vis : hid(10)}
-            transition={{ duration: 0.4, ease }}
+            {...rise(delay, 10)}
             className="rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-foreground sm:text-sm"
           >
             {label}
@@ -426,23 +416,19 @@ function S4({ t }: { t: number }) {
   );
 }
 
-/* Cena 5 — transformação (30.5–37.5) */
-function S5({ t }: { t: number }) {
+/* Cena 5 — transformação (7.03s) */
+function S5() {
   return (
     <div className={stageBase}>
       <Glow />
       <motion.img
         src="/bonus/mockup-camisa.png"
         alt=""
-        initial={false}
-        animate={t >= 30.7 ? { opacity: 1, scale: 1, y: 0 } : hid(16, 0.85)}
-        transition={{ duration: 0.8, ease }}
+        {...pop(0.2, 0.85)}
         className="relative h-[58%] w-auto object-contain"
       />
       <motion.p
-        initial={false}
-        animate={t >= 32.2 ? vis : hid(14)}
-        transition={tr}
+        {...rise(1.8)}
         className="relative mt-5 text-2xl font-extrabold tracking-tight text-white sm:text-4xl"
       >
         Um <span className="text-primary">projeto profissional</span>.
@@ -451,31 +437,27 @@ function S5({ t }: { t: number }) {
   );
 }
 
-/* Cena 6 — bônus (37.5–43.85) */
+/* Cena 6 — bônus (6.37s) */
 const BONUS: [string, string, number][] = [
-  ["+200", "fontes premium", 38.2],
-  ["+120", "escudos de referência", 41.6],
-  ["Mockups", "de apresentação", 42.7],
+  ["+200", "fontes premium", 1.0],
+  ["+120", "escudos de referência", 4.1],
+  ["Mockups", "de apresentação", 5.0],
 ];
 
-function S6({ t }: { t: number }) {
+function S6() {
   return (
     <div className={stageBase}>
       <motion.p
-        initial={false}
-        animate={t >= 37.6 ? { opacity: 1 } : { opacity: 0 }}
-        transition={tr}
+        {...rise(0.1, 0)}
         className="relative text-sm font-semibold uppercase tracking-[0.2em] text-primary"
       >
         E ainda leva de bônus
       </motion.p>
       <div className="relative mt-6 grid grid-cols-3 gap-3 sm:gap-5">
-        {BONUS.map(([big, label, at]) => (
+        {BONUS.map(([big, label, delay]) => (
           <motion.div
             key={label}
-            initial={false}
-            animate={t >= at ? { opacity: 1, y: 0, scale: 1 } : hid(24, 0.9)}
-            transition={{ duration: 0.5, ease }}
+            {...pop(delay, 0.9)}
             className="flex min-w-[6rem] flex-col items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br from-white/[0.07] to-transparent px-4 py-5 sm:px-6"
           >
             <span className="text-2xl font-extrabold text-primary sm:text-4xl">
@@ -491,25 +473,21 @@ function S6({ t }: { t: number }) {
   );
 }
 
-/* Cena 7 — CTA (43.85–50.65) */
-function S7({ t, checkout }: { t: number; checkout: string }) {
+/* Cena 7 — CTA (6.79s) */
+function S7({ checkout }: { checkout: string }) {
   return (
     <div className={stageBase}>
       <div className="glow-primary pointer-events-none absolute inset-0" />
 
       <motion.p
-        initial={false}
-        animate={t >= 44.2 ? { opacity: 1 } : { opacity: 0 }}
-        transition={tr}
+        {...rise(0.3, 0)}
         className="relative text-xs font-semibold uppercase tracking-[0.22em] text-[hsl(var(--energy))]"
       >
         2ª turma aberta · vagas limitadas
       </motion.p>
 
       <motion.p
-        initial={false}
-        animate={t >= 47.3 ? vis : hid(16)}
-        transition={tr}
+        {...rise(3.6)}
         className="relative mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl"
       >
         Comece o seu <span className="text-primary">primeiro escudo</span> hoje.
@@ -519,9 +497,7 @@ function S7({ t, checkout }: { t: number; checkout: string }) {
         href={checkout}
         target="_blank"
         rel="noopener noreferrer"
-        initial={false}
-        animate={t >= 48.3 ? { opacity: 1, scale: 1 } : hid(0, 0.9)}
-        transition={{ duration: 0.5, ease }}
+        {...pop(4.7, 0.9)}
         className="cta-energy relative mt-7 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground"
       >
         Quero começar
