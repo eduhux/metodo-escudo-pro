@@ -77,7 +77,7 @@ export function Navbar() {
           <HoverBorderGradient
             as="div"
             duration={1.4}
-            containerClassName="hidden md:block"
+            containerClassName="hidden md:flex"
             className="px-1.5 py-1"
           >
             <nav className="flex items-center gap-1">
