@@ -374,19 +374,36 @@ function Count({
   return <>{n}</>;
 }
 
-/* Cena 1 — gancho (5.59s) */
+/* Cena 1 — gancho (5.59s): escudo se formando (traços) → arte real → cluster */
+const SHIELD_PATH =
+  "M100 12 L186 46 L186 120 C186 186 146 222 100 236 C54 222 14 186 14 120 L14 46 Z";
+const NODES: [number, number][] = [
+  [100, 12],
+  [186, 46],
+  [186, 120],
+  [100, 236],
+  [14, 120],
+  [14, 46],
+];
+const SATELLITES: { src: string; cls: string; delay: number; rot: number }[] = [
+  { src: "escudo-13.png", cls: "left-0 top-[4%] w-[26%]", delay: 2.8, rot: -10 },
+  { src: "escudo-18.png", cls: "right-0 top-[4%] w-[26%]", delay: 2.95, rot: 10 },
+  { src: "escudo-06.png", cls: "left-[4%] bottom-[2%] w-[23%]", delay: 3.15, rot: -6 },
+  { src: "escudo-21.png", cls: "right-[4%] bottom-[2%] w-[23%]", delay: 3.3, rot: 6 },
+];
+
 function S1() {
   return (
     <Scene glow>
       <motion.div
-        animate={{ y: [0, -10, 0] }}
+        animate={{ y: [0, -8, 0] }}
         transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-        className="relative flex items-center justify-center"
+        className="relative flex aspect-square h-[76%] items-center justify-center"
       >
-        {/* anel girando atrás do escudo */}
+        {/* anel girando */}
         <motion.div
           aria-hidden
-          className="absolute aspect-square h-[128%]"
+          className="absolute aspect-square h-[88%]"
           style={{
             background:
               "conic-gradient(from 0deg, transparent, rgba(82,122,255,0.55), transparent 38%)",
@@ -398,18 +415,70 @@ function S1() {
           animate={{ rotate: 360 }}
           transition={{ duration: 9, repeat: Infinity, ease: "linear" }}
         />
+
+        {/* escudos-satélite (surgem depois) */}
+        {SATELLITES.map((s) => (
+          <motion.img
+            key={s.src}
+            src={`/escudos/${s.src}`}
+            alt=""
+            initial={{ opacity: 0, scale: 0.3, rotate: s.rot }}
+            animate={{ opacity: 1, scale: 1, rotate: s.rot }}
+            transition={{ type: "spring", stiffness: 300, damping: 16, delay: s.delay }}
+            className={`absolute ${s.cls} object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)]`}
+          />
+        ))}
+
+        {/* escudo real "preenche" por cima do traço */}
         <motion.img
           src="/escudos/escudo-14.png"
           alt=""
-          initial={{ opacity: 0, scale: 0.6, rotate: -8 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ type: "spring", stiffness: 260, damping: 16, delay: 0.1 }}
-          className="relative h-[58%] w-auto object-contain drop-shadow-[0_20px_55px_rgba(82,122,255,0.45)]"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 1.8, ease }}
+          className="relative h-[70%] w-auto object-contain drop-shadow-[0_20px_55px_rgba(82,122,255,0.45)]"
         />
+
+        {/* traço vetorial desenhando + nós do CorelDRAW (depois somem) */}
+        <motion.svg
+          viewBox="0 0 200 248"
+          className="pointer-events-none absolute h-[82%]"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: [1, 1, 0] }}
+          transition={{ duration: 2.4, delay: 0.1, times: [0, 0.78, 1], ease }}
+        >
+          <motion.path
+            d={SHIELD_PATH}
+            fill="none"
+            stroke="hsl(var(--primary))"
+            strokeWidth={3}
+            strokeLinejoin="round"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 1.5, delay: 0.2, ease }}
+          />
+          {NODES.map(([x, y], k) => (
+            <motion.rect
+              key={k}
+              x={x - 5}
+              y={y - 5}
+              width={10}
+              height={10}
+              fill="#07080d"
+              stroke="#ffffff"
+              strokeWidth={2}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, delay: 0.9 + k * 0.1, ease }}
+              style={{ transformBox: "fill-box", transformOrigin: "center" }}
+            />
+          ))}
+        </motion.svg>
       </motion.div>
+
       <motion.p
         {...popSpring(4.3, 0.85)}
-        className="relative mt-6 text-lg font-semibold text-white/90 sm:text-2xl"
+        className="relative mt-5 text-lg font-semibold text-white/90 sm:text-2xl"
       >
         Dá pra{" "}
         <span className="text-primary" style={{ textShadow: "0 0 24px rgba(82,122,255,0.6)" }}>
