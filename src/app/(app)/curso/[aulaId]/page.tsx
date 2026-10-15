@@ -27,6 +27,7 @@ import type { Progress } from "@/types";
 import { PandaPlayer } from "@/components/course/panda-player";
 import { LessonSidebar } from "@/components/course/lesson-sidebar";
 import { Button } from "@/components/ui/button";
+import { DotBorderButton } from "@/components/ui/dot-border-button";
 import { Progress as ProgressBar } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
@@ -259,28 +260,25 @@ export default function CoursePage({
 
             {/* Ações */}
             <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
-              <Button
+              <DotBorderButton
                 onClick={handleToggleDone}
-                size="lg"
-                variant={isDone ? "secondary" : "default"}
-                className={
-                  isDone
-                    ? "rounded-full"
-                    : "cta-energy rounded-full font-semibold"
+                active={isDone}
+                aria-label={
+                  isDone ? "Marcar aula como não concluída" : "Marcar aula como concluída"
                 }
               >
                 {isDone ? (
                   <>
-                    <CheckCircle2 className="text-[hsl(var(--energy))]" />
+                    <CheckCircle2 className="h-5 w-5" />
                     Aula concluída
                   </>
                 ) : (
                   <>
-                    <Check strokeWidth={3} />
+                    <Check className="h-5 w-5" strokeWidth={3} />
                     Marcar como concluída
                   </>
                 )}
-              </Button>
+              </DotBorderButton>
 
               <div className="hidden items-center gap-2 text-xs text-muted-foreground sm:flex">
                 <Kbd>C</Kbd>
