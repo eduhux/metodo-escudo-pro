@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { trustCards } from "@/data/site";
+import { hero as heroData, trustCards } from "@/data/site";
 import { PandaPlayer } from "@/components/course/panda-player";
+import { BuyButton } from "./buy-button";
 
 const HERO_VIDEO_ID = "c6667f3e-f618-4a41-a37f-fb3f245e5234";
 
@@ -60,6 +61,24 @@ export function Hero() {
               </div>
             </div>
           ))}
+        </motion.div>
+
+        {/* CTA abaixo dos cards */}
+        <motion.div
+          variants={fade}
+          custom={3}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="mt-10 flex flex-col items-center gap-3 text-center"
+        >
+          <BuyButton
+            promoLabel="Garantir por R$47"
+            className="cta-energy h-13 rounded-full px-8 text-base"
+          >
+            {heroData.ctaPrimary}
+          </BuyButton>
+          <p className="text-xs text-muted-foreground">{heroData.reassurance}</p>
         </motion.div>
       </div>
     </section>
