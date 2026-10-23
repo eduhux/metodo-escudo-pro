@@ -35,6 +35,7 @@ export function Hero() {
             <PandaPlayer
               videoId={HERO_VIDEO_ID}
               title="Método Escudo PRO — conheça o método"
+              autoPlay
             />
           </div>
         </motion.div>

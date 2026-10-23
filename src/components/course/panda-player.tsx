@@ -12,9 +12,12 @@ import { PlayCircle } from "lucide-react";
 export function PandaPlayer({
   videoId,
   title,
+  autoPlay = false,
 }: {
   videoId: string;
   title: string;
+  /** Inicia o vídeo sozinho (sempre mudo — regra dos navegadores). */
+  autoPlay?: boolean;
 }) {
   const isDemo = MOCK_MODE || videoId.startsWith("DEMO-");
 
@@ -34,7 +37,13 @@ export function PandaPlayer({
     );
   }
 
-  const src = `https://${PANDA_SUBDOMAIN}.tv.pandavideo.com.br/embed/?v=${videoId}`;
+  const params = new URLSearchParams({ v: videoId });
+  if (autoPlay) {
+    // Autoplay mudo (o navegador bloqueia autoplay com som).
+    params.set("autoplay", "true");
+    params.set("muted", "true");
+  }
+  const src = `https://${PANDA_SUBDOMAIN}.tv.pandavideo.com.br/embed/?${params.toString()}`;
 
   return (
     <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border bg-black">
