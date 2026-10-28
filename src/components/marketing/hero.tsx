@@ -5,7 +5,7 @@ import { hero as heroData, trustCards } from "@/data/site";
 import { PandaPlayer } from "@/components/course/panda-player";
 import { BuyButton } from "./buy-button";
 
-const HERO_VIDEO_ID = "6b8681e7-fe1f-4ca3-aabe-f5628ffd851f";
+const HERO_VIDEO_ID = "ba970777-e765-42be-865b-add5a5aa7f95";
 
 const fade = {
   hidden: { opacity: 0, y: 24 },
